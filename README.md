@@ -21,3 +21,6 @@ eas update --channel production --message "Updating the app"
 eas device:create
 // list all registered devices for your account
 eas device:list
+
+プライバシーポリシー
+https://kiyohken2000.github.io/my-gpt/ja
