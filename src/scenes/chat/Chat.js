@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Platform } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { GiftedChat, Send } from 'react-native-gifted-chat'
 import { generateChatMessage } from '../../utils/textGenerate';
@@ -10,6 +10,9 @@ import FooterImage from './FooterImage';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import HeaderRightButton from './HeaderRightButton';
+import { colors } from '../../theme';
+
+const isAndroid = Platform.OS === 'android'
 
 export default function Chat() {
   const navigation = useNavigation()
@@ -97,7 +100,7 @@ export default function Chat() {
   }
 
   return (
-    <ScreenTemplate>
+    <ScreenTemplate color={isAndroid?colors.darkPurple:colors.white}>
       <View style={styles.container}>
         <GiftedChat
           messages={messages}

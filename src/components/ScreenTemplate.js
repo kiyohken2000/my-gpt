@@ -22,7 +22,7 @@ export default function ScreenTemplate(props) {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: color?color:colors.white}]}>
-      <StatusBar barStyle='dark-content' />
+      <StatusBar barStyle='light-content' />
       <View style={styles.main}>
         {props.children}
       </View>
