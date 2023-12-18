@@ -12,4 +12,3 @@ web-report/
 *.idea
 *.DS_Store
 dist
-openaiKeys.js

@@ -1,12 +1,11 @@
 {
   "expo": {
-    "name": "react-native-boilerplate",
-    "slug": "react-native-boilerplate",
+    "name": "My GPT",
+    "slug": "my-gpt",
     "privacy": "public",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,28 +18,32 @@
     "updates": {
       "enabled": true,
       "fallbackToCacheTimeout": 10000,
-      "url": "https://u.expo.dev/a3fb8cb1-7c9e-44a5-997b-be7ec8afde20"
+      "url": "https://u.expo.dev/88f3c3ca-dc19-43ed-9ff3-7b3821e45b75"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "reactnative.expo.firebase.boilerplate",
+      "bundleIdentifier": "net.votepurchase.mygpt",
       "buildNumber": "1.0.0",
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "Use the photo library to change your avatar.",
+        "NSMicrophoneUsageDescription": "チャットに投稿するためにマイクを使用します",
+        "NSCameraUsageDescription": "チャットに画像を投稿するためにカメラを使用します",
+        "NSPhotoLibraryUsageDescription": "チャットに画像を投稿するためにメディアライブラリを使用します",
         "CFBundleDevelopmentRegion": "ja_JP"
       },
       "userInterfaceStyle": "automatic"
     },
     "android": {
-      "package": "reactnative.expo.firebase.boilerplate",
+      "package": "net.votepurchase.mygpt",
       "versionCode": 1,
       "userInterfaceStyle": "automatic",
       "permissions": [
         "VIBRATE",
-        "CAMERA"
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
       ]
     },
     "packagerOpts": {
@@ -53,13 +56,13 @@
         "tsx"
       ]
     },
-    "extra": {
-      "eas": {
-        "projectId": "a3fb8cb1-7c9e-44a5-997b-be7ec8afde20"
-      }
-    },
     "runtimeVersion": {
       "policy": "sdkVersion"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "88f3c3ca-dc19-43ed-9ff3-7b3821e45b75"
+      }
     }
   }
 }

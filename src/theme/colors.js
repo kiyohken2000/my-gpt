@@ -18,7 +18,8 @@ const colors = {
   grayFifth: '#E5E5E5',
   graySixth: '#F2F2F2',
   redPrimary: '#FF0000',
-  redSecondary: '#FF4444'
+  redSecondary: '#FF4444',
+  clearBlack: '#000000c0',
 }
 
 export { colors }
