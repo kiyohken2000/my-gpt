@@ -57,7 +57,7 @@
       ]
     },
     "runtimeVersion": {
-      "policy": "sdkVersion"
+      "policy": "appVersion"
     },
     "extra": {
       "eas": {
