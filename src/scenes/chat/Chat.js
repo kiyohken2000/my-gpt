@@ -11,6 +11,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import HeaderRightButton from './HeaderRightButton';
 import { colors } from '../../theme';
+import * as Clipboard from 'expo-clipboard';
+import { showToast } from '../../utils/showToast';
 
 const isAndroid = Platform.OS === 'android'
 
@@ -99,6 +101,11 @@ export default function Chat() {
     )
   }
 
+  const onMessagePress = async({message}) => {
+    await Clipboard.setStringAsync(message.text);
+    showToast({title: 'コピーしました', body: ''})
+  }
+
   return (
     <ScreenTemplate color={isAndroid?colors.darkPurple:colors.white}>
       <View style={styles.container}>
@@ -115,6 +122,8 @@ export default function Chat() {
           renderFooter={imagePath?renderChatFooter:null}
           placeholder={messages.length?'メッセージを入力':'お気軽にご質問ください'}
           keyboardShouldPersistTaps='never'
+          maxInputLength={100}
+          onPress={(context, message) => onMessagePress({message})}
         />
       </View>
     </ScreenTemplate>
