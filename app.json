@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "俺のGPT",
+    "name": "俺の先生",
     "slug": "my-gpt",
     "privacy": "public",
     "platforms": [
@@ -26,7 +26,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "net.votepurchase.mygpt",
-      "buildNumber": "1.0.1",
+      "buildNumber": "2",
       "infoPlist": {
         "NSMicrophoneUsageDescription": "チャットに投稿するためにマイクを使用します",
         "NSCameraUsageDescription": "チャットに画像を投稿するためにカメラを使用します",
@@ -37,7 +37,7 @@
     },
     "android": {
       "package": "net.votepurchase.mygpt",
-      "versionCode": 2,
+      "versionCode": 3,
       "userInterfaceStyle": "automatic",
       "permissions": [
         "VIBRATE",
