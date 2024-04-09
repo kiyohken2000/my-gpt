@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { View, StyleSheet, Platform } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { GiftedChat, Send } from 'react-native-gifted-chat'
-import { generateChatMessage } from '../../utils/textGenerate';
+import { generateChatMessage, userIds, generateCommandRMessage, userNames } from '../../utils/textGenerate';
 import moment from 'moment';
 import SendButton from './SendButton';
 import ImageButton from './ImageButton';
@@ -10,6 +10,7 @@ import FooterImage from './FooterImage';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import HeaderRightButton from './HeaderRightButton';
+import HeaderLeftButton from './HeaderLeftButton';
 import { colors } from '../../theme';
 import * as Clipboard from 'expo-clipboard';
 import { showToast } from '../../utils/showToast';
@@ -21,6 +22,7 @@ export default function Chat() {
   const [messages, setMessages] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [imagePath, setImagePath] = useState('')
+  const [isThirdPerson, setIsThirdPerson] = useState(false)
 
   useEffect(() => {
     navigation.setOptions({
@@ -29,14 +31,20 @@ export default function Chat() {
           onPress={() => setMessages([])}
         />
       ),
+      headerLeft: () => (
+        <HeaderLeftButton
+          isThirdPerson={isThirdPerson}
+          setIsThirdPerson={setIsThirdPerson}
+        />
+      )
     });
-  }, [navigation]);
+  }, [navigation, isThirdPerson]);
 
   useEffect(() => {
     const onRecieveNewMessage = async() => {
       if(messages[0]) {
         const { text, user } = messages[0]
-        if(user._id === 1) {
+        if(user._id === userIds.user) {
           setIsLoading(true)
           const reply = await generateChatMessage({messages})
           const botMessage = {
@@ -44,7 +52,24 @@ export default function Chat() {
             createdAt: new Date(),
             text: reply,
             user: {
-              _id: 2
+              _id: userIds.bot1,
+              name: userNames.bot1,
+            }
+          }
+          setMessages(previousMessages =>
+            GiftedChat.append(previousMessages, botMessage),
+          )
+          setIsLoading(false)
+        } else if(user._id === userIds.bot1 && isThirdPerson) {
+          setIsLoading(true)
+          const reply = await generateCommandRMessage({input: text, messages})
+          const botMessage = {
+            _id: `${moment().unix()}`,
+            createdAt: new Date(),
+            text: reply,
+            user: {
+              _id: userIds.bot2,
+              name: userNames.bot2,
             }
           }
           setMessages(previousMessages =>
@@ -113,7 +138,8 @@ export default function Chat() {
           messages={messages}
           onSend={messages => onSend(messages)}
           user={{
-            _id: 1,
+            _id: userIds.user,
+            name: userNames.user
           }}
           renderAvatar={null}
           isTyping={isLoading}

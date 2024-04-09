@@ -1,6 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { navigationProps } from './navigationProps/navigationProps'
+import GradientHeader from '../../../components/GradientHeader'
 
 import Chat from '../../../scenes/chat/Chat'
 
@@ -21,6 +22,8 @@ export const HomeStacks = () => {
           title: `version. ${versionName}`,
           headerShown: true,
           headerBackTitleVisible: false,
+          headerBackground: () => <GradientHeader />,
+          headerTitleAlign: 'center'
         })}
       />
     </Stack.Navigator>
