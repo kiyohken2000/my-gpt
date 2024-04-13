@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
-import FontIcon from 'react-native-vector-icons/Feather'
+import FontIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { colors, fontSize } from "../../theme";
 import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 
-export default function HeaderLeftButton(props) {
-  const { isThirdPerson, setIsThirdPerson } = props
+export default function DrawButton(props) {
+  const { isImageMode, setIsImageMode } = props
   const [visible, setVisible] = useState(false);
 
   const hideMenu = () => setVisible(false);
@@ -18,8 +18,8 @@ export default function HeaderLeftButton(props) {
         onPress={showMenu}
       >
         <FontIcon
-          name="users"
-          color={isThirdPerson?colors.lightPurple:colors.white}
+          name="draw"
+          color={isImageMode?colors.yellowPrimary:colors.white}
           size={fontSize.xxxxxxxLarge}
           style={{
           }}
@@ -29,7 +29,7 @@ export default function HeaderLeftButton(props) {
   }
 
   const onItemPress = ({val}) => {
-    setIsThirdPerson(val)
+    setIsImageMode(val)
     hideMenu()
   }
 
@@ -40,9 +40,9 @@ export default function HeaderLeftButton(props) {
         anchor={renderAnchor()}
         onRequestClose={hideMenu}
       >
-        <MenuItem onPress={() => onItemPress({val: true})}>{`3人モードオン${isThirdPerson?'✔':''}`}</MenuItem>
+        <MenuItem onPress={() => onItemPress({val: true})}>{`画像生成オン${isImageMode?'✔':''}`}</MenuItem>
         <MenuDivider />
-        <MenuItem onPress={() => onItemPress({val: false})}>{`3人モードオフ${!isThirdPerson?'✔':''}`}</MenuItem>
+        <MenuItem onPress={() => onItemPress({val: false})}>{`画像生成オフ${!isImageMode?'✔':''}`}</MenuItem>
       </Menu>
     </View>
   )

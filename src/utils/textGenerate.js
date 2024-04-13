@@ -1,7 +1,8 @@
 import axios from "axios";
-import { palmKey, CO_API_KEY } from "../openaiKeys";
+import { palmKey, CO_API_KEY, huggingFaceKey } from "../openaiKeys";
 import * as FileSystem from 'expo-file-system';
 import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
+import { convertBlobToImage } from "./downloadFunctions";
 
 const apiUrl = 'https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage';
 const errorMessage = 'すみません。よくわかりませんでした'
@@ -10,12 +11,14 @@ const userIds = {
   user: 1,
   bot1: 2,
   bot2: 3,
+  bot3: 4,
 }
 
 const userNames = {
   user: 'user',
   bot1: 'gemini',
   bot2: 'commandr',
+  bot3: 'image',
 }
 
 const generateMessage = async({inputText}) => {
@@ -185,4 +188,26 @@ const generateCommandRMessage = async({input, messages}) => {
   }
 }
 
-export { generateMessage, generateChatMessage, userIds, generateCommandRMessage, userNames }
+const generateImage = async({text}) => {
+  try {
+    const { data } = await axios.post(
+      "https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4",
+      {inputs: text},
+      {
+        headers: {
+          Authorization: `Bearer ${huggingFaceKey}`,
+          'Content-Type': 'application/json'
+        },
+        responseType: 'blob'
+      }
+    );
+    const url = URL.createObjectURL(new Blob([data]));
+    const imageUrl = await convertBlobToImage({blob: url})
+    return { imageUrl: imageUrl, message: '画像は開いた後に長押しで保存できます'}
+  } catch(e) {
+    console.log('generate image error', e)
+    return { imageUrl: null, message: errorMessage}
+  }
+}
+
+export { generateMessage, generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage }

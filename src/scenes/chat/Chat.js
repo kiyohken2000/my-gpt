@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { View, StyleSheet, Platform } from "react-native";
+import { View, StyleSheet, Platform, Image } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { GiftedChat, Send } from 'react-native-gifted-chat'
-import { generateChatMessage, userIds, generateCommandRMessage, userNames } from '../../utils/textGenerate';
+import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage } from '../../utils/textGenerate';
 import moment from 'moment';
 import SendButton from './SendButton';
 import ImageButton from './ImageButton';
@@ -11,6 +11,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import HeaderRightButton from './HeaderRightButton';
 import HeaderLeftButton from './HeaderLeftButton';
+import DrawButton from './DrawButton';
+import RenderImage from './RenderImage';
 import { colors } from '../../theme';
 import * as Clipboard from 'expo-clipboard';
 import { showToast } from '../../utils/showToast';
@@ -23,28 +25,46 @@ export default function Chat() {
   const [isLoading, setIsLoading] = useState(false)
   const [imagePath, setImagePath] = useState('')
   const [isThirdPerson, setIsThirdPerson] = useState(false)
+  const [isImageMode, setIsImageMode] = useState(false)
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <HeaderRightButton
-          onPress={() => setMessages([])}
+          onPress={() => {
+            setIsThirdPerson(false)
+            setIsImageMode(false)
+            setImagePath('')
+            setMessages([])
+          }}
         />
       ),
       headerLeft: () => (
-        <HeaderLeftButton
-          isThirdPerson={isThirdPerson}
-          setIsThirdPerson={setIsThirdPerson}
-        />
+        <View style={{flexDirection: 'row'}}>
+          <HeaderLeftButton
+            isThirdPerson={isThirdPerson}
+            setIsThirdPerson={setIsThirdPerson}
+          />
+          <DrawButton
+            isImageMode={isImageMode}
+            setIsImageMode={setIsImageMode}
+          />
+        </View>
       )
     });
-  }, [navigation, isThirdPerson]);
+  }, [navigation, isThirdPerson, isImageMode]);
+
+  useEffect(() => {
+    setMessages([])
+    setImagePath('')
+    setIsThirdPerson(false)
+  }, [isImageMode])
 
   useEffect(() => {
     const onRecieveNewMessage = async() => {
       if(messages[0]) {
         const { text, user } = messages[0]
-        if(user._id === userIds.user) {
+        if(user._id === userIds.user && !isImageMode) {
           setIsLoading(true)
           const reply = await generateChatMessage({messages})
           const botMessage = {
@@ -70,6 +90,23 @@ export default function Chat() {
             user: {
               _id: userIds.bot2,
               name: userNames.bot2,
+            }
+          }
+          setMessages(previousMessages =>
+            GiftedChat.append(previousMessages, botMessage),
+          )
+          setIsLoading(false)
+        } else if(user._id === userIds.user && isImageMode) {
+          setIsLoading(true)
+          const {imageUrl, message} = await generateImage({text})
+          const botMessage = {
+            _id: `${moment().unix()}`,
+            createdAt: new Date(),
+            text: message,
+            image: imageUrl,
+            user: {
+              _id: userIds.bot3,
+              name: userNames.bot3,
             }
           }
           setMessages(previousMessages =>
@@ -116,9 +153,12 @@ export default function Chat() {
   const renderSend = (props) => {
     return (
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <ImageButton
-          onImageButtonPress={onImageButtonPress}
-        />
+        {!isImageMode?
+          <ImageButton
+            onImageButtonPress={onImageButtonPress}
+          />
+          :null
+        }
         <Send {...props}>
           <SendButton/>
         </Send>
@@ -129,6 +169,15 @@ export default function Chat() {
   const onMessagePress = async({message}) => {
     await Clipboard.setStringAsync(message.text);
     showToast({title: 'コピーしました', body: ''})
+  }
+
+  const renderMessageImage = (props) => {
+    const { image } = props.currentMessage
+    return (
+      <RenderImage
+        url={image}
+      />
+    )
   }
 
   return (
@@ -150,6 +199,7 @@ export default function Chat() {
           keyboardShouldPersistTaps='never'
           maxInputLength={100}
           onPress={(context, message) => onMessagePress({message})}
+          renderMessageImage={renderMessageImage}
         />
       </View>
     </ScreenTemplate>
