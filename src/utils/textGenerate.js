@@ -201,8 +201,7 @@ const generateImage = async({text}) => {
         responseType: 'blob'
       }
     );
-    const url = URL.createObjectURL(new Blob([data]));
-    const imageUrl = await convertBlobToImage({blob: url})
+    const imageUrl = await convertBlobToImage({data})
     return { imageUrl: imageUrl, message: '画像は開いた後に長押しで保存できます'}
   } catch(e) {
     console.log('generate image error', e)
