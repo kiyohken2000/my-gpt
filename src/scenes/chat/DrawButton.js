@@ -40,9 +40,11 @@ export default function DrawButton(props) {
         anchor={renderAnchor()}
         onRequestClose={hideMenu}
       >
-        <MenuItem onPress={() => onItemPress({val: true})}>{`画像生成オン${isImageMode?'✔':''}`}</MenuItem>
+        <MenuItem onPress={() => onItemPress({val: 1})}>{`画像生成オン${isImageMode === 1?'✔':''}`}</MenuItem>
         <MenuDivider />
-        <MenuItem onPress={() => onItemPress({val: false})}>{`画像生成オフ${!isImageMode?'✔':''}`}</MenuItem>
+        <MenuItem onPress={() => onItemPress({val: 2})}>{`ANIMAGINEオン${isImageMode === 2?'✔':''}`}</MenuItem>
+        <MenuDivider />
+        <MenuItem onPress={() => onItemPress({val: 0})}>{`画像生成オフ${!isImageMode?'✔':''}`}</MenuItem>
       </Menu>
     </View>
   )

@@ -188,10 +188,11 @@ const generateCommandRMessage = async({input, messages}) => {
   }
 }
 
-const generateImage = async({text}) => {
+const generateImage = async({text, isImageMode}) => {
   try {
+    const modelUrl = selectImageAPI({isImageMode})
     const { data } = await axios.post(
-      "https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4",
+      modelUrl,
       {inputs: text},
       {
         headers: {
@@ -206,6 +207,19 @@ const generateImage = async({text}) => {
   } catch(e) {
     console.log('generate image error', e)
     return { imageUrl: null, message: errorMessage}
+  }
+}
+
+const selectImageAPI = ({isImageMode}) => {
+  const RealisticVision = 'https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4'
+  const Animagine = 'https://api-inference.huggingface.co/models/cagliostrolab/animagine-xl-3.0'
+  switch (isImageMode){
+    case 1:
+      return RealisticVision
+    case 2:
+      return Animagine
+    default:
+      return RealisticVision
   }
 }
 

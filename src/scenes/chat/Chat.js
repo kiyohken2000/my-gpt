@@ -25,7 +25,7 @@ export default function Chat() {
   const [isLoading, setIsLoading] = useState(false)
   const [imagePath, setImagePath] = useState('')
   const [isThirdPerson, setIsThirdPerson] = useState(false)
-  const [isImageMode, setIsImageMode] = useState(false)
+  const [isImageMode, setIsImageMode] = useState(0)
 
   useEffect(() => {
     navigation.setOptions({
@@ -33,7 +33,7 @@ export default function Chat() {
         <HeaderRightButton
           onPress={() => {
             setIsThirdPerson(false)
-            setIsImageMode(false)
+            setIsImageMode(0)
             setImagePath('')
             setMessages([])
           }}
@@ -98,7 +98,7 @@ export default function Chat() {
           setIsLoading(false)
         } else if(user._id === userIds.user && isImageMode) {
           setIsLoading(true)
-          const {imageUrl, message} = await generateImage({text})
+          const {imageUrl, message} = await generateImage({text, isImageMode})
           const botMessage = {
             _id: `${moment().unix()}`,
             createdAt: new Date(),
@@ -197,7 +197,7 @@ export default function Chat() {
           renderFooter={imagePath?renderChatFooter:null}
           placeholder={messages.length?'メッセージを入力':'お気軽にご質問ください'}
           keyboardShouldPersistTaps='never'
-          maxInputLength={100}
+          maxInputLength={isImageMode?1000:100}
           onPress={(context, message) => onMessagePress({message})}
           renderMessageImage={renderMessageImage}
         />
