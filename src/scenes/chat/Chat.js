@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { View, StyleSheet, Platform, Image } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { GiftedChat, Send } from 'react-native-gifted-chat'
-import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage } from '../../utils/textGenerate';
+import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage, loadNegativePrompt } from '../../utils/textGenerate';
 import moment from 'moment';
 import SendButton from './SendButton';
 import ImageButton from './ImageButton';
@@ -16,6 +16,7 @@ import RenderImage from './RenderImage';
 import { colors } from '../../theme';
 import * as Clipboard from 'expo-clipboard';
 import { showToast } from '../../utils/showToast';
+import SettingsModal from './SettingsModal';
 
 const isAndroid = Platform.OS === 'android'
 
@@ -26,6 +27,16 @@ export default function Chat() {
   const [imagePath, setImagePath] = useState('')
   const [isThirdPerson, setIsThirdPerson] = useState(false)
   const [isImageMode, setIsImageMode] = useState(0)
+  const [negativePrompt, setNegativePrompt] = useState('')
+  const [isModalVisible, setIsModalVisible] = useState(false)
+
+  useEffect(() => {
+    const loadStorage = async() => {
+      const _negativePrompt = await loadNegativePrompt()
+      setNegativePrompt(_negativePrompt)
+    }
+    loadStorage()
+  }, [])
 
   useEffect(() => {
     navigation.setOptions({
@@ -48,11 +59,12 @@ export default function Chat() {
           <DrawButton
             isImageMode={isImageMode}
             setIsImageMode={setIsImageMode}
+            setIsModalVisible={setIsModalVisible}
           />
         </View>
       )
     });
-  }, [navigation, isThirdPerson, isImageMode]);
+  }, [navigation, isThirdPerson, isImageMode, isModalVisible]);
 
   useEffect(() => {
     setMessages([])
@@ -98,7 +110,7 @@ export default function Chat() {
           setIsLoading(false)
         } else if(user._id === userIds.user && isImageMode) {
           setIsLoading(true)
-          const {imageUrl, message} = await generateImage({text, isImageMode})
+          const {imageUrl, message} = await generateImage({text, isImageMode, negativePrompt})
           const botMessage = {
             _id: `${moment().unix()}`,
             createdAt: new Date(),
@@ -202,6 +214,12 @@ export default function Chat() {
           renderMessageImage={renderMessageImage}
         />
       </View>
+      <SettingsModal
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+        negativePrompt={negativePrompt}
+        setNegativePrompt={setNegativePrompt}
+      />
     </ScreenTemplate>
   )
 }

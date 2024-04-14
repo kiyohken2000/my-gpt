@@ -3,6 +3,7 @@ import { palmKey, CO_API_KEY, huggingFaceKey } from "../openaiKeys";
 import * as FileSystem from 'expo-file-system';
 import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 import { convertBlobToImage } from "./downloadFunctions";
+import { storage } from "./storage";
 
 const apiUrl = 'https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage';
 const errorMessage = 'すみません。よくわかりませんでした'
@@ -188,12 +189,15 @@ const generateCommandRMessage = async({input, messages}) => {
   }
 }
 
-const generateImage = async({text, isImageMode}) => {
+const generateImage = async({text, isImageMode, negativePrompt}) => {
   try {
     const modelUrl = selectImageAPI({isImageMode})
     const { data } = await axios.post(
       modelUrl,
-      {inputs: text},
+      {
+        inputs: text,
+        negative_prompt: negativePrompt,
+      },
       {
         headers: {
           Authorization: `Bearer ${huggingFaceKey}`,
@@ -223,4 +227,22 @@ const selectImageAPI = ({isImageMode}) => {
   }
 }
 
-export { generateMessage, generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage }
+const loadNegativePrompt = async() => {
+  try {
+    const res = await storage.load({key: 'negativePrompt'})
+    return res
+  } catch(e) {
+    console.log('load negative prompt error', e)
+    return ''
+  }
+}
+
+const saveNegativePrompt = async({negativePrompt}) => {
+  await storage.save({key: 'negativePrompt', data: negativePrompt})
+}
+
+export {
+  generateMessage, generateChatMessage, userIds,
+  generateCommandRMessage, userNames, generateImage, loadNegativePrompt,
+  saveNegativePrompt,
+}
