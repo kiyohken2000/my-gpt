@@ -1,3 +1,3 @@
-const versionName = '1.0.10'
+const versionName = '1.0.12'
 
 export { versionName }
