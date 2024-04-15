@@ -217,11 +217,14 @@ const generateImage = async({text, isImageMode, negativePrompt}) => {
 const selectImageAPI = ({isImageMode}) => {
   const RealisticVision = 'https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4'
   const Animagine = 'https://api-inference.huggingface.co/models/cagliostrolab/animagine-xl-3.0'
+  const pony = 'https://api-inference.huggingface.co/models/stablediffusionapi/pony-diffusion-v6-xl'
   switch (isImageMode){
     case 1:
       return RealisticVision
     case 2:
       return Animagine
+    case 3:
+      return pony
     default:
       return RealisticVision
   }

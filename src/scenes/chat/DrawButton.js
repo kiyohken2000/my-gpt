@@ -53,6 +53,8 @@ export default function DrawButton(props) {
         <MenuDivider />
         <MenuItem onPress={() => onItemPress({val: 2})}>{`ANIMAGINE${isImageMode === 2?'✔':''}`}</MenuItem>
         <MenuDivider />
+        <MenuItem onPress={() => onItemPress({val: 3})}>{`Pony${isImageMode === 3?'✔':''}`}</MenuItem>
+        <MenuDivider />
         <MenuItem onPress={onSettingsPress}>画像生成設定</MenuItem>
       </Menu>
     </View>
