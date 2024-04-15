@@ -189,11 +189,11 @@ const generateCommandRMessage = async({input, messages}) => {
   }
 }
 
-const generateImage = async({text, isImageMode, negativePrompt}) => {
+const generateImage = async({text, isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony}) => {
   try {
-    const modelUrl = selectImageAPI({isImageMode})
+    const { apiUrl, negativePrompt } = selectImageAPI({isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony})
     const { data } = await axios.post(
-      modelUrl,
+      apiUrl,
       {
         inputs: text,
         negative_prompt: negativePrompt,
@@ -214,34 +214,48 @@ const generateImage = async({text, isImageMode, negativePrompt}) => {
   }
 }
 
-const selectImageAPI = ({isImageMode}) => {
+const selectImageAPI = ({isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony}) => {
   const RealisticVision = 'https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4'
   const Animagine = 'https://api-inference.huggingface.co/models/cagliostrolab/animagine-xl-3.0'
   const pony = 'https://api-inference.huggingface.co/models/stablediffusionapi/pony-diffusion-v6-xl'
   switch (isImageMode){
     case 1:
-      return RealisticVision
+      return { apiUrl: RealisticVision, negativePrompt: negativePromptRealisticVision }
     case 2:
-      return Animagine
+      return { apiUrl: Animagine, negativePrompt: negativePromptAnimagine }
     case 3:
-      return pony
+      return { apiUrl: pony, negativePrompt: negativePromptPony }
     default:
-      return RealisticVision
+      return { apiUrl: RealisticVision, negativePrompt: negativePromptRealisticVision }
   }
 }
 
 const loadNegativePrompt = async() => {
+  const _negativePromptRealisticVision = await loadNegativePromptOfModel({key: 'negativePromptRealisticVision'})
+  const _negativePromptAnimagine = await loadNegativePromptOfModel({key: 'negativePromptAnimagine'})
+  const _negativePromptPony = await loadNegativePromptOfModel({key: 'negativePromptPony'})
+  return {
+    _negativePromptRealisticVision,
+    _negativePromptAnimagine,
+    _negativePromptPony,
+  }
+}
+
+const loadNegativePromptOfModel = async({key}) => {
   try {
-    const res = await storage.load({key: 'negativePrompt'})
+
+    const res = await storage.load({key})
     return res
   } catch(e) {
-    console.log('load negative prompt error', e)
+    console.log('load negative prompt error key:', key)
     return ''
   }
 }
 
-const saveNegativePrompt = async({negativePrompt}) => {
-  await storage.save({key: 'negativePrompt', data: negativePrompt})
+const saveNegativePrompt = async({negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony}) => {
+  await storage.save({key: 'negativePromptRealisticVision', data: negativePromptRealisticVision})
+  await storage.save({key: 'negativePromptAnimagine', data: negativePromptAnimagine})
+  await storage.save({key: 'negativePromptPony', data: negativePromptPony})
 }
 
 export {

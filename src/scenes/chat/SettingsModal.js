@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, Dimensions, TouchableWithoutFeedback, KeyboardAvoidingView } from "react-native";
+import { View, Text, StyleSheet, TextInput, Dimensions, TouchableWithoutFeedback, KeyboardAvoidingView, Keyboard } from "react-native";
 import { colors, fontSize } from "../../theme";
 import Button from "../../components/Button";
 import Modal from "react-native-modal";
@@ -8,10 +8,15 @@ import { saveNegativePrompt } from "../../utils/textGenerate";
 const { height, width } = Dimensions.get('screen')
 
 export default function SettingsModal(props) {
-  const { isModalVisible, setIsModalVisible, negativePrompt, setNegativePrompt } = props
+  const {
+    isModalVisible, setIsModalVisible,
+    negativePromptRealisticVision, setNegativePromptRealisticVision,
+    negativePromptAnimagine, setNegativePromptAnimagine,
+    negativePromptPony, setNegativePromptPony,
+  } = props
 
   const onOkPress = async() => {
-    await saveNegativePrompt({negativePrompt})
+    await saveNegativePrompt({negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony})
     setIsModalVisible(false)
   }
 
@@ -21,7 +26,9 @@ export default function SettingsModal(props) {
       onBackdropPress={() => setIsModalVisible(false)}
     >
       <TouchableWithoutFeedback
-        onPress={() => setIsModalVisible(false)}
+        onPress={() => {
+          Keyboard.dismiss()
+        }}
       >
         <KeyboardAvoidingView
           style={{ flex: 1 }}
@@ -29,24 +36,64 @@ export default function SettingsModal(props) {
         >
           <View style={styles.container}>
             <View style={styles.innerContainer}>
-              <Text style={styles.label}>ネガティブプロンプト</Text>
-              <View style={{paddingVertical: 10}}>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(text) => setNegativePrompt(text)}
-                  value={negativePrompt}
-                  maxLength={500}
-                  multiline={true}
+              <View style={{alignItems: 'center'}}>
+                <Text style={styles.label}>ネガティブプロンプト</Text>
+              </View>
+              <View style={styles.elementContainer}>
+                <Text style={styles.modelLabel}>RealisticVision</Text>
+                <View style={{paddingVertical: 0}}>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => setNegativePromptRealisticVision(text)}
+                    value={negativePromptRealisticVision}
+                    maxLength={500}
+                    multiline={true}
+                  />
+                </View>
+              </View>
+              <View style={styles.elementContainer}>
+                <Text style={styles.modelLabel}>ANIMAGINE</Text>
+                <View style={{paddingVertical: 0}}>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => setNegativePromptAnimagine(text)}
+                    value={negativePromptAnimagine}
+                    maxLength={500}
+                    multiline={true}
+                  />
+                </View>
+              </View>
+              <View style={styles.elementContainer}>
+                <Text style={styles.modelLabel}>Pony</Text>
+                <View style={{paddingVertical: 0}}>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => setNegativePromptPony(text)}
+                    value={negativePromptPony}
+                    maxLength={500}
+                    multiline={true}
+                  />
+                </View>
+              </View>
+              <View style={{paddingTop: 10}}>
+                <Button
+                  label='決定'
+                  onPress={onOkPress}
+                  color={colors.purple}
+                  disable={false}
+                  labelColor={colors.white}
+                  labelBold={false}
+                />
+                <View style={{paddingVertical: 10}} />
+                <Button
+                  label='閉じる'
+                  onPress={() => setIsModalVisible(false)}
+                  color={colors.gray}
+                  disable={false}
+                  labelColor={colors.white}
+                  labelBold={false}
                 />
               </View>
-              <Button
-                label='決定'
-                onPress={onOkPress}
-                color={colors.purple}
-                disable={false}
-                labelColor={colors.white}
-                labelBold={false}
-              />
             </View>
           </View>
         </KeyboardAvoidingView>
@@ -59,12 +106,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    paddingVertical: height * 0.1
   },
   innerContainer: {
     backgroundColor: colors.white,
     borderRadius: 10,
     paddingVertical: 20,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   label: {
     fontSize: fontSize.large
@@ -74,7 +122,13 @@ const styles = StyleSheet.create({
     borderColor: colors.grayPrimary,
     fontSize: fontSize.middle,
     padding: 10,
-    height: height * 0.2,
+    height: height * 0.1,
     borderRadius: 5,
+  },
+  modelLabel: {
+    fontSize: fontSize.middle
+  },
+  elementContainer: {
+    paddingVertical: 5
   }
 })

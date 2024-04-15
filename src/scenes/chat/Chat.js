@@ -27,13 +27,21 @@ export default function Chat() {
   const [imagePath, setImagePath] = useState('')
   const [isThirdPerson, setIsThirdPerson] = useState(false)
   const [isImageMode, setIsImageMode] = useState(0)
-  const [negativePrompt, setNegativePrompt] = useState('')
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [negativePromptRealisticVision, setNegativePromptRealisticVision] = useState('')
+  const [negativePromptAnimagine, setNegativePromptAnimagine] = useState('')
+  const [negativePromptPony, setNegativePromptPony] = useState('')
 
   useEffect(() => {
     const loadStorage = async() => {
-      const _negativePrompt = await loadNegativePrompt()
-      setNegativePrompt(_negativePrompt)
+      const {
+        _negativePromptRealisticVision,
+        _negativePromptAnimagine,
+        _negativePromptPony,
+      } = await loadNegativePrompt()
+      setNegativePromptRealisticVision(_negativePromptRealisticVision)
+      setNegativePromptAnimagine(_negativePromptAnimagine)
+      setNegativePromptPony(_negativePromptPony)
     }
     loadStorage()
   }, [])
@@ -110,7 +118,7 @@ export default function Chat() {
           setIsLoading(false)
         } else if(user._id === userIds.user && isImageMode) {
           setIsLoading(true)
-          const {imageUrl, message} = await generateImage({text, isImageMode, negativePrompt})
+          const {imageUrl, message} = await generateImage({text, isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony})
           const botMessage = {
             _id: `${moment().unix()}`,
             createdAt: new Date(),
@@ -217,8 +225,12 @@ export default function Chat() {
       <SettingsModal
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
-        negativePrompt={negativePrompt}
-        setNegativePrompt={setNegativePrompt}
+        negativePromptRealisticVision={negativePromptRealisticVision}
+        setNegativePromptRealisticVision={setNegativePromptRealisticVision}
+        negativePromptAnimagine={negativePromptAnimagine}
+        setNegativePromptAnimagine={setNegativePromptAnimagine}
+        negativePromptPony={negativePromptPony}
+        setNegativePromptPony={setNegativePromptPony}
       />
     </ScreenTemplate>
   )
