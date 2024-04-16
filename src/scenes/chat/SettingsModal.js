@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, Dimensions, TouchableWithoutFeedback, KeyboardAvoidingView, Keyboard } from "react-native";
+import { View, Text, StyleSheet, TextInput, Dimensions, TouchableWithoutFeedback, KeyboardAvoidingView, Keyboard, ScrollView } from "react-native";
 import { colors, fontSize } from "../../theme";
 import Button from "../../components/Button";
 import Modal from "react-native-modal";
@@ -13,10 +13,11 @@ export default function SettingsModal(props) {
     negativePromptRealisticVision, setNegativePromptRealisticVision,
     negativePromptAnimagine, setNegativePromptAnimagine,
     negativePromptPony, setNegativePromptPony,
+    negativePromptPvc, setNegativePromptPvc,
   } = props
 
   const onOkPress = async() => {
-    await saveNegativePrompt({negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony})
+    await saveNegativePrompt({negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc})
     setIsModalVisible(false)
   }
 
@@ -75,6 +76,18 @@ export default function SettingsModal(props) {
                   />
                 </View>
               </View>
+              <View style={styles.elementContainer}>
+                <Text style={styles.modelLabel}>PVC</Text>
+                <View style={{paddingVertical: 0}}>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => setNegativePromptPvc(text)}
+                    value={negativePromptPvc}
+                    maxLength={500}
+                    multiline={true}
+                  />
+                </View>
+              </View>
               <View style={{paddingTop: 10}}>
                 <Button
                   label='決定'
@@ -122,7 +135,7 @@ const styles = StyleSheet.create({
     borderColor: colors.grayPrimary,
     fontSize: fontSize.middle,
     padding: 10,
-    height: height * 0.1,
+    height: height * 0.08,
     borderRadius: 5,
   },
   modelLabel: {

@@ -31,6 +31,7 @@ export default function Chat() {
   const [negativePromptRealisticVision, setNegativePromptRealisticVision] = useState('')
   const [negativePromptAnimagine, setNegativePromptAnimagine] = useState('')
   const [negativePromptPony, setNegativePromptPony] = useState('')
+  const [negativePromptPvc, setNegativePromptPvc] = useState('')
 
   useEffect(() => {
     const loadStorage = async() => {
@@ -38,10 +39,12 @@ export default function Chat() {
         _negativePromptRealisticVision,
         _negativePromptAnimagine,
         _negativePromptPony,
+        _negativePromptPvc,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
       setNegativePromptPony(_negativePromptPony)
+      setNegativePromptPvc(_negativePromptPvc)
     }
     loadStorage()
   }, [])
@@ -118,7 +121,10 @@ export default function Chat() {
           setIsLoading(false)
         } else if(user._id === userIds.user && isImageMode) {
           setIsLoading(true)
-          const {imageUrl, message} = await generateImage({text, isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony})
+          const {imageUrl, message} = await generateImage({
+            text, isImageMode,
+            negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
+          })
           const botMessage = {
             _id: `${moment().unix()}`,
             createdAt: new Date(),
@@ -231,6 +237,8 @@ export default function Chat() {
         setNegativePromptAnimagine={setNegativePromptAnimagine}
         negativePromptPony={negativePromptPony}
         setNegativePromptPony={setNegativePromptPony}
+        negativePromptPvc={negativePromptPvc}
+        setNegativePromptPvc={setNegativePromptPvc}
       />
     </ScreenTemplate>
   )
