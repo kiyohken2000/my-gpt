@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import { View, StyleSheet, Platform, Image } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { GiftedChat, Send } from 'react-native-gifted-chat'
@@ -16,22 +16,29 @@ import RenderImage from './RenderImage';
 import { colors } from '../../theme';
 import * as Clipboard from 'expo-clipboard';
 import { showToast } from '../../utils/showToast';
-import SettingsModal from './SettingsModal';
+import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
+import Settings from './Settings/Settings';
 
 const isAndroid = Platform.OS === 'android'
 
 export default function Chat() {
   const navigation = useNavigation()
+  const bottomSheetRef = useRef(null);
+  const snapPoints = useMemo(() => ['1%', '95%'], []);
+  const [sheetPosition, setSheetPosition] = useState(0)
   const [messages, setMessages] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [imagePath, setImagePath] = useState('')
   const [isThirdPerson, setIsThirdPerson] = useState(false)
   const [isImageMode, setIsImageMode] = useState(0)
-  const [isModalVisible, setIsModalVisible] = useState(false)
   const [negativePromptRealisticVision, setNegativePromptRealisticVision] = useState('')
   const [negativePromptAnimagine, setNegativePromptAnimagine] = useState('')
   const [negativePromptPony, setNegativePromptPony] = useState('')
   const [negativePromptPvc, setNegativePromptPvc] = useState('')
+
+  const handleSheetChanges = useCallback((index) => {
+    setSheetPosition(index)
+  }, []);
 
   useEffect(() => {
     const loadStorage = async() => {
@@ -70,12 +77,12 @@ export default function Chat() {
           <DrawButton
             isImageMode={isImageMode}
             setIsImageMode={setIsImageMode}
-            setIsModalVisible={setIsModalVisible}
+            setSheetPosition={setSheetPosition}
           />
         </View>
       )
     });
-  }, [navigation, isThirdPerson, isImageMode, isModalVisible]);
+  }, [navigation, isThirdPerson, isImageMode, sheetPosition]);
 
   useEffect(() => {
     setMessages([])
@@ -206,6 +213,17 @@ export default function Chat() {
     )
   }
 
+	const renderBackdrop = useCallback(
+		(props) => (
+			<BottomSheetBackdrop
+				{...props}
+				disappearsOnIndex={0}
+				appearsOnIndex={1}
+			/>
+		),
+		[]
+	);
+
   return (
     <ScreenTemplate color={isAndroid?colors.darkPurple:colors.white}>
       <View style={styles.container}>
@@ -228,18 +246,25 @@ export default function Chat() {
           renderMessageImage={renderMessageImage}
         />
       </View>
-      <SettingsModal
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-        negativePromptRealisticVision={negativePromptRealisticVision}
-        setNegativePromptRealisticVision={setNegativePromptRealisticVision}
-        negativePromptAnimagine={negativePromptAnimagine}
-        setNegativePromptAnimagine={setNegativePromptAnimagine}
-        negativePromptPony={negativePromptPony}
-        setNegativePromptPony={setNegativePromptPony}
-        negativePromptPvc={negativePromptPvc}
-        setNegativePromptPvc={setNegativePromptPvc}
-      />
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={sheetPosition}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+				backdropComponent={renderBackdrop}
+      >
+        <Settings
+          negativePromptRealisticVision={negativePromptRealisticVision}
+          setNegativePromptRealisticVision={setNegativePromptRealisticVision}
+          negativePromptAnimagine={negativePromptAnimagine}
+          setNegativePromptAnimagine={setNegativePromptAnimagine}
+          negativePromptPony={negativePromptPony}
+          setNegativePromptPony={setNegativePromptPony}
+          negativePromptPvc={negativePromptPvc}
+          setNegativePromptPvc={setNegativePromptPvc}
+          setSheetPosition={setSheetPosition}
+        />
+      </BottomSheet>
     </ScreenTemplate>
   )
 }

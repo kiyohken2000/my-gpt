@@ -6,7 +6,7 @@ import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 import { sleep } from "../../utils/utilFunctions";
 
 export default function DrawButton(props) {
-  const { isImageMode, setIsImageMode, setIsModalVisible } = props
+  const { isImageMode, setIsImageMode, setSheetPosition } = props
   const [visible, setVisible] = useState(false);
 
   const hideMenu = () => setVisible(false);
@@ -37,7 +37,7 @@ export default function DrawButton(props) {
   const onSettingsPress = async() => {
     hideMenu()
     await sleep(500)
-    setIsModalVisible(true)
+    setSheetPosition(1)
   }
 
   return (

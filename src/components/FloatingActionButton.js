@@ -14,7 +14,7 @@ export default function FloatingActionButton(props) {
       style={[styles.button, {backgroundColor: color}]}
     >
       {isLoading?
-        <ActivityIndicator size='large' color={iconColor} />:
+        <ActivityIndicator size='small' color={iconColor} />:
         <FontIcon
           name={icon}
           color={iconColor}
