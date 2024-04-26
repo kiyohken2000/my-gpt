@@ -216,7 +216,7 @@ const generateImage = async({text, isImageMode, negativePromptRealisticVision, n
 
 const selectImageAPI = ({isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony}) => {
   const RealisticVision = 'https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4'
-  const Animagine = 'https://api-inference.huggingface.co/models/cagliostrolab/animagine-xl-3.0'
+  const Animagine = 'https://api-inference.huggingface.co/models/cagliostrolab/animagine-xl-3.1'
   const pony = 'https://api-inference.huggingface.co/models/stablediffusionapi/pony-diffusion-v6-xl'
   const pvc = 'https://api-inference.huggingface.co/models/p1atdev/pvcxl-v1-lora'
   switch (isImageMode){
