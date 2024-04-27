@@ -18,6 +18,7 @@ import * as Clipboard from 'expo-clipboard';
 import { showToast } from '../../utils/showToast';
 import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import Settings from './Settings/Settings';
+import BlurBox from '../../components/BlurBox/BlurBox';
 
 const isAndroid = Platform.OS === 'android'
 
@@ -227,6 +228,7 @@ export default function Chat() {
   return (
     <ScreenTemplate color={isAndroid?colors.darkPurple:colors.white}>
       <View style={styles.container}>
+        <BlurBox>
         <GiftedChat
           messages={messages}
           onSend={messages => onSend(messages)}
@@ -245,6 +247,7 @@ export default function Chat() {
           onPress={(context, message) => onMessagePress({message})}
           renderMessageImage={renderMessageImage}
         />
+        </BlurBox>
       </View>
       <BottomSheet
         ref={bottomSheetRef}
