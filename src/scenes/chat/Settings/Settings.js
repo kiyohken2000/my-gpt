@@ -26,7 +26,7 @@ export default function Settings(props) {
       <View style={{alignItems: 'center', paddingTop: 10}}>
         <Text style={styles.label}>ネガティブプロンプト</Text>
       </View>
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView enableOnAndroid={true}>
       <View style={styles.elementContainer}>
         <Text style={styles.modelLabel}>RealisticVision</Text>
         <View style={{paddingVertical: 0}}>
