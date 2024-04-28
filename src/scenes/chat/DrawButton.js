@@ -57,6 +57,8 @@ export default function DrawButton(props) {
         <MenuDivider />
         <MenuItem onPress={() => onItemPress({val: 4})}>{`PVC${isImageMode === 4?'✔':''}`}</MenuItem>
         <MenuDivider />
+        <MenuItem onPress={() => onItemPress({val: 5})}>{`ChilloutMix${isImageMode === 5?'✔':''}`}</MenuItem>
+        <MenuDivider />
         <MenuItem onPress={onSettingsPress}>画像生成設定</MenuItem>
       </Menu>
     </View>

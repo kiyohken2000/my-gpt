@@ -14,10 +14,11 @@ export default function Settings(props) {
     negativePromptAnimagine, setNegativePromptAnimagine,
     negativePromptPony, setNegativePromptPony,
     negativePromptPvc, setNegativePromptPvc,
+    negativePromptChillOut, setNegativePromptChillOut,
   } = props
 
   const onOkPress = async() => {
-    await saveNegativePrompt({negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc})
+    await saveNegativePrompt({negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc, negativePromptChillOut})
     setSheetPosition(0)
   }
 
@@ -70,6 +71,18 @@ export default function Settings(props) {
             style={styles.input}
             onChangeText={(text) => setNegativePromptPvc(text)}
             value={negativePromptPvc}
+            maxLength={500}
+            multiline={true}
+          />
+        </View>
+      </View>
+      <View style={styles.elementContainer}>
+        <Text style={styles.modelLabel}>ChilloutMix</Text>
+        <View style={{paddingVertical: 0}}>
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => setNegativePromptChillOut(text)}
+            value={negativePromptChillOut}
             maxLength={500}
             multiline={true}
           />

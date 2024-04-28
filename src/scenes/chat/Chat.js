@@ -36,6 +36,7 @@ export default function Chat() {
   const [negativePromptAnimagine, setNegativePromptAnimagine] = useState('')
   const [negativePromptPony, setNegativePromptPony] = useState('')
   const [negativePromptPvc, setNegativePromptPvc] = useState('')
+  const [negativePromptChillOut, setNegativePromptChillOut] = useState('')
 
   const handleSheetChanges = useCallback((index) => {
     setSheetPosition(index)
@@ -48,11 +49,13 @@ export default function Chat() {
         _negativePromptAnimagine,
         _negativePromptPony,
         _negativePromptPvc,
+        _negativePromptChillOut,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
       setNegativePromptPony(_negativePromptPony)
       setNegativePromptPvc(_negativePromptPvc)
+      setNegativePromptChillOut(_negativePromptChillOut)
     }
     loadStorage()
   }, [])
@@ -131,7 +134,7 @@ export default function Chat() {
           setIsLoading(true)
           const {imageUrl, message} = await generateImage({
             text, isImageMode,
-            negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
+            negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc, negativePromptChillOut,
           })
           const botMessage = {
             _id: `${moment().unix()}`,
@@ -265,6 +268,8 @@ export default function Chat() {
           setNegativePromptPony={setNegativePromptPony}
           negativePromptPvc={negativePromptPvc}
           setNegativePromptPvc={setNegativePromptPvc}
+          negativePromptChillOut={negativePromptChillOut}
+          setNegativePromptChillOut={setNegativePromptChillOut}
           setSheetPosition={setSheetPosition}
         />
       </BottomSheet>

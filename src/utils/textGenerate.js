@@ -189,9 +189,13 @@ const generateCommandRMessage = async({input, messages}) => {
   }
 }
 
-const generateImage = async({text, isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc}) => {
+const generateImage = async({
+  text, isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc, negativePromptChillOut
+}) => {
   try {
-    const { apiUrl, negativePrompt } = selectImageAPI({isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc})
+    const { apiUrl, negativePrompt } = selectImageAPI({
+      isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc, negativePromptChillOut
+    })
     const { data } = await axios.post(
       apiUrl,
       {
@@ -214,11 +218,14 @@ const generateImage = async({text, isImageMode, negativePromptRealisticVision, n
   }
 }
 
-const selectImageAPI = ({isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony}) => {
+const selectImageAPI = ({
+  isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptChillOut,
+}) => {
   const RealisticVision = 'https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4'
   const Animagine = 'https://api-inference.huggingface.co/models/cagliostrolab/animagine-xl-3.1'
   const pony = 'https://api-inference.huggingface.co/models/stablediffusionapi/pony-diffusion-v6-xl'
   const pvc = 'https://api-inference.huggingface.co/models/p1atdev/pvcxl-v1-lora'
+  const chillout = 'https://api-inference.huggingface.co/models/Yntec/ChilloutMix'
   switch (isImageMode){
     case 1:
       return { apiUrl: RealisticVision, negativePrompt: negativePromptRealisticVision }
@@ -228,6 +235,8 @@ const selectImageAPI = ({isImageMode, negativePromptRealisticVision, negativePro
       return { apiUrl: pony, negativePrompt: negativePromptPony }
     case 4:
       return { apiUrl: pvc, negativePrompt: negativePromptPony }
+    case 5:
+      return { apiUrl: chillout, negativePrompt: negativePromptChillOut }
     default:
       return { apiUrl: RealisticVision, negativePrompt: negativePromptRealisticVision }
   }
@@ -238,11 +247,13 @@ const loadNegativePrompt = async() => {
   const _negativePromptAnimagine = await loadNegativePromptOfModel({key: 'negativePromptAnimagine'})
   const _negativePromptPony = await loadNegativePromptOfModel({key: 'negativePromptPony'})
   const _negativePromptPvc = await loadNegativePromptOfModel({key: 'negativePromptPvc'})
+  const _negativePromptChillOut = await loadNegativePromptOfModel({key: 'negativePromptChillOut'})
   return {
     _negativePromptRealisticVision,
     _negativePromptAnimagine,
     _negativePromptPony,
     _negativePromptPvc,
+    _negativePromptChillOut,
   }
 }
 
@@ -256,11 +267,14 @@ const loadNegativePromptOfModel = async({key}) => {
   }
 }
 
-const saveNegativePrompt = async({negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc}) => {
+const saveNegativePrompt = async({
+  negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc, negativePromptChillOut
+}) => {
   await storage.save({key: 'negativePromptRealisticVision', data: negativePromptRealisticVision})
   await storage.save({key: 'negativePromptAnimagine', data: negativePromptAnimagine})
   await storage.save({key: 'negativePromptPony', data: negativePromptPony})
   await storage.save({key: 'negativePromptPvc', data: negativePromptPvc})
+  await storage.save({key: 'negativePromptChillOut', data: negativePromptChillOut})
 }
 
 export {
