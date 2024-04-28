@@ -1,11 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions, TextInput } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { colors, fontSize } from "../../../theme";
 import Button from "../../../components/Button";
 import { saveNegativePrompt } from "../../../utils/textGenerate";
-
-const { height, width } = Dimensions.get('screen')
+import NegativePromptItem from "./NegativePromptItem";
 
 export default function Settings(props) {
   const {
@@ -24,70 +23,35 @@ export default function Settings(props) {
 
   return (
    <View style={styles.container}>
-      <View style={{alignItems: 'center', paddingTop: 10}}>
+      <View style={{alignItems: 'center', paddingTop: 10, paddingBottom: 10}}>
         <Text style={styles.label}>ネガティブプロンプト</Text>
       </View>
     <KeyboardAwareScrollView enableOnAndroid={true}>
-      <View style={styles.elementContainer}>
-        <Text style={styles.modelLabel}>RealisticVision</Text>
-        <View style={{paddingVertical: 0}}>
-          <TextInput
-            style={styles.input}
-            onChangeText={(text) => setNegativePromptRealisticVision(text)}
-            value={negativePromptRealisticVision}
-            maxLength={500}
-            multiline={true}
-          />
-        </View>
-      </View>
-      <View style={styles.elementContainer}>
-        <Text style={styles.modelLabel}>ANIMAGINE</Text>
-        <View style={{paddingVertical: 0}}>
-          <TextInput
-            style={styles.input}
-            onChangeText={(text) => setNegativePromptAnimagine(text)}
-            value={negativePromptAnimagine}
-            maxLength={500}
-            multiline={true}
-          />
-        </View>
-      </View>
-      <View style={styles.elementContainer}>
-        <Text style={styles.modelLabel}>Pony</Text>
-        <View style={{paddingVertical: 0}}>
-          <TextInput
-            style={styles.input}
-            onChangeText={(text) => setNegativePromptPony(text)}
-            value={negativePromptPony}
-            maxLength={500}
-            multiline={true}
-          />
-        </View>
-      </View>
-      <View style={styles.elementContainer}>
-        <Text style={styles.modelLabel}>PVC</Text>
-        <View style={{paddingVertical: 0}}>
-          <TextInput
-            style={styles.input}
-            onChangeText={(text) => setNegativePromptPvc(text)}
-            value={negativePromptPvc}
-            maxLength={500}
-            multiline={true}
-          />
-        </View>
-      </View>
-      <View style={styles.elementContainer}>
-        <Text style={styles.modelLabel}>ChilloutMix</Text>
-        <View style={{paddingVertical: 0}}>
-          <TextInput
-            style={styles.input}
-            onChangeText={(text) => setNegativePromptChillOut(text)}
-            value={negativePromptChillOut}
-            maxLength={500}
-            multiline={true}
-          />
-        </View>
-      </View>
+      <NegativePromptItem
+        label='RealisticVision'
+        negativePrompt={negativePromptRealisticVision}
+        setNegativePrompt={setNegativePromptRealisticVision}
+      />
+      <NegativePromptItem
+        label='ANIMAGINE'
+        negativePrompt={negativePromptAnimagine}
+        setNegativePrompt={setNegativePromptAnimagine}
+      />
+      <NegativePromptItem
+        label='Pony'
+        negativePrompt={negativePromptPony}
+        setNegativePrompt={setNegativePromptPony}
+      />
+      <NegativePromptItem
+        label='PVC'
+        negativePrompt={negativePromptPvc}
+        setNegativePrompt={setNegativePromptPvc}
+      />
+      <NegativePromptItem
+        label='ChilloutMix'
+        negativePrompt={negativePromptChillOut}
+        setNegativePrompt={setNegativePromptChillOut}
+      />
     </KeyboardAwareScrollView>
     <View style={{paddingVertical: 10, paddingHorizontal: 20}}>
       <Button
@@ -119,19 +83,4 @@ const styles = StyleSheet.create({
   label: {
     fontSize: fontSize.large
   },
-  input: {
-    borderWidth: 1,
-    borderColor: colors.grayPrimary,
-    fontSize: fontSize.middle,
-    padding: 10,
-    height: height * 0.11,
-    borderRadius: 5,
-  },
-  modelLabel: {
-    fontSize: fontSize.middle
-  },
-  elementContainer: {
-    paddingVertical: 5,
-    paddingHorizontal: 20
-  }
 })
