@@ -27,7 +27,8 @@ export default function VideoModal(props) {
     if(res) {
       showToast({title: '保存しました'})
     } else {
-      showToast({title: '保存できませんでした'})}
+      showToast({title: '保存できませんでした'})
+    }
   }
 
   return (
