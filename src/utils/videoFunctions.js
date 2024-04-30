@@ -42,8 +42,8 @@ const createVideo = async({url}) => {
       }
     });
     console.log('videoData', videoData)
-    const videoUrl = videoData.videos[0].video_url
-    if(videoUrl) {
+    if(videoData.videos[0]) {
+      const videoUrl = videoData.videos[0].video_url
       return { videoUrl: videoUrl, message: '動画は開いた後に長押しで保存できます'}
     } else {
       return { videoUrl: null, message: errorMessage}
