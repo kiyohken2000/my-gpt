@@ -91,7 +91,7 @@ const generateChatMessage = async({messages}) => {
         return errorMessage
       }
     } else {
-      const _messages = messages.filter((v) => v.user._id !== userIds.bot2)
+      const _messages = messages.filter((v) => v.user._id === userIds.user || v.user._id === userIds.bot1)
       const formatedChatlog = formatChatlog({messages: _messages})
       const {data} = await axios.post(
         'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + palmKey,

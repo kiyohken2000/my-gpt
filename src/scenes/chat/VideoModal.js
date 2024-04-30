@@ -22,8 +22,8 @@ export default function VideoModal(props) {
   }
 
   const onSavePress = async() => {
-    const res = await saveVideo({url})
     setIsVisible(false)
+    const res = await saveVideo({url})
     if(res) {
       showToast({title: '保存しました'})
     } else {
