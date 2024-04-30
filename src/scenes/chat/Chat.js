@@ -7,6 +7,7 @@ import moment from 'moment';
 import SendButton from './SendButton';
 import ImageButton from './ImageButton';
 import FooterImage from './FooterImage';
+import VideoMessage from './VideoMessage';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import HeaderRightButton from './HeaderRightButton';
@@ -19,6 +20,7 @@ import { showToast } from '../../utils/showToast';
 import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import Settings from './Settings/Settings';
 import BlurBox from '../../components/BlurBox/BlurBox';
+import { createVideo } from '../../utils/videoFunctions';
 
 const isAndroid = Platform.OS === 'android'
 
@@ -156,6 +158,26 @@ export default function Chat() {
     onRecieveNewMessage()
   }, [messages])
 
+  const onCreateVideo = async({url}) => {
+    setIsLoading(true)
+    const { videoUrl, message } = await createVideo({url})
+    console.log('videoUrl, message', videoUrl, message)
+    const botMessage = {
+      _id: `${moment().unix()}`,
+      createdAt: new Date(),
+      text: message,
+      video: videoUrl,
+      user: {
+        _id: userIds.bot4,
+        name: userNames.bot4,
+      }
+    }
+    setMessages(previousMessages =>
+      GiftedChat.append(previousMessages, botMessage),
+    )
+    setIsLoading(false)
+  }
+
   const onSend = useCallback((messages) => {
     const newMessage = {
       ...messages[0],
@@ -213,6 +235,7 @@ export default function Chat() {
     return (
       <RenderImage
         url={image}
+        onCreateVideo={onCreateVideo}
       />
     )
   }
@@ -249,6 +272,7 @@ export default function Chat() {
           maxInputLength={isImageMode?1000:100}
           onPress={(context, message) => onMessagePress({message})}
           renderMessageImage={renderMessageImage}
+          renderMessageVideo={(props) => <VideoMessage {...props} />}
         />
         </BlurBox>
       </View>

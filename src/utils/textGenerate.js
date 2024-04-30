@@ -13,6 +13,7 @@ const userIds = {
   bot1: 2,
   bot2: 3,
   bot3: 4,
+  bot4: 5,
 }
 
 const userNames = {
@@ -20,6 +21,7 @@ const userNames = {
   bot1: 'gemini',
   bot2: 'commandr',
   bot3: 'image',
+  bot4: 'video',
 }
 
 const generateMessage = async({inputText}) => {
@@ -278,7 +280,7 @@ const saveNegativePrompt = async({
 }
 
 export {
-  generateMessage, generateChatMessage, userIds,
+  generateMessage, generateChatMessage, userIds, errorMessage,
   generateCommandRMessage, userNames, generateImage, loadNegativePrompt,
   saveNegativePrompt,
 }

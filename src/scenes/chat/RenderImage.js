@@ -13,7 +13,7 @@ import { showToast } from "../../utils/showToast";
 const { width, height } = Dimensions.get('window')
 
 export default function RenderImage(props) {
-  const { url } = props
+  const { url, onCreateVideo } = props
   const [visible, setIsVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -39,6 +39,11 @@ export default function RenderImage(props) {
     }
   }
 
+  const onCreateVideoPress = ()=> {
+    onCreateVideo({url})
+    setIsVisible(false)
+  }
+
   return (
     <>
     <Spinner
@@ -53,7 +58,15 @@ export default function RenderImage(props) {
       onLongPress={onSavePress}
       FooterComponent={(props) => {
         return (
-          <View style={{paddingBottom: height * 0.05, alignItems: 'flex-end', paddingRight: width * 0.1}}>
+          <View style={{paddingBottom: height * 0.05, paddingRight: width * 0.1, flexDirection: 'row', justifyContent: 'flex-end'}}>
+            <FloatingActionButton
+              icon='video'
+              onPress={onCreateVideoPress}
+              isLoading={false}
+              color={colors.pink}
+              iconColor={colors.white}
+            />
+            <View style={{paddingHorizontal: 10}} />
             <FloatingActionButton
               icon='copy'
               onPress={onCopyPress}
