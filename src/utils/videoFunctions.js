@@ -17,7 +17,7 @@ const createVideo = async({url}) => {
       image_file: base64Image,
       frames_num: 14,
       frames_per_second: 6,
-      seed: 20231127,
+      seed: moment().unix(),
       image_file_resize_mode: 'CROP_TO_ASPECT_RATIO',
       steps: 20,
       motion_bucket_id: null,
@@ -34,23 +34,53 @@ const createVideo = async({url}) => {
     });
     const { task_id } = data
     console.log('task_id', task_id)
-    await sleep(120000)
-    console.log('sleep終わった')
-    const { data: videoData } = await axios.get(`https://api.novita.ai/v3/async/task-result?task_id=${task_id}`, {
+    await sleep(60000)
+    console.log('sleep終わった 1回目')
+    const resVideo1 = await getVideo({task_id})
+    if(resVideo1) return { videoUrl: resVideo1, message: '動画は開いた後に長押しで保存できます'}
+    await sleep(60000)
+    console.log('sleep終わった 2回目')
+    const resVideo2 = await getVideo({task_id})
+    if(resVideo2) return { videoUrl: resVideo2, message: '動画は開いた後に長押しで保存できます'}
+    await sleep(60000)
+    console.log('sleep終わった 3回目')
+    const resVideo3 = await getVideo({task_id})
+    if(resVideo3) return { videoUrl: resVideo3, message: '動画は開いた後に長押しで保存できます'}
+    await sleep(60000)
+    console.log('sleep終わった 4回目')
+    const resVideo4 = await getVideo({task_id})
+    if(resVideo4) return { videoUrl: resVideo4, message: '動画は開いた後に長押しで保存できます'}
+    await sleep(60000)
+    console.log('sleep終わった 5回目')
+    const resVideo5 = await getVideo({task_id})
+    if(resVideo5) return { videoUrl: resVideo5, message: '動画は開いた後に長押しで保存できます'}
+    await sleep(60000)
+    console.log('sleep終わった 5回目')
+    const resVideo6 = await getVideo({task_id})
+    if(resVideo6) return { videoUrl: resVideo6, message: '動画は開いた後に長押しで保存できます'}
+
+    return { videoUrl: null, message: errorMessage}
+  } catch(error) {
+    console.log('create video error', e)
+    return { videoUrl: null, message: errorMessage}
+  }
+}
+
+const getVideo = async({task_id}) => {
+  try {
+    const { data } = await axios.get(`https://api.novita.ai/v3/async/task-result?task_id=${task_id}`, {
       headers: {
         'Authorization': `Bearer ${novitaaiKey}`
       }
     });
-    console.log('videoData', videoData)
-    if(videoData.videos[0]) {
-      const videoUrl = videoData.videos[0].video_url
-      return { videoUrl: videoUrl, message: '動画は開いた後に長押しで保存できます'}
+    if(data.videos[0] && data.videos[0].video_url) {
+      return data.videos[0].video_url
     } else {
-      return { videoUrl: null, message: errorMessage}
+      return null
     }
-  } catch(error) {
-    console.log('create video error', e)
-    return { videoUrl: null, message: errorMessage}
+  } catch(e) {
+    console.log('get video error', e)
+    return null
   }
 }
 
