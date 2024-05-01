@@ -94,9 +94,7 @@ const saveVideo = async({url}) => {
     console.log('Video downloaded to:', uri);
     const { status } = await MediaLibrary.requestPermissionsAsync();
     if (status === 'granted') {
-      const asset = await MediaLibrary.createAssetAsync(uri);
-      await MediaLibrary.createAlbumAsync('Download', asset, false);
-      console.log('Video saved to media library');
+      await MediaLibrary.saveToLibraryAsync(uri)
       return true
     } else {
       return false
