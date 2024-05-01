@@ -60,7 +60,7 @@ export default function RenderImage(props) {
         return (
           <View style={{paddingBottom: height * 0.05, paddingRight: width * 0.1, flexDirection: 'row', justifyContent: 'flex-end'}}>
             <FloatingActionButton
-              icon='video'
+              icon='film'
               onPress={onCreateVideoPress}
               isLoading={false}
               color={colors.pink}
