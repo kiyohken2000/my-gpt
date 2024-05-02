@@ -30,7 +30,6 @@ export default function Chat() {
   const snapPoints = useMemo(() => ['1%', '95%'], []);
   const [sheetPosition, setSheetPosition] = useState(0)
   const [messages, setMessages] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
   const [imagePath, setImagePath] = useState('')
   const [isThirdPerson, setIsThirdPerson] = useState(false)
   const [isImageMode, setIsImageMode] = useState(0)
@@ -39,6 +38,7 @@ export default function Chat() {
   const [negativePromptPony, setNegativePromptPony] = useState('')
   const [negativePromptPvc, setNegativePromptPvc] = useState('')
   const [negativePromptChillOut, setNegativePromptChillOut] = useState('')
+  const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
     setSheetPosition(index)
@@ -101,10 +101,11 @@ export default function Chat() {
       if(messages[0]) {
         const { text, user } = messages[0]
         if(user._id === userIds.user && !isImageMode) {
-          setIsLoading(true)
+          const timestamp = `${moment().unix()}`
+          setCreatingContentIDs(prev => [...prev, timestamp])
           const reply = await generateChatMessage({messages})
           const botMessage = {
-            _id: `${moment().unix()}`,
+            _id: timestamp,
             createdAt: new Date(),
             text: reply,
             user: {
@@ -115,12 +116,13 @@ export default function Chat() {
           setMessages(previousMessages =>
             GiftedChat.append(previousMessages, botMessage),
           )
-          setIsLoading(false)
+          setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
         } else if(user._id === userIds.bot1 && isThirdPerson) {
-          setIsLoading(true)
+          const timestamp = `${moment().unix()}`
+          setCreatingContentIDs(prev => [...prev, timestamp])
           const reply = await generateCommandRMessage({input: text, messages})
           const botMessage = {
-            _id: `${moment().unix()}`,
+            _id: timestamp,
             createdAt: new Date(),
             text: reply,
             user: {
@@ -131,15 +133,16 @@ export default function Chat() {
           setMessages(previousMessages =>
             GiftedChat.append(previousMessages, botMessage),
           )
-          setIsLoading(false)
+          setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
         } else if(user._id === userIds.user && isImageMode) {
-          setIsLoading(true)
+          const timestamp = `${moment().unix()}`
+          setCreatingContentIDs(prev => [...prev, timestamp])
           const {imageUrl, message} = await generateImage({
             text, isImageMode,
             negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc, negativePromptChillOut,
           })
           const botMessage = {
-            _id: `${moment().unix()}`,
+            _id: timestamp,
             createdAt: new Date(),
             text: message,
             image: imageUrl,
@@ -151,7 +154,7 @@ export default function Chat() {
           setMessages(previousMessages =>
             GiftedChat.append(previousMessages, botMessage),
           )
-          setIsLoading(false)
+          setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
         }
       }
     }
@@ -159,11 +162,11 @@ export default function Chat() {
   }, [messages])
 
   const onCreateVideo = async({url}) => {
-    setIsLoading(true)
+    const timestamp = `${moment().unix()}`
+    setCreatingContentIDs(prev => [...prev, timestamp])
     const { videoUrl, message } = await createVideo({url})
-    console.log('videoUrl, message', videoUrl, message)
     const botMessage = {
-      _id: `${moment().unix()}`,
+      _id: timestamp,
       createdAt: new Date(),
       text: message,
       video: videoUrl,
@@ -175,7 +178,7 @@ export default function Chat() {
     setMessages(previousMessages =>
       GiftedChat.append(previousMessages, botMessage),
     )
-    setIsLoading(false)
+    setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
   }
 
   const onSend = useCallback((messages) => {
@@ -263,7 +266,7 @@ export default function Chat() {
             name: userNames.user
           }}
           renderAvatar={null}
-          isTyping={isLoading}
+          isTyping={creatingContentIDs.length?true:false}
           renderSend={renderSend}
           alwaysShowSend={true}
           renderFooter={imagePath?renderChatFooter:null}

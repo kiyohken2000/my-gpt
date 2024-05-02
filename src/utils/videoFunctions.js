@@ -6,6 +6,9 @@ import { errorMessage } from "./textGenerate";
 import * as MediaLibrary from 'expo-media-library';
 import moment from "moment";
 
+const MAX_RETRIES = 15;
+const RETRY_DELAY = 20000;
+
 const createVideo = async({url}) => {
   try {
     const base64strings = await FileSystem.readAsStringAsync(url, {
@@ -34,33 +37,22 @@ const createVideo = async({url}) => {
     });
     const { task_id } = data
     console.log('task_id', task_id)
-    await sleep(60000)
-    console.log('sleep終わった 1回目')
-    const resVideo1 = await getVideo({task_id})
-    if(resVideo1) return { videoUrl: resVideo1, message: '動画は開いた後に長押しで保存できます'}
-    await sleep(60000)
-    console.log('sleep終わった 2回目')
-    const resVideo2 = await getVideo({task_id})
-    if(resVideo2) return { videoUrl: resVideo2, message: '動画は開いた後に長押しで保存できます'}
-    await sleep(60000)
-    console.log('sleep終わった 3回目')
-    const resVideo3 = await getVideo({task_id})
-    if(resVideo3) return { videoUrl: resVideo3, message: '動画は開いた後に長押しで保存できます'}
-    await sleep(60000)
-    console.log('sleep終わった 4回目')
-    const resVideo4 = await getVideo({task_id})
-    if(resVideo4) return { videoUrl: resVideo4, message: '動画は開いた後に長押しで保存できます'}
-    await sleep(60000)
-    console.log('sleep終わった 5回目')
-    const resVideo5 = await getVideo({task_id})
-    if(resVideo5) return { videoUrl: resVideo5, message: '動画は開いた後に長押しで保存できます'}
-    await sleep(60000)
-    console.log('sleep終わった 5回目')
-    const resVideo6 = await getVideo({task_id})
-    if(resVideo6) return { videoUrl: resVideo6, message: '動画は開いた後に長押しで保存できます'}
+
+    for (let i = 0; i < MAX_RETRIES; i++) {
+      await sleep(RETRY_DELAY);
+      console.log(`sleep終わった ${i + 1}回目`);
+
+      const resVideo = await getVideo({ task_id });
+      if (resVideo) {
+        return {
+          videoUrl: resVideo,
+          message: "動画は開いた後に長押しで保存できます",
+        };
+      }
+    }
 
     return { videoUrl: null, message: errorMessage}
-  } catch(error) {
+  } catch(e) {
     console.log('create video error', e)
     return { videoUrl: null, message: errorMessage}
   }
