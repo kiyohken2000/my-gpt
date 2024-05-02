@@ -34,7 +34,7 @@ export default function Settings(props) {
         negativePrompt={negativePromptRealisticVision}
         setNegativePrompt={setNegativePromptRealisticVision}
       />
-      {isReview?
+      {!isReview?
         <NegativePromptItem
           label='ANIMAGINE'
           negativePrompt={negativePromptAnimagine}
@@ -50,7 +50,7 @@ export default function Settings(props) {
         />
         :null
       }
-      {isReview?
+      {!isReview?
         <NegativePromptItem
           label='PVC'
           negativePrompt={negativePromptPvc}

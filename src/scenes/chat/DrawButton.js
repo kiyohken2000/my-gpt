@@ -53,7 +53,7 @@ export default function DrawButton(props) {
         <MenuDivider />
         <MenuItem onPress={() => onItemPress({val: 1})}>{`RealisticVision${isImageMode === 1?'✔':''}`}</MenuItem>
         <MenuDivider />
-        {isReview?
+        {!isReview?
           <MenuItem onPress={() => onItemPress({val: 2})}>{`ANIMAGINE${isImageMode === 2?'✔':''}`}</MenuItem>
           :null
         }
@@ -63,7 +63,7 @@ export default function DrawButton(props) {
           :null
         }
         <MenuDivider />
-        {isReview?
+        {!isReview?
           <MenuItem onPress={() => onItemPress({val: 4})}>{`PVC${isImageMode === 4?'✔':''}`}</MenuItem>:
           null
         }
