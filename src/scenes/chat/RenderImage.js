@@ -3,7 +3,6 @@ import { Image, StyleSheet, Dimensions, TouchableOpacity, View } from "react-nat
 import ImageView from "react-native-image-viewing";
 import { saveImage, downloadAndSaveBlob } from "../../utils/downloadFunctions";
 import moment from "moment";
-import Spinner from 'react-native-loading-spinner-overlay';
 import { colors } from "../../theme";
 import FloatingActionButton from "../../components/FloatingActionButton";
 import * as Clipboard from 'expo-clipboard';
@@ -46,10 +45,6 @@ export default function RenderImage(props) {
 
   return (
     <>
-    <Spinner
-      visible={isLoading}
-      overlayColor={colors.clearBlack}
-    />
     <ImageView
       images={[{uri: url}]}
       imageIndex={0}
