@@ -39,11 +39,14 @@ export default function Settings(props) {
         negativePrompt={negativePromptAnimagine}
         setNegativePrompt={setNegativePromptAnimagine}
       />
-      <NegativePromptItem
-        label='Pony'
-        negativePrompt={negativePromptPony}
-        setNegativePrompt={setNegativePromptPony}
-      />
+      {!isReview?
+        <NegativePromptItem
+          label='Pony'
+          negativePrompt={negativePromptPony}
+          setNegativePrompt={setNegativePromptPony}
+        />
+        :null
+      }
       <NegativePromptItem
         label='PVC'
         negativePrompt={negativePromptPvc}
