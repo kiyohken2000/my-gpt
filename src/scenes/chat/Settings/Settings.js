@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { colors, fontSize } from "../../../theme";
 import Button from "../../../components/Button";
 import { saveNegativePrompt } from "../../../utils/textGenerate";
 import NegativePromptItem from "./NegativePromptItem";
+import { UserContext } from "../../../contexts/UserContext";
 
 export default function Settings(props) {
   const {
@@ -15,6 +16,7 @@ export default function Settings(props) {
     negativePromptPvc, setNegativePromptPvc,
     negativePromptChillOut, setNegativePromptChillOut,
   } = props
+  const { isReview } = useContext(UserContext)
 
   const onOkPress = async() => {
     await saveNegativePrompt({negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc, negativePromptChillOut})
@@ -47,11 +49,14 @@ export default function Settings(props) {
         negativePrompt={negativePromptPvc}
         setNegativePrompt={setNegativePromptPvc}
       />
-      <NegativePromptItem
-        label='ChilloutMix'
-        negativePrompt={negativePromptChillOut}
-        setNegativePrompt={setNegativePromptChillOut}
-      />
+      {!isReview?
+        <NegativePromptItem
+          label='ChilloutMix'
+          negativePrompt={negativePromptChillOut}
+          setNegativePrompt={setNegativePromptChillOut}
+        />
+        :null
+      }
     </KeyboardAwareScrollView>
     <View style={{paddingVertical: 10, paddingHorizontal: 20}}>
       <Button

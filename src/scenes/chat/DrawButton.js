@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import FontIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { colors, fontSize } from "../../theme";
 import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 import { sleep } from "../../utils/utilFunctions";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function DrawButton(props) {
   const { isImageMode, setIsImageMode, setSheetPosition } = props
   const [visible, setVisible] = useState(false);
+  const { isReview } = useContext(UserContext)
 
   const hideMenu = () => setVisible(false);
 
@@ -57,7 +59,10 @@ export default function DrawButton(props) {
         <MenuDivider />
         <MenuItem onPress={() => onItemPress({val: 4})}>{`PVC${isImageMode === 4?'✔':''}`}</MenuItem>
         <MenuDivider />
-        <MenuItem onPress={() => onItemPress({val: 5})}>{`ChilloutMix${isImageMode === 5?'✔':''}`}</MenuItem>
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: 5})}>{`ChilloutMix${isImageMode === 5?'✔':''}`}</MenuItem>
+          :null
+        }
         <MenuDivider />
         <MenuItem onPress={onSettingsPress}>画像生成設定</MenuItem>
       </Menu>

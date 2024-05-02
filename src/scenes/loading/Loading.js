@@ -7,13 +7,14 @@ import { fontSize } from 'theme'
 
 export default function Loading() {
   const dispatch = useDispatch()
-  const { setUser } = useContext(UserContext)
+  const { setUser, getReviewStatus } = useContext(UserContext)
 
   useEffect(() => {
     initialize()
   }, [])
 
   const initialize = async() => {
+    await getReviewStatus()
     const user = {
       id: 'user-1234567',
       userName: 'abcdef'
