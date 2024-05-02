@@ -34,11 +34,14 @@ export default function Settings(props) {
         negativePrompt={negativePromptRealisticVision}
         setNegativePrompt={setNegativePromptRealisticVision}
       />
-      <NegativePromptItem
-        label='ANIMAGINE'
-        negativePrompt={negativePromptAnimagine}
-        setNegativePrompt={setNegativePromptAnimagine}
-      />
+      {isReview?
+        <NegativePromptItem
+          label='ANIMAGINE'
+          negativePrompt={negativePromptAnimagine}
+          setNegativePrompt={setNegativePromptAnimagine}
+        />
+        :null
+      }
       {!isReview?
         <NegativePromptItem
           label='Pony'
@@ -47,11 +50,14 @@ export default function Settings(props) {
         />
         :null
       }
-      <NegativePromptItem
-        label='PVC'
-        negativePrompt={negativePromptPvc}
-        setNegativePrompt={setNegativePromptPvc}
-      />
+      {isReview?
+        <NegativePromptItem
+          label='PVC'
+          negativePrompt={negativePromptPvc}
+          setNegativePrompt={setNegativePromptPvc}
+        />
+        :null
+      }
       {!isReview?
         <NegativePromptItem
           label='ChilloutMix'

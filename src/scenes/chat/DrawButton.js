@@ -53,14 +53,20 @@ export default function DrawButton(props) {
         <MenuDivider />
         <MenuItem onPress={() => onItemPress({val: 1})}>{`RealisticVision${isImageMode === 1?'✔':''}`}</MenuItem>
         <MenuDivider />
-        <MenuItem onPress={() => onItemPress({val: 2})}>{`ANIMAGINE${isImageMode === 2?'✔':''}`}</MenuItem>
+        {isReview?
+          <MenuItem onPress={() => onItemPress({val: 2})}>{`ANIMAGINE${isImageMode === 2?'✔':''}`}</MenuItem>
+          :null
+        }
         <MenuDivider />
         {!isReview?
           <MenuItem onPress={() => onItemPress({val: 3})}>{`Pony${isImageMode === 3?'✔':''}`}</MenuItem>
           :null
         }
         <MenuDivider />
-        <MenuItem onPress={() => onItemPress({val: 4})}>{`PVC${isImageMode === 4?'✔':''}`}</MenuItem>
+        {isReview?
+          <MenuItem onPress={() => onItemPress({val: 4})}>{`PVC${isImageMode === 4?'✔':''}`}</MenuItem>:
+          null
+        }
         <MenuDivider />
         {!isReview?
           <MenuItem onPress={() => onItemPress({val: 5})}>{`ChilloutMix${isImageMode === 5?'✔':''}`}</MenuItem>
