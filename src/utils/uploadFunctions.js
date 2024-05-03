@@ -17,7 +17,9 @@ const uploadFunction = async({url}) => {
         'Content-Type': 'multipart/form-data'
       }
     });
-    return data.data.url
+    const imageUrl = data.data.url
+    const viewerUrl = data.data.url_viewer
+    return { imageUrl, viewerUrl }
   } catch(e) {
     console.log('upload function error', e)
     throw new Error('upload function error')

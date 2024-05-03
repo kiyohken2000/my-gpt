@@ -8,6 +8,8 @@ import FloatingActionButton from "../../components/FloatingActionButton";
 import * as Clipboard from 'expo-clipboard';
 import { uploadFunction } from "../../utils/uploadFunctions";
 import { showToast } from "../../utils/showToast";
+import ImageActionButton from "../../components/ImageActionButton";
+import * as Linking from 'expo-linking';
 
 const { width, height } = Dimensions.get('window')
 
@@ -15,6 +17,7 @@ export default function RenderImage(props) {
   const { url, onCreateVideo } = props
   const [visible, setIsVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [isUploading, setIsUploading] = useState(false)
 
   const onSavePress = async() => {
     setIsLoading(true)
@@ -27,7 +30,7 @@ export default function RenderImage(props) {
   const onCopyPress = async() => {
     try {
       setIsLoading(true)
-      const imageUrl = await uploadFunction({url})
+      const {imageUrl, viewerUrl} = await uploadFunction({url})
       await Clipboard.setStringAsync(imageUrl);
       showToast({title: 'URLをコピーしました', body: ''})
       setIsVisible(false)
@@ -35,6 +38,19 @@ export default function RenderImage(props) {
       console.log('on copy error', e)
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const onTwitterSharePress = async() => {
+    try {
+      setIsUploading(true)
+      const {imageUrl, viewerUrl} = await uploadFunction({url})
+      const shareUrl = `https://twitter.com/intent/tweet?text=#ガチ有能AI助手 で画像を生成しました ${viewerUrl}`
+      Linking.openURL(shareUrl)
+    } catch(e) {
+      console.log('on twitter share error', e)
+    } finally {
+      setIsUploading(false)
     }
   }
 
@@ -54,6 +70,14 @@ export default function RenderImage(props) {
       FooterComponent={(props) => {
         return (
           <View style={{paddingBottom: height * 0.05, paddingRight: width * 0.1, flexDirection: 'row', justifyContent: 'flex-end'}}>
+            <ImageActionButton
+              source={require('../../../assets/images/twitter_x_logo.png')}
+              onPress={onTwitterSharePress}
+              isLoading={isUploading}
+              color={colors.white}
+              iconColor={colors.purple}
+            />
+            <View style={{paddingHorizontal: 10}} />
             <FloatingActionButton
               icon='film'
               onPress={onCreateVideoPress}
