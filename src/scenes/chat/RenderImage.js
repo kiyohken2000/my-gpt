@@ -45,7 +45,9 @@ export default function RenderImage(props) {
     try {
       setIsUploading(true)
       const {imageUrl, viewerUrl} = await uploadFunction({url})
-      const shareUrl = `https://twitter.com/intent/tweet?text=#ガチ有能AI助手 で画像を生成しました ${viewerUrl}`
+      const text = `#ガチ有能AI助手 で画像を生成しました ${viewerUrl}`
+      const encodedText = encodeURIComponent(text)
+      const shareUrl = `https://twitter.com/intent/tweet?text=${encodedText}`
       Linking.openURL(shareUrl)
     } catch(e) {
       console.log('on twitter share error', e)
