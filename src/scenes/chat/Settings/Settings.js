@@ -6,6 +6,7 @@ import Button from "../../../components/Button";
 import { saveNegativePrompt } from "../../../utils/textGenerate";
 import NegativePromptItem from "./NegativePromptItem";
 import { UserContext } from "../../../contexts/UserContext";
+import { recommendNegativePrompt } from "../../../config";
 
 export default function Settings(props) {
   const {
@@ -33,12 +34,14 @@ export default function Settings(props) {
         label='RealisticVision'
         negativePrompt={negativePromptRealisticVision}
         setNegativePrompt={setNegativePromptRealisticVision}
+        recommendNegativePrompt={recommendNegativePrompt.realisticVision}
       />
       {!isReview?
         <NegativePromptItem
           label='ANIMAGINE'
           negativePrompt={negativePromptAnimagine}
           setNegativePrompt={setNegativePromptAnimagine}
+          recommendNegativePrompt={recommendNegativePrompt.animagine}
         />
         :null
       }
@@ -47,6 +50,7 @@ export default function Settings(props) {
           label='Pony'
           negativePrompt={negativePromptPony}
           setNegativePrompt={setNegativePromptPony}
+          recommendNegativePrompt={recommendNegativePrompt.pony}
         />
         :null
       }
@@ -55,6 +59,7 @@ export default function Settings(props) {
           label='PVC'
           negativePrompt={negativePromptPvc}
           setNegativePrompt={setNegativePromptPvc}
+          recommendNegativePrompt={recommendNegativePrompt.pvc}
         />
         :null
       }
@@ -63,6 +68,7 @@ export default function Settings(props) {
           label='ChilloutMix'
           negativePrompt={negativePromptChillOut}
           setNegativePrompt={setNegativePromptChillOut}
+          recommendNegativePrompt={recommendNegativePrompt.chilloutMix}
         />
         :null
       }

@@ -18,13 +18,14 @@ export default function RenderImage(props) {
   const [visible, setIsVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
+  const [isDownloading, setIsDownloading] = useState(false)
 
   const onSavePress = async() => {
-    setIsLoading(true)
+    setIsDownloading(true)
     const fileName = `${moment().unix()}.jpg`
     await saveImage({url, fileName})
     setIsVisible(false)
-    setIsLoading(false)
+    setIsDownloading(false)
   }
 
   const onCopyPress = async() => {
@@ -79,7 +80,15 @@ export default function RenderImage(props) {
               color={colors.white}
               iconColor={colors.purple}
             />
-            <View style={{paddingHorizontal: 10}} />
+            <View style={{paddingHorizontal: 5}} />
+            <FloatingActionButton
+              icon='download'
+              onPress={onSavePress}
+              isLoading={isDownloading}
+              color={colors.redSecondary}
+              iconColor={colors.white}
+            />
+            <View style={{paddingHorizontal: 5}} />
             <FloatingActionButton
               icon='film'
               onPress={onCreateVideoPress}
@@ -87,7 +96,7 @@ export default function RenderImage(props) {
               color={colors.pink}
               iconColor={colors.white}
             />
-            <View style={{paddingHorizontal: 10}} />
+            <View style={{paddingHorizontal: 5}} />
             <FloatingActionButton
               icon='copy'
               onPress={onCopyPress}

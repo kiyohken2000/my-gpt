@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Dimensions, TouchableOpacity } from "react-native";
 import { colors, fontSize } from "../../../theme";
 import FontIcon from 'react-native-vector-icons/Feather'
+import FloatingActionButton from "../../../components/FloatingActionButton";
 
 const { height, width } = Dimensions.get('screen')
 
 export default function NegativePromptItem(props) {
-  const { negativePrompt, setNegativePrompt, label } = props
+  const { negativePrompt, setNegativePrompt, label, recommendNegativePrompt } = props
   const [visible, setVisible] = useState(false)
 
   return (
@@ -31,6 +32,15 @@ export default function NegativePromptItem(props) {
             maxLength={500}
             multiline={true}
           />
+          <View style={{flexDirection: 'row', paddingTop: 10}}>
+            <FloatingActionButton
+              icon='star'
+              onPress={() => setNegativePrompt(recommendNegativePrompt)}
+              isLoading={false}
+              color={colors.yellowPrimary}
+              iconColor={colors.black}
+            />
+          </View>
         </View>
         :null
       }
