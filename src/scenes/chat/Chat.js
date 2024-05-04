@@ -91,7 +91,9 @@ export default function Chat() {
   }, [navigation, isThirdPerson, isImageMode, sheetPosition]);
 
   useEffect(() => {
-    setMessages([])
+    if(isImageMode === 0) {
+      setMessages([])
+    }
     setImagePath('')
     setIsThirdPerson(false)
   }, [isImageMode])
