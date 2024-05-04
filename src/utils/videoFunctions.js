@@ -66,7 +66,12 @@ const getVideo = async({task_id}) => {
       }
     });
     if(data.videos[0] && data.videos[0].video_url) {
-      return data.videos[0].video_url
+      const downloadResumable = FileSystem.createDownloadResumable(
+        data.videos[0].video_url,
+        FileSystem.documentDirectory + moment().unix() + '.mp4'
+      );
+      const { uri } = await downloadResumable.downloadAsync();
+      return uri
     } else {
       return null
     }
@@ -78,15 +83,9 @@ const getVideo = async({task_id}) => {
 
 const saveVideo = async({url}) => {
   try {
-    const downloadResumable = FileSystem.createDownloadResumable(
-      url,
-      FileSystem.documentDirectory + moment().unix() + '.mp4'
-    );
-    const { uri } = await downloadResumable.downloadAsync();
-    console.log('Video downloaded to:', uri);
     const { status } = await MediaLibrary.requestPermissionsAsync();
     if (status === 'granted') {
-      await MediaLibrary.saveToLibraryAsync(uri)
+      await MediaLibrary.saveToLibraryAsync(url)
       return true
     } else {
       return false
