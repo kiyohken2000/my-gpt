@@ -192,7 +192,7 @@ export default function Chat() {
       _id: timestamp,
       createdAt: new Date(),
       text: message,
-      image: imageUrl,
+      image: _imagePath,
       user: {
         _id: userIds.bot5,
         name: userNames.bot5,
