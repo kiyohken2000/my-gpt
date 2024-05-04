@@ -1,6 +1,6 @@
 import { googleSheetKey } from "./openaiKeys"
 
-const versionName = '1.0.25'
+const versionName = '1.0.26'
 
 const sheetId = '15OtDRuaSXWhZ8odAHi0E7Pn93hzvO3gvDIYSpopNngY'
 const sheetName = 'sheet2'
@@ -14,4 +14,12 @@ const recommendNegativePrompt = {
   chilloutMix: 'paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, (outdoor:1.6), manboobs, (backlight:1.2), double navel, mutad arms, hused arms, neck lace, analog, analog effects, (sunglass:1.4), nipples, nsfw, bad architecture', 
 }
 
-export { versionName, googleSheetUrl, recommendNegativePrompt }
+const myEndpoints = {
+  generateTags: 'https://mygpt-api-omc3n2et7a-uc.a.run.app'
+}
+
+const headers = {
+  "Content-Type": "application/json",
+}
+
+export { versionName, googleSheetUrl, recommendNegativePrompt, myEndpoints, headers }

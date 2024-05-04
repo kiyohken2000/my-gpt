@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import { View, StyleSheet, Platform, Image } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { GiftedChat, Send } from 'react-native-gifted-chat'
-import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage, loadNegativePrompt } from '../../utils/textGenerate';
+import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage, loadNegativePrompt, generateTags } from '../../utils/textGenerate';
 import moment from 'moment';
 import SendButton from './SendButton';
 import ImageButton from './ImageButton';
@@ -183,6 +183,28 @@ export default function Chat() {
     setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
   }
 
+  const onTagPress = async() => {
+    const timestamp = `${moment().unix()}`
+    const _imagePath = imagePath
+    setCreatingContentIDs(prev => [...prev, timestamp])
+    const {message, imageUrl} = await generateTags({imagePath: _imagePath})
+    const botMessage = {
+      _id: timestamp,
+      createdAt: new Date(),
+      text: message,
+      image: imageUrl,
+      user: {
+        _id: userIds.bot5,
+        name: userNames.bot5,
+      }
+    }
+    setMessages(previousMessages =>
+      GiftedChat.append(previousMessages, botMessage),
+    )
+    setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
+    setImagePath('')
+  }
+
   const onSend = useCallback((messages) => {
     const newMessage = {
       ...messages[0],
@@ -210,6 +232,8 @@ export default function Chat() {
       <FooterImage
         imagePath={imagePath}
         onImagePress={() => setImagePath('')}
+        onTagPress={onTagPress}
+        isLoading={creatingContentIDs.length?true:false}
       />
     )
   }

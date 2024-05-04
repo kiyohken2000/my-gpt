@@ -4,6 +4,8 @@ import * as FileSystem from 'expo-file-system';
 import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 import { convertBlobToImage } from "./downloadFunctions";
 import { storage } from "./storage";
+import { uploadFunction } from "./uploadFunctions";
+import { myEndpoints, headers } from "../config";
 
 const apiUrl = 'https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage';
 const errorMessage = 'すみません。よくわかりませんでした'
@@ -14,6 +16,7 @@ const userIds = {
   bot2: 3,
   bot3: 4,
   bot4: 5,
+  bot5: 6,
 }
 
 const userNames = {
@@ -22,6 +25,7 @@ const userNames = {
   bot2: 'commandr',
   bot3: 'image',
   bot4: 'video',
+  bot5: 'prompts',
 }
 
 const generateMessage = async({inputText}) => {
@@ -137,6 +141,9 @@ const roleSwitch = ({user}) => {
     1: 'user',
     2: 'model',
     3: 'user',
+    4: 'user',
+    5: 'user',
+    6: 'user',
     'default': 'user'
   }
   return (roles[_id] || roles['default'])
@@ -148,6 +155,9 @@ const roleSwitchChatHistory = ({user}) => {
     1: 'USER',
     2: 'USER',
     3: 'CHATBOT',
+    4: 'USER',
+    5: 'USER',
+    6: 'USER',
     'default': 'USER'
   }
   return (roles[_id] || roles['default'])
@@ -166,7 +176,8 @@ const formatChatHistory = ({messages}) => {
 
 const generateCommandRMessage = async({input, messages}) => {
   try {
-    const chat_history = formatChatHistory({messages})
+    const _messages = messages.filter((v) => v.user._id === userIds.user || v.user._id === userIds.bot1 || v.user._id == userIds.bot2)
+    const chat_history = formatChatHistory({messages: _messages})
     const url = 'https://api.cohere.ai/v1/chat';
     const headers = {
       'accept': 'application/json',
@@ -279,8 +290,26 @@ const saveNegativePrompt = async({
   await storage.save({key: 'negativePromptChillOut', data: negativePromptChillOut})
 }
 
+const generateTags = async({imagePath}) => {
+  try {
+    const { imageUrl, viewerUrl } = await uploadFunction({url: imagePath})
+    const requestBody = {
+      data: imageUrl,
+    }
+    const { data } = await axios.post(
+      myEndpoints.generateTags,
+      requestBody,
+      {headers: headers}
+    );
+    return {message: data, imageUrl: imageUrl}
+  } catch(e) {
+    console.log('generate tag error', e)
+    return {message: errorMessage, imageUrl: null}
+  }
+}
+
 export {
   generateMessage, generateChatMessage, userIds, errorMessage,
   generateCommandRMessage, userNames, generateImage, loadNegativePrompt,
-  saveNegativePrompt,
+  saveNegativePrompt, generateTags,
 }
