@@ -31,7 +31,7 @@ export default function RenderImage(props) {
   const onCopyPress = async() => {
     try {
       setIsLoading(true)
-      const {imageUrl, viewerUrl} = await uploadFunction({url})
+      const {imageUrl, viewerUrl} = await uploadFunction({url, expiration: null})
       await Clipboard.setStringAsync(imageUrl);
       showToast({title: 'URLをコピーしました', body: ''})
       setIsVisible(false)
@@ -45,7 +45,7 @@ export default function RenderImage(props) {
   const onTwitterSharePress = async() => {
     try {
       setIsUploading(true)
-      const {imageUrl, viewerUrl} = await uploadFunction({url})
+      const {imageUrl, viewerUrl} = await uploadFunction({url, expiration: null})
       const text = `#ガチ有能AI助手 で画像を生成しました ${viewerUrl}`
       const encodedText = encodeURIComponent(text)
       const shareUrl = `https://twitter.com/intent/tweet?text=${encodedText}`

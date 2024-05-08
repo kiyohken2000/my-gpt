@@ -3,7 +3,7 @@ import { imgbbKey } from "../openaiKeys";
 import * as FileSystem from 'expo-file-system';
 import { myEndpoints, imgurKey } from "../config";
 
-const uploadFunction = async({url}) => {
+const uploadFunction = async({url, expiration}) => {
   try {
     const base64strings = await FileSystem.readAsStringAsync(url, {
       encoding: FileSystem.EncodingType.Base64
@@ -12,6 +12,7 @@ const uploadFunction = async({url}) => {
     formData.append('image', base64strings);
     const { data } = await axios.post('https://api.imgbb.com/1/upload', formData, {
       params: {
+        expiration,
         key: imgbbKey
       },
       headers: {

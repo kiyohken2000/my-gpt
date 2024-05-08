@@ -292,7 +292,7 @@ const saveNegativePrompt = async({
 
 const generateTags = async({imagePath}) => {
   try {
-    const { imageUrl, viewerUrl } = await uploadFunction({url: imagePath})
+    const { imageUrl, viewerUrl } = await uploadFunction({url: imagePath, expiration: 300})
     const requestBody = {
       data: imageUrl,
     }
