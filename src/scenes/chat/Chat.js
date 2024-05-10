@@ -103,7 +103,7 @@ export default function Chat() {
       if(messages[0]) {
         const { text, user } = messages[0]
         if(user._id === userIds.user && !isImageMode) {
-          const timestamp = `${moment().unix()}`
+          const timestamp = `${moment().valueOf()}`
           setCreatingContentIDs(prev => [...prev, timestamp])
           const reply = await generateChatMessage({messages})
           const botMessage = {
@@ -120,7 +120,7 @@ export default function Chat() {
           )
           setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
         } else if(user._id === userIds.bot1 && isThirdPerson) {
-          const timestamp = `${moment().unix()}`
+          const timestamp = `${moment().valueOf()}`
           setCreatingContentIDs(prev => [...prev, timestamp])
           const reply = await generateCommandRMessage({input: text, messages})
           const botMessage = {
@@ -137,7 +137,7 @@ export default function Chat() {
           )
           setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
         } else if(user._id === userIds.user && isImageMode) {
-          const timestamp = `${moment().unix()}`
+          const timestamp = `${moment().valueOf()}`
           setCreatingContentIDs(prev => [...prev, timestamp])
           const {imageUrl, message} = await generateImage({
             text, isImageMode,
@@ -164,7 +164,7 @@ export default function Chat() {
   }, [messages])
 
   const onCreateVideo = async({url}) => {
-    const timestamp = `${moment().unix()}`
+    const timestamp = `${moment().valueOf()}`
     setCreatingContentIDs(prev => [...prev, timestamp])
     const { videoUrl, message } = await createVideo({url})
     const botMessage = {
@@ -184,8 +184,9 @@ export default function Chat() {
   }
 
   const onTagPress = async() => {
-    const timestamp = `${moment().unix()}`
+    const timestamp = `${moment().valueOf()}`
     const _imagePath = imagePath
+    setImagePath('')
     setCreatingContentIDs(prev => [...prev, timestamp])
     const {message, imageUrl} = await generateTags({imagePath: _imagePath})
     const botMessage = {
@@ -202,7 +203,6 @@ export default function Chat() {
       GiftedChat.append(previousMessages, botMessage),
     )
     setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
-    setImagePath('')
   }
 
   const onSend = useCallback((messages) => {
@@ -292,10 +292,10 @@ export default function Chat() {
             name: userNames.user
           }}
           renderAvatar={null}
-          isTyping={creatingContentIDs.length?true:false}
+          //isTyping={creatingContentIDs.length?true:false}
           renderSend={renderSend}
           alwaysShowSend={true}
-          renderFooter={imagePath?renderChatFooter:null}
+          renderFooter={renderChatFooter}
           placeholder={messages.length?'メッセージを入力':'お気軽にご質問ください'}
           keyboardShouldPersistTaps='never'
           maxInputLength={isImageMode?1000:100}
