@@ -14,7 +14,7 @@ export const UserContextProvider = (props) => {
     try {
       const { data } = await axios.get(googleSheetUrl)
       const _data = formatData({data})
-      if(_data[0].nowReview === '36' && Platform.OS === 'ios') {
+      if(_data[0].nowReview === '37' && Platform.OS === 'ios') {
         console.log('レビュー中')
         setIsReview(true)
       } else {

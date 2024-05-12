@@ -73,6 +73,21 @@ export default function DrawButton(props) {
           :null
         }
         <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: 6})}>{`NsfwGenAnime${isImageMode === 6?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: 7})}>{`NovelAIRemix${isImageMode === 7?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: 8})}>{`NsfwGen${isImageMode === 8?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
         <MenuItem onPress={onSettingsPress}>画像生成設定</MenuItem>
       </Menu>
     </View>

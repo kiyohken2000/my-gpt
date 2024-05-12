@@ -16,11 +16,17 @@ export default function Settings(props) {
     negativePromptPony, setNegativePromptPony,
     negativePromptPvc, setNegativePromptPvc,
     negativePromptChillOut, setNegativePromptChillOut,
+    negativePromptNsfwGenAnime, setNegativePromptNsfwGenAnime,
+    negativePromptNovelAIRemix, setNegativePromptNovelAIRemix,
+    negativePromptNsfwGen, setNegativePromptNsfwGen,
   } = props
   const { isReview } = useContext(UserContext)
 
   const onOkPress = async() => {
-    await saveNegativePrompt({negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc, negativePromptChillOut})
+    await saveNegativePrompt({
+      negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
+      negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
+    })
     setSheetPosition(0)
   }
 
@@ -69,6 +75,33 @@ export default function Settings(props) {
           negativePrompt={negativePromptChillOut}
           setNegativePrompt={setNegativePromptChillOut}
           recommendNegativePrompt={recommendNegativePrompt.chilloutMix}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label='NsfwGenAnime'
+          negativePrompt={negativePromptNsfwGenAnime}
+          setNegativePrompt={setNegativePromptNsfwGenAnime}
+          recommendNegativePrompt={recommendNegativePrompt.nsfwGenAnime}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label='NovelAIRemix'
+          negativePrompt={negativePromptNovelAIRemix}
+          setNegativePrompt={setNegativePromptNovelAIRemix}
+          recommendNegativePrompt={recommendNegativePrompt.novelAIRemix}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label='NsfwGen'
+          negativePrompt={negativePromptNsfwGen}
+          setNegativePrompt={setNegativePromptNsfwGen}
+          recommendNegativePrompt={recommendNegativePrompt.nsfwGen}
         />
         :null
       }

@@ -38,6 +38,9 @@ export default function Chat() {
   const [negativePromptPony, setNegativePromptPony] = useState('')
   const [negativePromptPvc, setNegativePromptPvc] = useState('')
   const [negativePromptChillOut, setNegativePromptChillOut] = useState('')
+  const [negativePromptNsfwGenAnime, setNegativePromptNsfwGenAnime] = useState('')
+  const [negativePromptNovelAIRemix, setNegativePromptNovelAIRemix] = useState('')
+  const [negativePromptNsfwGen, setNegativePromptNsfwGen] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -52,12 +55,18 @@ export default function Chat() {
         _negativePromptPony,
         _negativePromptPvc,
         _negativePromptChillOut,
+        _negativePromptNsfwGenAnime,
+        _negativePromptNovelAIRemix,
+        _negativePromptNsfwGen,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
       setNegativePromptPony(_negativePromptPony)
       setNegativePromptPvc(_negativePromptPvc)
       setNegativePromptChillOut(_negativePromptChillOut)
+      setNegativePromptNsfwGenAnime(_negativePromptNsfwGenAnime)
+      setNegativePromptNovelAIRemix(_negativePromptNovelAIRemix)
+      setNegativePromptNsfwGen(_negativePromptNsfwGen)
     }
     loadStorage()
   }, [])
@@ -141,7 +150,8 @@ export default function Chat() {
           setCreatingContentIDs(prev => [...prev, timestamp])
           const {imageUrl, message} = await generateImage({
             text, isImageMode,
-            negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc, negativePromptChillOut,
+            negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
+            negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
           })
           const botMessage = {
             _id: timestamp,
@@ -323,6 +333,12 @@ export default function Chat() {
           setNegativePromptPvc={setNegativePromptPvc}
           negativePromptChillOut={negativePromptChillOut}
           setNegativePromptChillOut={setNegativePromptChillOut}
+          negativePromptNsfwGenAnime={negativePromptNsfwGenAnime}
+          setNegativePromptNsfwGenAnime={setNegativePromptNsfwGenAnime}
+          negativePromptNovelAIRemix={negativePromptNovelAIRemix}
+          setNegativePromptNovelAIRemix={setNegativePromptNovelAIRemix}
+          negativePromptNsfwGen={negativePromptNsfwGen}
+          setNegativePromptNsfwGen={setNegativePromptNsfwGen}
           setSheetPosition={setSheetPosition}
         />
       </BottomSheet>

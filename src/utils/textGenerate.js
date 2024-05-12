@@ -203,11 +203,15 @@ const generateCommandRMessage = async({input, messages}) => {
 }
 
 const generateImage = async({
-  text, isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc, negativePromptChillOut
+  text, isImageMode,
+  negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
+  negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
 }) => {
   try {
     const { apiUrl, negativePrompt } = selectImageAPI({
-      isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc, negativePromptChillOut
+      isImageMode,
+      negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
+      negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
     })
     const { data } = await axios.post(
       apiUrl,
@@ -232,13 +236,18 @@ const generateImage = async({
 }
 
 const selectImageAPI = ({
-  isImageMode, negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptChillOut,
+  isImageMode,
+  negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
+  negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
 }) => {
   const RealisticVision = 'https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4'
   const Animagine = 'https://api-inference.huggingface.co/models/cagliostrolab/animagine-xl-3.1'
   const pony = 'https://api-inference.huggingface.co/models/stablediffusionapi/pony-diffusion-v6-xl'
   const pvc = 'https://api-inference.huggingface.co/models/p1atdev/pvcxl-v1-lora'
   const chillout = 'https://api-inference.huggingface.co/models/Yntec/ChilloutMix'
+  const nsfwGenAnime = 'https://api-inference.huggingface.co/models/UnfilteredAI/NSFW-GEN-ANIME-v2'
+  const novelAIRemix = 'https://api-inference.huggingface.co/models/Yntec/NovelAIRemix'
+  const nsfwGen = 'https://api-inference.huggingface.co/models/UnfilteredAI/NSFW-gen-v2'
   switch (isImageMode){
     case 1:
       return { apiUrl: RealisticVision, negativePrompt: negativePromptRealisticVision }
@@ -247,9 +256,15 @@ const selectImageAPI = ({
     case 3:
       return { apiUrl: pony, negativePrompt: negativePromptPony }
     case 4:
-      return { apiUrl: pvc, negativePrompt: negativePromptPony }
+      return { apiUrl: pvc, negativePrompt: negativePromptPvc }
     case 5:
       return { apiUrl: chillout, negativePrompt: negativePromptChillOut }
+    case 6:
+      return { apiUrl: nsfwGenAnime, negativePrompt: negativePromptNsfwGenAnime }
+    case 7:
+      return { apiUrl: novelAIRemix, negativePrompt: negativePromptNovelAIRemix }
+    case 8:
+      return { apiUrl: nsfwGen, negativePrompt: negativePromptNsfwGen }
     default:
       return { apiUrl: RealisticVision, negativePrompt: negativePromptRealisticVision }
   }
@@ -261,12 +276,18 @@ const loadNegativePrompt = async() => {
   const _negativePromptPony = await loadNegativePromptOfModel({key: 'negativePromptPony'})
   const _negativePromptPvc = await loadNegativePromptOfModel({key: 'negativePromptPvc'})
   const _negativePromptChillOut = await loadNegativePromptOfModel({key: 'negativePromptChillOut'})
+  const _negativePromptNsfwGenAnime = await loadNegativePromptOfModel({key: 'negativePromptNsfwGenAnime'})
+  const _negativePromptNovelAIRemix = await loadNegativePromptOfModel({key: 'negativePromptNovelAIRemix'})
+  const _negativePromptNsfwGen = await loadNegativePromptOfModel({key: 'negativePromptNsfwGen'})
   return {
     _negativePromptRealisticVision,
     _negativePromptAnimagine,
     _negativePromptPony,
     _negativePromptPvc,
     _negativePromptChillOut,
+    _negativePromptNsfwGenAnime,
+    _negativePromptNovelAIRemix,
+    _negativePromptNsfwGen,
   }
 }
 
@@ -281,13 +302,17 @@ const loadNegativePromptOfModel = async({key}) => {
 }
 
 const saveNegativePrompt = async({
-  negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc, negativePromptChillOut
+  negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
+  negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
 }) => {
   await storage.save({key: 'negativePromptRealisticVision', data: negativePromptRealisticVision})
   await storage.save({key: 'negativePromptAnimagine', data: negativePromptAnimagine})
   await storage.save({key: 'negativePromptPony', data: negativePromptPony})
   await storage.save({key: 'negativePromptPvc', data: negativePromptPvc})
   await storage.save({key: 'negativePromptChillOut', data: negativePromptChillOut})
+  await storage.save({key: 'negativePromptNsfwGenAnime', data: negativePromptNsfwGenAnime})
+  await storage.save({key: 'negativePromptNovelAIRemix', data: negativePromptNovelAIRemix})
+  await storage.save({key: 'negativePromptNsfwGen', data: negativePromptNsfwGen})
 }
 
 const generateTags = async({imagePath}) => {
