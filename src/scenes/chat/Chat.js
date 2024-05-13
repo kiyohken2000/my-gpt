@@ -41,6 +41,7 @@ export default function Chat() {
   const [negativePromptNsfwGenAnime, setNegativePromptNsfwGenAnime] = useState('')
   const [negativePromptNovelAIRemix, setNegativePromptNovelAIRemix] = useState('')
   const [negativePromptNsfwGen, setNegativePromptNsfwGen] = useState('')
+  const [negativePromptDeliberate, setNegativePromptDeliberate] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -58,6 +59,7 @@ export default function Chat() {
         _negativePromptNsfwGenAnime,
         _negativePromptNovelAIRemix,
         _negativePromptNsfwGen,
+        _negativePromptDeliberate,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -67,6 +69,7 @@ export default function Chat() {
       setNegativePromptNsfwGenAnime(_negativePromptNsfwGenAnime)
       setNegativePromptNovelAIRemix(_negativePromptNovelAIRemix)
       setNegativePromptNsfwGen(_negativePromptNsfwGen)
+      setNegativePromptDeliberate(_negativePromptDeliberate)
     }
     loadStorage()
   }, [])
@@ -152,6 +155,7 @@ export default function Chat() {
             text, isImageMode,
             negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
             negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
+            negativePromptDeliberate,
           })
           const botMessage = {
             _id: timestamp,
@@ -339,6 +343,8 @@ export default function Chat() {
           setNegativePromptNovelAIRemix={setNegativePromptNovelAIRemix}
           negativePromptNsfwGen={negativePromptNsfwGen}
           setNegativePromptNsfwGen={setNegativePromptNsfwGen}
+          negativePromptDeliberate={negativePromptDeliberate}
+          setNegativePromptDeliberate={setNegativePromptDeliberate}
           setSheetPosition={setSheetPosition}
         />
       </BottomSheet>

@@ -88,6 +88,11 @@ export default function DrawButton(props) {
           :null
         }
         <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: 9})}>{`Deliberate${isImageMode === 9?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
         <MenuItem onPress={onSettingsPress}>画像生成設定</MenuItem>
       </Menu>
     </View>

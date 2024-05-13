@@ -19,6 +19,7 @@ export default function Settings(props) {
     negativePromptNsfwGenAnime, setNegativePromptNsfwGenAnime,
     negativePromptNovelAIRemix, setNegativePromptNovelAIRemix,
     negativePromptNsfwGen, setNegativePromptNsfwGen,
+    negativePromptDeliberate, setNegativePromptDeliberate,
   } = props
   const { isReview } = useContext(UserContext)
 
@@ -26,6 +27,7 @@ export default function Settings(props) {
     await saveNegativePrompt({
       negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
       negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
+      negativePromptDeliberate,
     })
     setSheetPosition(0)
   }
@@ -102,6 +104,15 @@ export default function Settings(props) {
           negativePrompt={negativePromptNsfwGen}
           setNegativePrompt={setNegativePromptNsfwGen}
           recommendNegativePrompt={recommendNegativePrompt.nsfwGen}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label='Deliberate'
+          negativePrompt={negativePromptDeliberate}
+          setNegativePrompt={setNegativePromptDeliberate}
+          recommendNegativePrompt={recommendNegativePrompt.deliberate}
         />
         :null
       }
