@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { Platform } from "react-native";
-import { googleSheetUrl } from "../config";
+import { googleSheetUrl, iosBuildNumber } from "../config";
 import { formatData } from "../utils/utilFunctions";
 
 export const UserContext = createContext();
@@ -14,7 +14,7 @@ export const UserContextProvider = (props) => {
     try {
       const { data } = await axios.get(googleSheetUrl)
       const _data = formatData({data})
-      if(_data[0].nowReview === '38' && Platform.OS === 'ios') {
+      if(_data[0].nowReview === iosBuildNumber && Platform.OS === 'ios') {
         console.log('レビュー中')
         setIsReview(true)
       } else {

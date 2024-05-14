@@ -42,6 +42,7 @@ export default function Chat() {
   const [negativePromptNovelAIRemix, setNegativePromptNovelAIRemix] = useState('')
   const [negativePromptNsfwGen, setNegativePromptNsfwGen] = useState('')
   const [negativePromptDeliberate, setNegativePromptDeliberate] = useState('')
+  const [negativePromptRealPony, setNegativePromptRealPony] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -60,6 +61,7 @@ export default function Chat() {
         _negativePromptNovelAIRemix,
         _negativePromptNsfwGen,
         _negativePromptDeliberate,
+        _negativePromptRealPony,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -70,6 +72,7 @@ export default function Chat() {
       setNegativePromptNovelAIRemix(_negativePromptNovelAIRemix)
       setNegativePromptNsfwGen(_negativePromptNsfwGen)
       setNegativePromptDeliberate(_negativePromptDeliberate)
+      setNegativePromptRealPony(_negativePromptRealPony)
     }
     loadStorage()
   }, [])
@@ -155,7 +158,7 @@ export default function Chat() {
             text, isImageMode,
             negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
             negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
-            negativePromptDeliberate,
+            negativePromptDeliberate, negativePromptRealPony,
           })
           const botMessage = {
             _id: timestamp,
@@ -345,6 +348,8 @@ export default function Chat() {
           setNegativePromptNsfwGen={setNegativePromptNsfwGen}
           negativePromptDeliberate={negativePromptDeliberate}
           setNegativePromptDeliberate={setNegativePromptDeliberate}
+          negativePromptRealPony={negativePromptRealPony}
+          setNegativePromptRealPony={setNegativePromptRealPony}
           setSheetPosition={setSheetPosition}
         />
       </BottomSheet>
