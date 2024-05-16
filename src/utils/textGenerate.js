@@ -206,14 +206,14 @@ const generateImage = async({
   text, isImageMode,
   negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
   negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
-  negativePromptDeliberate, negativePromptRealPony,
+  negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu,
 }) => {
   try {
     const { apiUrl, negativePrompt } = selectImageAPI({
       isImageMode,
       negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
       negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
-      negativePromptDeliberate, negativePromptRealPony,
+      negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu,
     })
     const { data } = await axios.post(
       apiUrl,
@@ -241,7 +241,7 @@ const selectImageAPI = ({
   isImageMode,
   negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
   negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
-  negativePromptDeliberate, negativePromptRealPony,
+  negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu,
 }) => {
   const RealisticVision = 'https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4'
   const Animagine = 'https://api-inference.huggingface.co/models/cagliostrolab/animagine-xl-3.1'
@@ -253,6 +253,7 @@ const selectImageAPI = ({
   const nsfwGen = 'https://api-inference.huggingface.co/models/UnfilteredAI/NSFW-gen-v2'
   const deliberate = 'https://api-inference.huggingface.co/models/digiplay/PerfectDeliberate-Anime_v2'
   const realPony = 'https://api-inference.huggingface.co/models/GraydientPlatformAPI/realpony-xl'
+  const artiwaifu = 'https://api-inference.huggingface.co/models/Eugeoter/artiwaifu-diffusion-1.0'
   switch (isImageMode){
     case 1:
       return { apiUrl: RealisticVision, negativePrompt: negativePromptRealisticVision }
@@ -274,6 +275,8 @@ const selectImageAPI = ({
       return { apiUrl: deliberate, negativePrompt: negativePromptDeliberate }
     case 10:
       return { apiUrl: realPony, negativePrompt: negativePromptRealPony }
+    case 11:
+      return { apiUrl: artiwaifu, negativePrompt: negativePromptArtiWaifu }
     default:
       return { apiUrl: RealisticVision, negativePrompt: negativePromptRealisticVision }
   }
@@ -290,6 +293,7 @@ const loadNegativePrompt = async() => {
   const _negativePromptNsfwGen = await loadNegativePromptOfModel({key: 'negativePromptNsfwGen'})
   const _negativePromptDeliberate = await loadNegativePromptOfModel({key: 'negativePromptDeliberate'})
   const _negativePromptRealPony = await loadNegativePromptOfModel({key: 'negativePromptRealPony'})
+  const _negativePromptArtiWaifu = await loadNegativePromptOfModel({key: 'negativePromptArtiWaifu'})
   return {
     _negativePromptRealisticVision,
     _negativePromptAnimagine,
@@ -301,6 +305,7 @@ const loadNegativePrompt = async() => {
     _negativePromptNsfwGen,
     _negativePromptDeliberate,
     _negativePromptRealPony,
+    _negativePromptArtiWaifu,
   }
 }
 
@@ -317,7 +322,7 @@ const loadNegativePromptOfModel = async({key}) => {
 const saveNegativePrompt = async({
   negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
   negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
-  negativePromptDeliberate, negativePromptRealPony,
+  negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu,
 }) => {
   await storage.save({key: 'negativePromptRealisticVision', data: negativePromptRealisticVision})
   await storage.save({key: 'negativePromptAnimagine', data: negativePromptAnimagine})
@@ -329,6 +334,7 @@ const saveNegativePrompt = async({
   await storage.save({key: 'negativePromptNsfwGen', data: negativePromptNsfwGen})
   await storage.save({key: 'negativePromptDeliberate', data: negativePromptDeliberate})
   await storage.save({key: 'negativePromptRealPony', data: negativePromptRealPony})
+  await storage.save({key: 'negativePromptArtiWaifu', data: negativePromptArtiWaifu})
 }
 
 const generateTags = async({imagePath}) => {

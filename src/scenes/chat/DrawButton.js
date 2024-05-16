@@ -98,6 +98,11 @@ export default function DrawButton(props) {
           :null
         }
         <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: 11})}>{`ArtiWaifu${isImageMode === 11?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
         <MenuItem onPress={onSettingsPress}>画像生成設定</MenuItem>
       </Menu>
     </View>

@@ -43,6 +43,7 @@ export default function Chat() {
   const [negativePromptNsfwGen, setNegativePromptNsfwGen] = useState('')
   const [negativePromptDeliberate, setNegativePromptDeliberate] = useState('')
   const [negativePromptRealPony, setNegativePromptRealPony] = useState('')
+  const [negativePromptArtiWaifu, setNegativePromptArtiWaifu] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -62,6 +63,7 @@ export default function Chat() {
         _negativePromptNsfwGen,
         _negativePromptDeliberate,
         _negativePromptRealPony,
+        _negativePromptArtiWaifu,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -73,6 +75,7 @@ export default function Chat() {
       setNegativePromptNsfwGen(_negativePromptNsfwGen)
       setNegativePromptDeliberate(_negativePromptDeliberate)
       setNegativePromptRealPony(_negativePromptRealPony)
+      setNegativePromptArtiWaifu(_negativePromptArtiWaifu)
     }
     loadStorage()
   }, [])
@@ -158,7 +161,7 @@ export default function Chat() {
             text, isImageMode,
             negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
             negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
-            negativePromptDeliberate, negativePromptRealPony,
+            negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu,
           })
           const botMessage = {
             _id: timestamp,
@@ -350,6 +353,8 @@ export default function Chat() {
           setNegativePromptDeliberate={setNegativePromptDeliberate}
           negativePromptRealPony={negativePromptRealPony}
           setNegativePromptRealPony={setNegativePromptRealPony}
+          negativePromptArtiWaifu={negativePromptArtiWaifu}
+          setNegativePromptArtiWaifu={setNegativePromptArtiWaifu}
           setSheetPosition={setSheetPosition}
         />
       </BottomSheet>

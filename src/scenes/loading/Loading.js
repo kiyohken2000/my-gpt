@@ -25,7 +25,7 @@ export default function Loading() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.label}>Loaging</Text>
+      <Text style={styles.label}>Loading</Text>
     </SafeAreaView>
   )
 }

@@ -21,6 +21,7 @@ export default function Settings(props) {
     negativePromptNsfwGen, setNegativePromptNsfwGen,
     negativePromptDeliberate, setNegativePromptDeliberate,
     negativePromptRealPony, setNegativePromptRealPony,
+    negativePromptArtiWaifu, setNegativePromptArtiWaifu,
   } = props
   const { isReview } = useContext(UserContext)
 
@@ -28,7 +29,7 @@ export default function Settings(props) {
     await saveNegativePrompt({
       negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
       negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
-      negativePromptDeliberate, negativePromptRealPony,
+      negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu,
     })
     setSheetPosition(0)
   }
@@ -123,6 +124,15 @@ export default function Settings(props) {
           negativePrompt={negativePromptRealPony}
           setNegativePrompt={setNegativePromptRealPony}
           recommendNegativePrompt={recommendNegativePrompt.realPony}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label='ArtiWaifu'
+          negativePrompt={negativePromptArtiWaifu}
+          setNegativePrompt={setNegativePromptArtiWaifu}
+          recommendNegativePrompt={recommendNegativePrompt.artiwaifu}
         />
         :null
       }
