@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { colors, fontSize } from "../../../theme";
 import Button from "../../../components/Button";
@@ -39,6 +40,7 @@ export default function Settings(props) {
     <View style={{alignItems: 'center', paddingTop: 10, paddingBottom: 10}}>
       <Text style={styles.label}>ネガティブプロンプト</Text>
     </View>
+    <ScrollView>
     <KeyboardAwareScrollView enableOnAndroid={true}>
       <NegativePromptItem
         label='RealisticVision'
@@ -136,7 +138,8 @@ export default function Settings(props) {
         />
         :null
       }
-    </KeyboardAwareScrollView>
+    </KeyboardAwareScrollView>  
+    </ScrollView>
     <View style={{paddingVertical: 10, paddingHorizontal: 20}}>
       <Button
         label='決定'
