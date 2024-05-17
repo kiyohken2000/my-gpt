@@ -139,7 +139,7 @@ export default function Settings(props) {
         />
         :null
       }
-      {/*!isReview?
+      {!isReview?
         <NegativePromptItem
           label='StarryXL'
           negativePrompt={negativePromptStarryXL}
@@ -147,7 +147,7 @@ export default function Settings(props) {
           recommendNegativePrompt={recommendNegativePrompt.starryXL}
         />
         :null
-      */}
+      }
     </KeyboardAwareScrollView>  
     </ScrollView>
     <View style={{paddingVertical: 10, paddingHorizontal: 20}}>

@@ -107,13 +107,11 @@ export default function DrawButton(props) {
           :null
         }
         <MenuDivider />
-        {/*
         {!isReview?
           <MenuItem onPress={() => onItemPress({val: 12})}>{`StarryXL${isImageMode === 12?'✔':''}`}</MenuItem>
           :null
         }
         <MenuDivider />
-        */}
         </ScrollView>
         <MenuItem onPress={onSettingsPress}>画像生成設定</MenuItem>
       </Menu>
