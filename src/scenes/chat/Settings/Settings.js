@@ -23,6 +23,7 @@ export default function Settings(props) {
     negativePromptDeliberate, setNegativePromptDeliberate,
     negativePromptRealPony, setNegativePromptRealPony,
     negativePromptArtiWaifu, setNegativePromptArtiWaifu,
+    negativePromptStarryXL, setNegativePromptStarryXL,
   } = props
   const { isReview } = useContext(UserContext)
 
@@ -30,7 +31,7 @@ export default function Settings(props) {
     await saveNegativePrompt({
       negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
       negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
-      negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu,
+      negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
     })
     setSheetPosition(0)
   }
@@ -138,6 +139,15 @@ export default function Settings(props) {
         />
         :null
       }
+      {/*!isReview?
+        <NegativePromptItem
+          label='StarryXL'
+          negativePrompt={negativePromptStarryXL}
+          setNegativePrompt={setNegativePromptStarryXL}
+          recommendNegativePrompt={recommendNegativePrompt.starryXL}
+        />
+        :null
+      */}
     </KeyboardAwareScrollView>  
     </ScrollView>
     <View style={{paddingVertical: 10, paddingHorizontal: 20}}>

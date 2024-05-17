@@ -1,10 +1,12 @@
 import React, { useState, useContext } from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from "react-native";
 import FontIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { colors, fontSize } from "../../theme";
 import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 import { sleep } from "../../utils/utilFunctions";
 import { UserContext } from "../../contexts/UserContext";
+
+const { height } = Dimensions.get('window')
 
 export default function DrawButton(props) {
   const { isImageMode, setIsImageMode, setSheetPosition } = props
@@ -48,9 +50,11 @@ export default function DrawButton(props) {
         visible={visible}
         anchor={renderAnchor()}
         onRequestClose={hideMenu}
+        style={{maxHeight: height * 0.9 }}
       >
         <MenuItem onPress={() => onItemPress({val: 0})}>{`画像生成オフ${!isImageMode?'✔':''}`}</MenuItem>
         <MenuDivider />
+        <ScrollView style={{flexGrow:0}}>
         <MenuItem onPress={() => onItemPress({val: 1})}>{`RealisticVision${isImageMode === 1?'✔':''}`}</MenuItem>
         <MenuDivider />
         {!isReview?
@@ -103,6 +107,14 @@ export default function DrawButton(props) {
           :null
         }
         <MenuDivider />
+        {/*
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: 12})}>{`StarryXL${isImageMode === 12?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        */}
+        </ScrollView>
         <MenuItem onPress={onSettingsPress}>画像生成設定</MenuItem>
       </Menu>
     </View>

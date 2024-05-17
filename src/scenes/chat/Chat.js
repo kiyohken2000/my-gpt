@@ -44,6 +44,7 @@ export default function Chat() {
   const [negativePromptDeliberate, setNegativePromptDeliberate] = useState('')
   const [negativePromptRealPony, setNegativePromptRealPony] = useState('')
   const [negativePromptArtiWaifu, setNegativePromptArtiWaifu] = useState('')
+  const [negativePromptStarryXL, setNegativePromptStarryXL] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -64,6 +65,7 @@ export default function Chat() {
         _negativePromptDeliberate,
         _negativePromptRealPony,
         _negativePromptArtiWaifu,
+        _negativePromptStarryXL,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -76,6 +78,7 @@ export default function Chat() {
       setNegativePromptDeliberate(_negativePromptDeliberate)
       setNegativePromptRealPony(_negativePromptRealPony)
       setNegativePromptArtiWaifu(_negativePromptArtiWaifu)
+      setNegativePromptStarryXL(_negativePromptStarryXL)
     }
     loadStorage()
   }, [])
@@ -161,7 +164,7 @@ export default function Chat() {
             text, isImageMode,
             negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
             negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
-            negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu,
+            negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
           })
           const botMessage = {
             _id: timestamp,
@@ -355,6 +358,8 @@ export default function Chat() {
           setNegativePromptRealPony={setNegativePromptRealPony}
           negativePromptArtiWaifu={negativePromptArtiWaifu}
           setNegativePromptArtiWaifu={setNegativePromptArtiWaifu}
+          negativePromptStarryXL={negativePromptStarryXL}
+          setNegativePromptStarryXL={setNegativePromptStarryXL}
           setSheetPosition={setSheetPosition}
         />
       </BottomSheet>
