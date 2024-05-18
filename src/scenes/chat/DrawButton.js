@@ -5,6 +5,7 @@ import { colors, fontSize } from "../../theme";
 import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 import { sleep } from "../../utils/utilFunctions";
 import { UserContext } from "../../contexts/UserContext";
+import { imageModelData } from "../../imageModelData";
 
 const { height } = Dimensions.get('window')
 
@@ -55,60 +56,60 @@ export default function DrawButton(props) {
         <MenuItem onPress={() => onItemPress({val: 0})}>{`画像生成オフ${!isImageMode?'✔':''}`}</MenuItem>
         <MenuDivider />
         <ScrollView style={{flexGrow:0}}>
-        <MenuItem onPress={() => onItemPress({val: 1})}>{`RealisticVision${isImageMode === 1?'✔':''}`}</MenuItem>
+        <MenuItem onPress={() => onItemPress({val: imageModelData.RealisticVision.sequence})}>{`${imageModelData.RealisticVision.label}${isImageMode === imageModelData.RealisticVision.sequence?'✔':''}`}</MenuItem>
         <MenuDivider />
         {!isReview?
-          <MenuItem onPress={() => onItemPress({val: 2})}>{`ANIMAGINE${isImageMode === 2?'✔':''}`}</MenuItem>
+          <MenuItem onPress={() => onItemPress({val: imageModelData.Animagine.sequence})}>{`${imageModelData.Animagine.label}${isImageMode === imageModelData.Animagine.sequence?'✔':''}`}</MenuItem>
           :null
         }
         <MenuDivider />
         {!isReview?
-          <MenuItem onPress={() => onItemPress({val: 3})}>{`Pony${isImageMode === 3?'✔':''}`}</MenuItem>
+          <MenuItem onPress={() => onItemPress({val: imageModelData.Pony.sequence})}>{`${imageModelData.Pony.label}${isImageMode === imageModelData.Pony.sequence?'✔':''}`}</MenuItem>
           :null
         }
         <MenuDivider />
         {!isReview?
-          <MenuItem onPress={() => onItemPress({val: 4})}>{`PVC${isImageMode === 4?'✔':''}`}</MenuItem>:
+          <MenuItem onPress={() => onItemPress({val: imageModelData.PVC.sequence})}>{`${imageModelData.PVC.label}${isImageMode === imageModelData.PVC.sequence?'✔':''}`}</MenuItem>:
           null
         }
         <MenuDivider />
         {!isReview?
-          <MenuItem onPress={() => onItemPress({val: 5})}>{`ChilloutMix${isImageMode === 5?'✔':''}`}</MenuItem>
+          <MenuItem onPress={() => onItemPress({val: imageModelData.ChilloutMix.sequence})}>{`${imageModelData.ChilloutMix.label}${isImageMode === imageModelData.ChilloutMix.sequence?'✔':''}`}</MenuItem>
           :null
         }
         <MenuDivider />
         {!isReview?
-          <MenuItem onPress={() => onItemPress({val: 6})}>{`NsfwGenAnime${isImageMode === 6?'✔':''}`}</MenuItem>
+          <MenuItem onPress={() => onItemPress({val: imageModelData.NsfwGenAnime.sequence})}>{`${imageModelData.NsfwGenAnime.label}${isImageMode === imageModelData.NsfwGenAnime.sequence?'✔':''}`}</MenuItem>
           :null
         }
         <MenuDivider />
         {!isReview?
-          <MenuItem onPress={() => onItemPress({val: 7})}>{`NovelAIRemix${isImageMode === 7?'✔':''}`}</MenuItem>
+          <MenuItem onPress={() => onItemPress({val: imageModelData.NovelAIRemix.sequence})}>{`${imageModelData.NovelAIRemix.label}${isImageMode === imageModelData.NovelAIRemix.sequence?'✔':''}`}</MenuItem>
           :null
         }
         <MenuDivider />
         {!isReview?
-          <MenuItem onPress={() => onItemPress({val: 8})}>{`NsfwGen${isImageMode === 8?'✔':''}`}</MenuItem>
+          <MenuItem onPress={() => onItemPress({val: imageModelData.NsfwGen.sequence})}>{`${imageModelData.NsfwGen.label}${isImageMode === imageModelData.NsfwGen.sequence?'✔':''}`}</MenuItem>
           :null
         }
         <MenuDivider />
         {!isReview?
-          <MenuItem onPress={() => onItemPress({val: 9})}>{`Deliberate${isImageMode === 9?'✔':''}`}</MenuItem>
+          <MenuItem onPress={() => onItemPress({val: imageModelData.Deliberate.sequence})}>{`${imageModelData.Deliberate.label}${isImageMode === imageModelData.Deliberate.sequence?'✔':''}`}</MenuItem>
           :null
         }
         <MenuDivider />
         {!isReview?
-          <MenuItem onPress={() => onItemPress({val: 10})}>{`RealPony${isImageMode === 10?'✔':''}`}</MenuItem>
+          <MenuItem onPress={() => onItemPress({val: imageModelData.RealPony.sequence})}>{`${imageModelData.RealPony.label}${isImageMode === imageModelData.RealPony.sequence?'✔':''}`}</MenuItem>
           :null
         }
         <MenuDivider />
         {!isReview?
-          <MenuItem onPress={() => onItemPress({val: 11})}>{`ArtiWaifu${isImageMode === 11?'✔':''}`}</MenuItem>
+          <MenuItem onPress={() => onItemPress({val: imageModelData.ArtiWaifu.sequence})}>{`${imageModelData.ArtiWaifu.label}${isImageMode === imageModelData.ArtiWaifu.sequence?'✔':''}`}</MenuItem>
           :null
         }
         <MenuDivider />
         {!isReview?
-          <MenuItem onPress={() => onItemPress({val: 12})}>{`StarryXL${isImageMode === 12?'✔':''}`}</MenuItem>
+          <MenuItem onPress={() => onItemPress({val: imageModelData.StarryXL.sequence})}>{`${imageModelData.StarryXL.label}${isImageMode === imageModelData.StarryXL.sequence?'✔':''}`}</MenuItem>
           :null
         }
         <MenuDivider />

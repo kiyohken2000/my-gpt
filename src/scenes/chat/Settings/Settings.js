@@ -7,7 +7,7 @@ import Button from "../../../components/Button";
 import { saveNegativePrompt } from "../../../utils/textGenerate";
 import NegativePromptItem from "./NegativePromptItem";
 import { UserContext } from "../../../contexts/UserContext";
-import { recommendNegativePrompt } from "../../../config";
+import { imageModelData } from "../../../imageModelData";
 
 export default function Settings(props) {
   const {
@@ -44,107 +44,107 @@ export default function Settings(props) {
     <ScrollView>
     <KeyboardAwareScrollView enableOnAndroid={true}>
       <NegativePromptItem
-        label='RealisticVision'
+        label={imageModelData.RealisticVision.label}
         negativePrompt={negativePromptRealisticVision}
         setNegativePrompt={setNegativePromptRealisticVision}
-        recommendNegativePrompt={recommendNegativePrompt.realisticVision}
+        recommendNegativePrompt={imageModelData.RealisticVision.recommendNegativePrompt}
       />
       {!isReview?
         <NegativePromptItem
-          label='ANIMAGINE'
+          label={imageModelData.Animagine.label}
           negativePrompt={negativePromptAnimagine}
           setNegativePrompt={setNegativePromptAnimagine}
-          recommendNegativePrompt={recommendNegativePrompt.animagine}
+          recommendNegativePrompt={imageModelData.Animagine.recommendNegativePrompt}
         />
         :null
       }
       {!isReview?
         <NegativePromptItem
-          label='Pony'
+          label={imageModelData.Pony.label}
           negativePrompt={negativePromptPony}
           setNegativePrompt={setNegativePromptPony}
-          recommendNegativePrompt={recommendNegativePrompt.pony}
+          recommendNegativePrompt={imageModelData.Pony.recommendNegativePrompt}
         />
         :null
       }
       {!isReview?
         <NegativePromptItem
-          label='PVC'
+          label={imageModelData.PVC.label}
           negativePrompt={negativePromptPvc}
           setNegativePrompt={setNegativePromptPvc}
-          recommendNegativePrompt={recommendNegativePrompt.pvc}
+          recommendNegativePrompt={imageModelData.PVC.recommendNegativePrompt}
         />
         :null
       }
       {!isReview?
         <NegativePromptItem
-          label='ChilloutMix'
+          label={imageModelData.ChilloutMix.label}
           negativePrompt={negativePromptChillOut}
           setNegativePrompt={setNegativePromptChillOut}
-          recommendNegativePrompt={recommendNegativePrompt.chilloutMix}
+          recommendNegativePrompt={imageModelData.ChilloutMix.recommendNegativePrompt}
         />
         :null
       }
       {!isReview?
         <NegativePromptItem
-          label='NsfwGenAnime'
+          label={imageModelData.NsfwGenAnime.label}
           negativePrompt={negativePromptNsfwGenAnime}
           setNegativePrompt={setNegativePromptNsfwGenAnime}
-          recommendNegativePrompt={recommendNegativePrompt.nsfwGenAnime}
+          recommendNegativePrompt={imageModelData.NsfwGenAnime.recommendNegativePrompt}
         />
         :null
       }
       {!isReview?
         <NegativePromptItem
-          label='NovelAIRemix'
+          label={imageModelData.NovelAIRemix.label}
           negativePrompt={negativePromptNovelAIRemix}
           setNegativePrompt={setNegativePromptNovelAIRemix}
-          recommendNegativePrompt={recommendNegativePrompt.novelAIRemix}
+          recommendNegativePrompt={imageModelData.NovelAIRemix.recommendNegativePrompt}
         />
         :null
       }
       {!isReview?
         <NegativePromptItem
-          label='NsfwGen'
+          label={imageModelData.NsfwGen.label}
           negativePrompt={negativePromptNsfwGen}
           setNegativePrompt={setNegativePromptNsfwGen}
-          recommendNegativePrompt={recommendNegativePrompt.nsfwGen}
+          recommendNegativePrompt={imageModelData.NsfwGen.recommendNegativePrompt}
         />
         :null
       }
       {!isReview?
         <NegativePromptItem
-          label='Deliberate'
+          label={imageModelData.Deliberate.label}
           negativePrompt={negativePromptDeliberate}
           setNegativePrompt={setNegativePromptDeliberate}
-          recommendNegativePrompt={recommendNegativePrompt.deliberate}
+          recommendNegativePrompt={imageModelData.Deliberate.recommendNegativePrompt}
         />
         :null
       }
       {!isReview?
         <NegativePromptItem
-          label='RealPony'
+          label={imageModelData.RealPony.label}
           negativePrompt={negativePromptRealPony}
           setNegativePrompt={setNegativePromptRealPony}
-          recommendNegativePrompt={recommendNegativePrompt.realPony}
+          recommendNegativePrompt={imageModelData.RealPony.recommendNegativePrompt}
         />
         :null
       }
       {!isReview?
         <NegativePromptItem
-          label='ArtiWaifu'
+          label={imageModelData.ArtiWaifu.label}
           negativePrompt={negativePromptArtiWaifu}
           setNegativePrompt={setNegativePromptArtiWaifu}
-          recommendNegativePrompt={recommendNegativePrompt.artiwaifu}
+          recommendNegativePrompt={imageModelData.ArtiWaifu.recommendNegativePrompt}
         />
         :null
       }
       {!isReview?
         <NegativePromptItem
-          label='StarryXL'
+          label={imageModelData.StarryXL.label}
           negativePrompt={negativePromptStarryXL}
           setNegativePrompt={setNegativePromptStarryXL}
-          recommendNegativePrompt={recommendNegativePrompt.starryXL}
+          recommendNegativePrompt={imageModelData.StarryXL.recommendNegativePrompt}
         />
         :null
       }

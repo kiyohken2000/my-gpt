@@ -6,6 +6,7 @@ import { convertBlobToImage } from "./downloadFunctions";
 import { storage } from "./storage";
 import { uploadFunction } from "./uploadFunctions";
 import { myEndpoints, headers } from "../config";
+import { imageModelData } from "../imageModelData";
 
 const apiUrl = 'https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage';
 const errorMessage = 'すみません。よくわかりませんでした'
@@ -208,14 +209,13 @@ const generateImage = async({
   negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
   negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
 }) => {
+  const { apiUrl, negativePrompt, label } = selectImageAPI({
+    isImageMode,
+    negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
+    negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
+    negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL
+  })
   try {
-    const { apiUrl, negativePrompt } = selectImageAPI({
-      isImageMode,
-      negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
-      negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
-      negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL
-    })
-    console.log(negativePrompt)
     const { data } = await axios.post(
       apiUrl,
       {
@@ -231,10 +231,10 @@ const generateImage = async({
       }
     );
     const imageUrl = await convertBlobToImage({data})
-    return { imageUrl: imageUrl, message: '画像は開いた後に長押しで保存できます'}
+    return { imageUrl: imageUrl, message: `画像は開いた後に長押しで保存できます ${label}`}
   } catch(e) {
     console.log('generate image error', e)
-    return { imageUrl: null, message: errorMessage}
+    return { imageUrl: null, message: `${errorMessage} ${label}`}
   }
 }
 
@@ -244,61 +244,49 @@ const selectImageAPI = ({
   negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
   negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
 }) => {
-  const RealisticVision = 'https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4'
-  const Animagine = 'https://api-inference.huggingface.co/models/cagliostrolab/animagine-xl-3.1'
-  const pony = 'https://api-inference.huggingface.co/models/stablediffusionapi/pony'
-  const pvc = 'https://api-inference.huggingface.co/models/p1atdev/pvcxl-v1-lora'
-  const chillout = 'https://api-inference.huggingface.co/models/Yntec/ChilloutMix'
-  const nsfwGenAnime = 'https://api-inference.huggingface.co/models/UnfilteredAI/NSFW-GEN-ANIME-v2'
-  const novelAIRemix = 'https://api-inference.huggingface.co/models/Yntec/NovelAIRemix'
-  const nsfwGen = 'https://api-inference.huggingface.co/models/UnfilteredAI/NSFW-gen-v2'
-  const deliberate = 'https://api-inference.huggingface.co/models/digiplay/PerfectDeliberate-Anime_v2'
-  const realPony = 'https://api-inference.huggingface.co/models/GraydientPlatformAPI/realpony-xl'
-  const artiwaifu = 'https://api-inference.huggingface.co/models/Eugeoter/artiwaifu-diffusion-1.0'
-  const starryXL = 'https://api-inference.huggingface.co/models/eienmojiki/Starry-XL-v5.2'
   switch (isImageMode){
-    case 1:
-      return { apiUrl: RealisticVision, negativePrompt: negativePromptRealisticVision }
-    case 2:
-      return { apiUrl: Animagine, negativePrompt: negativePromptAnimagine }
-    case 3:
-      return { apiUrl: pony, negativePrompt: negativePromptPony }
-    case 4:
-      return { apiUrl: pvc, negativePrompt: negativePromptPvc }
-    case 5:
-      return { apiUrl: chillout, negativePrompt: negativePromptChillOut }
-    case 6:
-      return { apiUrl: nsfwGenAnime, negativePrompt: negativePromptNsfwGenAnime }
-    case 7:
-      return { apiUrl: novelAIRemix, negativePrompt: negativePromptNovelAIRemix }
-    case 8:
-      return { apiUrl: nsfwGen, negativePrompt: negativePromptNsfwGen }
-    case 9:
-      return { apiUrl: deliberate, negativePrompt: negativePromptDeliberate }
-    case 10:
-      return { apiUrl: realPony, negativePrompt: negativePromptRealPony }
-    case 11:
-      return { apiUrl: artiwaifu, negativePrompt: negativePromptArtiWaifu }
-    case 12:
-      return { apiUrl: starryXL, negativePrompt: negativePromptStarryXL }
+    case imageModelData.RealisticVision.sequence:
+      return { apiUrl: imageModelData.RealisticVision.url, negativePrompt: negativePromptRealisticVision, label: imageModelData.RealisticVision.label }
+    case imageModelData.Animagine.sequence:
+      return { apiUrl: imageModelData.Animagine.url, negativePrompt: negativePromptAnimagine, label: imageModelData.Animagine.label }
+    case imageModelData.Pony.sequence:
+      return { apiUrl: imageModelData.Pony.url, negativePrompt: negativePromptPony, label: imageModelData.Pony.label }
+    case imageModelData.PVC.sequence:
+      return { apiUrl: imageModelData.PVC.url, negativePrompt: negativePromptPvc, label: imageModelData.PVC.label }
+    case imageModelData.ChilloutMix.sequence:
+      return { apiUrl: imageModelData.ChilloutMix.url, negativePrompt: negativePromptChillOut, label: imageModelData.ChilloutMix.label }
+    case imageModelData.NsfwGenAnime.sequence:
+      return { apiUrl: imageModelData.NsfwGenAnime.url, negativePrompt: negativePromptNsfwGenAnime, label: imageModelData.NsfwGenAnime.label }
+    case imageModelData.NovelAIRemix.sequence:
+      return { apiUrl: imageModelData.NovelAIRemix.url, negativePrompt: negativePromptNovelAIRemix, label: imageModelData.NovelAIRemix.label }
+    case imageModelData.NsfwGen.sequence:
+      return { apiUrl: imageModelData.NsfwGen.url, negativePrompt: negativePromptNsfwGen, label: imageModelData.NsfwGen.label }
+    case imageModelData.Deliberate.sequence:
+      return { apiUrl: imageModelData.Deliberate.url, negativePrompt: negativePromptDeliberate, label: imageModelData.Deliberate.label }
+    case imageModelData.RealPony.sequence:
+      return { apiUrl: imageModelData.RealPony.url, negativePrompt: negativePromptRealPony, label: imageModelData.RealPony.label }
+    case imageModelData.ArtiWaifu.sequence:
+      return { apiUrl: imageModelData.ArtiWaifu.url, negativePrompt: negativePromptArtiWaifu, label: imageModelData.ArtiWaifu.label }
+    case imageModelData.StarryXL.sequence:
+      return { apiUrl: imageModelData.StarryXL.url, negativePrompt: negativePromptStarryXL, label: imageModelData.StarryXL.label }
     default:
-      return { apiUrl: RealisticVision, negativePrompt: negativePromptRealisticVision }
+      return { apiUrl: imageModelData.RealisticVision.url, negativePrompt: negativePromptRealisticVision, label: imageModelData.RealisticVision.label }
   }
 }
 
 const loadNegativePrompt = async() => {
-  const _negativePromptRealisticVision = await loadNegativePromptOfModel({key: 'negativePromptRealisticVision'})
-  const _negativePromptAnimagine = await loadNegativePromptOfModel({key: 'negativePromptAnimagine'})
-  const _negativePromptPony = await loadNegativePromptOfModel({key: 'negativePromptPony'})
-  const _negativePromptPvc = await loadNegativePromptOfModel({key: 'negativePromptPvc'})
-  const _negativePromptChillOut = await loadNegativePromptOfModel({key: 'negativePromptChillOut'})
-  const _negativePromptNsfwGenAnime = await loadNegativePromptOfModel({key: 'negativePromptNsfwGenAnime'})
-  const _negativePromptNovelAIRemix = await loadNegativePromptOfModel({key: 'negativePromptNovelAIRemix'})
-  const _negativePromptNsfwGen = await loadNegativePromptOfModel({key: 'negativePromptNsfwGen'})
-  const _negativePromptDeliberate = await loadNegativePromptOfModel({key: 'negativePromptDeliberate'})
-  const _negativePromptRealPony = await loadNegativePromptOfModel({key: 'negativePromptRealPony'})
-  const _negativePromptArtiWaifu = await loadNegativePromptOfModel({key: 'negativePromptArtiWaifu'})
-  const _negativePromptStarryXL = await loadNegativePromptOfModel({key: 'negativePromptStarryXL'})
+  const _negativePromptRealisticVision = await loadNegativePromptOfModel({key: imageModelData.RealisticVision.negativePromptKey})
+  const _negativePromptAnimagine = await loadNegativePromptOfModel({key: imageModelData.Animagine.negativePromptKey})
+  const _negativePromptPony = await loadNegativePromptOfModel({key: imageModelData.Pony.negativePromptKey})
+  const _negativePromptPvc = await loadNegativePromptOfModel({key: imageModelData.PVC.negativePromptKey})
+  const _negativePromptChillOut = await loadNegativePromptOfModel({key: imageModelData.ChilloutMix.negativePromptKey})
+  const _negativePromptNsfwGenAnime = await loadNegativePromptOfModel({key: imageModelData.NsfwGenAnime.negativePromptKey})
+  const _negativePromptNovelAIRemix = await loadNegativePromptOfModel({key: imageModelData.NovelAIRemix.negativePromptKey})
+  const _negativePromptNsfwGen = await loadNegativePromptOfModel({key: imageModelData.NsfwGen.negativePromptKey})
+  const _negativePromptDeliberate = await loadNegativePromptOfModel({key: imageModelData.Deliberate.negativePromptKey})
+  const _negativePromptRealPony = await loadNegativePromptOfModel({key: imageModelData.RealPony.negativePromptKey})
+  const _negativePromptArtiWaifu = await loadNegativePromptOfModel({key: imageModelData.ArtiWaifu.negativePromptKey})
+  const _negativePromptStarryXL = await loadNegativePromptOfModel({key: imageModelData.StarryXL.negativePromptKey})
   return {
     _negativePromptRealisticVision,
     _negativePromptAnimagine,
@@ -330,18 +318,18 @@ const saveNegativePrompt = async({
   negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
   negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
 }) => {
-  await storage.save({key: 'negativePromptRealisticVision', data: negativePromptRealisticVision})
-  await storage.save({key: 'negativePromptAnimagine', data: negativePromptAnimagine})
-  await storage.save({key: 'negativePromptPony', data: negativePromptPony})
-  await storage.save({key: 'negativePromptPvc', data: negativePromptPvc})
-  await storage.save({key: 'negativePromptChillOut', data: negativePromptChillOut})
-  await storage.save({key: 'negativePromptNsfwGenAnime', data: negativePromptNsfwGenAnime})
-  await storage.save({key: 'negativePromptNovelAIRemix', data: negativePromptNovelAIRemix})
-  await storage.save({key: 'negativePromptNsfwGen', data: negativePromptNsfwGen})
-  await storage.save({key: 'negativePromptDeliberate', data: negativePromptDeliberate})
-  await storage.save({key: 'negativePromptRealPony', data: negativePromptRealPony})
-  await storage.save({key: 'negativePromptArtiWaifu', data: negativePromptArtiWaifu})
-  await storage.save({key: 'negativePromptStarryXL', data: negativePromptStarryXL})
+  await storage.save({key: imageModelData.RealisticVision.negativePromptKey, data: negativePromptRealisticVision})
+  await storage.save({key: imageModelData.Animagine.negativePromptKey, data: negativePromptAnimagine})
+  await storage.save({key: imageModelData.Pony.negativePromptKey, data: negativePromptPony})
+  await storage.save({key: imageModelData.PVC.negativePromptKey, data: negativePromptPvc})
+  await storage.save({key: imageModelData.ChilloutMix.negativePromptKey, data: negativePromptChillOut})
+  await storage.save({key: imageModelData.NsfwGenAnime.negativePromptKey, data: negativePromptNsfwGenAnime})
+  await storage.save({key: imageModelData.NovelAIRemix.negativePromptKey, data: negativePromptNovelAIRemix})
+  await storage.save({key: imageModelData.NsfwGen.negativePromptKey, data: negativePromptNsfwGen})
+  await storage.save({key: imageModelData.Deliberate.negativePromptKey, data: negativePromptDeliberate})
+  await storage.save({key: imageModelData.RealPony.negativePromptKey, data: negativePromptRealPony})
+  await storage.save({key: imageModelData.ArtiWaifu.negativePromptKey, data: negativePromptArtiWaifu})
+  await storage.save({key: imageModelData.StarryXL.negativePromptKey, data: negativePromptStarryXL})
 }
 
 const generateTags = async({imagePath}) => {
