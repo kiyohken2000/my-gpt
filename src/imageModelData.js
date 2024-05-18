@@ -17,7 +17,7 @@ const imageModelData = {
     label: 'Pony',
     sequence: 3,
     negativePromptKey: 'negativePromptPony',
-    url: 'https://api-inference.huggingface.co/models/stablediffusionapi/vxpanimaponyv_xl',
+    url: 'https://api-inference.huggingface.co/models/stablediffusionapi/pony',
     recommendNegativePrompt: 'low quality , bad anatomy, bad proportions, extra legs, deformed anatomy, messy color, deformed fingers, bad, distracted, hyperrealistic,source_furry, source_pony, source_cartoon',
   },
   PVC: {
