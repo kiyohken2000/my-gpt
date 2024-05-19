@@ -208,12 +208,14 @@ const generateImage = async({
   negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
   negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
   negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
+  negativePromptYakiDofuMix,
 }) => {
   const { apiUrl, negativePrompt, label } = selectImageAPI({
     isImageMode,
     negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
     negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
-    negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL
+    negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
+    negativePromptYakiDofuMix,
   })
   try {
     const { data } = await axios.post(
@@ -243,6 +245,7 @@ const selectImageAPI = ({
   negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
   negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
   negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
+  negativePromptYakiDofuMix,
 }) => {
   switch (isImageMode){
     case imageModelData.RealisticVision.sequence:
@@ -269,6 +272,8 @@ const selectImageAPI = ({
       return { apiUrl: imageModelData.ArtiWaifu.url, negativePrompt: negativePromptArtiWaifu, label: imageModelData.ArtiWaifu.label }
     case imageModelData.StarryXL.sequence:
       return { apiUrl: imageModelData.StarryXL.url, negativePrompt: negativePromptStarryXL, label: imageModelData.StarryXL.label }
+    case imageModelData.YakiDofuMix.sequence:
+      return { apiUrl: imageModelData.YakiDofuMix.url, negativePrompt: negativePromptYakiDofuMix, label: imageModelData.YakiDofuMix.label }
     default:
       return { apiUrl: imageModelData.RealisticVision.url, negativePrompt: negativePromptRealisticVision, label: imageModelData.RealisticVision.label }
   }
@@ -287,6 +292,7 @@ const loadNegativePrompt = async() => {
   const _negativePromptRealPony = await loadNegativePromptOfModel({key: imageModelData.RealPony.negativePromptKey})
   const _negativePromptArtiWaifu = await loadNegativePromptOfModel({key: imageModelData.ArtiWaifu.negativePromptKey})
   const _negativePromptStarryXL = await loadNegativePromptOfModel({key: imageModelData.StarryXL.negativePromptKey})
+  const _negativePromptYakiDofuMix = await loadNegativePromptOfModel({key: imageModelData.YakiDofuMix.negativePromptKey})
   return {
     _negativePromptRealisticVision,
     _negativePromptAnimagine,
@@ -300,6 +306,7 @@ const loadNegativePrompt = async() => {
     _negativePromptRealPony,
     _negativePromptArtiWaifu,
     _negativePromptStarryXL,
+    _negativePromptYakiDofuMix,
   }
 }
 
@@ -317,6 +324,7 @@ const saveNegativePrompt = async({
   negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
   negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
   negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
+  negativePromptYakiDofuMix,
 }) => {
   await storage.save({key: imageModelData.RealisticVision.negativePromptKey, data: negativePromptRealisticVision})
   await storage.save({key: imageModelData.Animagine.negativePromptKey, data: negativePromptAnimagine})
@@ -330,6 +338,7 @@ const saveNegativePrompt = async({
   await storage.save({key: imageModelData.RealPony.negativePromptKey, data: negativePromptRealPony})
   await storage.save({key: imageModelData.ArtiWaifu.negativePromptKey, data: negativePromptArtiWaifu})
   await storage.save({key: imageModelData.StarryXL.negativePromptKey, data: negativePromptStarryXL})
+  await storage.save({key: imageModelData.YakiDofuMix.negativePromptKey, data: negativePromptYakiDofuMix})
 }
 
 const generateTags = async({imagePath}) => {

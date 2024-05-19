@@ -24,6 +24,7 @@ export default function Settings(props) {
     negativePromptRealPony, setNegativePromptRealPony,
     negativePromptArtiWaifu, setNegativePromptArtiWaifu,
     negativePromptStarryXL, setNegativePromptStarryXL,
+    negativePromptYakiDofuMix, setNegativePromptYakiDofuMix,
   } = props
   const { isReview } = useContext(UserContext)
 
@@ -32,6 +33,7 @@ export default function Settings(props) {
       negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
       negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
       negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
+      negativePromptYakiDofuMix,
     })
     setSheetPosition(0)
   }
@@ -145,6 +147,15 @@ export default function Settings(props) {
           negativePrompt={negativePromptStarryXL}
           setNegativePrompt={setNegativePromptStarryXL}
           recommendNegativePrompt={imageModelData.StarryXL.recommendNegativePrompt}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label={imageModelData.YakiDofuMix.label}
+          negativePrompt={negativePromptYakiDofuMix}
+          setNegativePrompt={setNegativePromptYakiDofuMix}
+          recommendNegativePrompt={imageModelData.YakiDofuMix.recommendNegativePrompt}
         />
         :null
       }

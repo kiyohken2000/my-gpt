@@ -83,6 +83,13 @@ const imageModelData = {
     url: 'https://api-inference.huggingface.co/models/eienmojiki/Starry-XL-v5.2',
     recommendNegativePrompt: 'nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, artist name,',
   },
+  YakiDofuMix: {
+    label: 'YakiDofuMix',
+    sequence: 13,
+    negativePromptKey: 'negativePromptYakiDofuMix',
+    url: 'https://api-inference.huggingface.co/models/Vsukiyaki/Yaki-Dofu-Mix',
+    recommendNegativePrompt: '(easynegative:1.0),(worst quality,low quality:1.2),(bad anatomy:1.4),(realistic:1.1),nose,lips,adult,fat,sad, (inaccurate limb:1.2),extra digit,fewer digits,six fingers,(monochrome:0.95),verybadimagenegative_v1.3,'
+  }
 }
 
 export { imageModelData }

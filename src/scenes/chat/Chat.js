@@ -45,6 +45,7 @@ export default function Chat() {
   const [negativePromptRealPony, setNegativePromptRealPony] = useState('')
   const [negativePromptArtiWaifu, setNegativePromptArtiWaifu] = useState('')
   const [negativePromptStarryXL, setNegativePromptStarryXL] = useState('')
+  const [negativePromptYakiDofuMix, setNegativePromptYakiDofuMix] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -66,6 +67,7 @@ export default function Chat() {
         _negativePromptRealPony,
         _negativePromptArtiWaifu,
         _negativePromptStarryXL,
+        _negativePromptYakiDofuMix,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -79,6 +81,7 @@ export default function Chat() {
       setNegativePromptRealPony(_negativePromptRealPony)
       setNegativePromptArtiWaifu(_negativePromptArtiWaifu)
       setNegativePromptStarryXL(_negativePromptStarryXL)
+      setNegativePromptYakiDofuMix(_negativePromptYakiDofuMix)
     }
     loadStorage()
   }, [])
@@ -165,6 +168,7 @@ export default function Chat() {
             negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
             negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
             negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
+            negativePromptYakiDofuMix,
           })
           const botMessage = {
             _id: timestamp,
@@ -360,6 +364,8 @@ export default function Chat() {
           setNegativePromptArtiWaifu={setNegativePromptArtiWaifu}
           negativePromptStarryXL={negativePromptStarryXL}
           setNegativePromptStarryXL={setNegativePromptStarryXL}
+          negativePromptYakiDofuMix={negativePromptYakiDofuMix}
+          setNegativePromptYakiDofuMix={setNegativePromptYakiDofuMix}
           setSheetPosition={setSheetPosition}
         />
       </BottomSheet>
