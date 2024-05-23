@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Image, StyleSheet, Dimensions, TouchableOpacity, View } from "react-native";
 import ImageView from "react-native-image-viewing";
 import { saveImage, downloadAndSaveBlob } from "../../utils/downloadFunctions";
@@ -10,11 +10,13 @@ import { uploadFunction } from "../../utils/uploadFunctions";
 import { showToast } from "../../utils/showToast";
 import ImageActionButton from "../../components/ImageActionButton";
 import * as Linking from 'expo-linking';
+import { UserContext } from "../../contexts/UserContext";
 
 const { width, height } = Dimensions.get('window')
 
 export default function RenderImage(props) {
   const { url, onCreateVideo } = props
+  const { imgbbKey } = useContext(UserContext)
   const [visible, setIsVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
@@ -31,7 +33,7 @@ export default function RenderImage(props) {
   const onCopyPress = async() => {
     try {
       setIsLoading(true)
-      const {imageUrl, viewerUrl} = await uploadFunction({url, expiration: null})
+      const {imageUrl, viewerUrl} = await uploadFunction({url, expiration: null, imgbbKey})
       await Clipboard.setStringAsync(imageUrl);
       showToast({title: 'URLをコピーしました', body: ''})
       setIsVisible(false)
@@ -45,7 +47,7 @@ export default function RenderImage(props) {
   const onTwitterSharePress = async() => {
     try {
       setIsUploading(true)
-      const {imageUrl, viewerUrl} = await uploadFunction({url, expiration: null})
+      const {imageUrl, viewerUrl} = await uploadFunction({url, expiration: null, imgbbKey})
       const text = `#ガチ有能AI助手 で画像を生成しました ${viewerUrl}`
       const encodedText = encodeURIComponent(text)
       const shareUrl = `https://twitter.com/intent/tweet?text=${encodedText}`

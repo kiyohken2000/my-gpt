@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
+import React, { useState, useCallback, useEffect, useRef, useMemo, useContext } from 'react'
 import { View, StyleSheet, Platform, Image } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { GiftedChat, Send } from 'react-native-gifted-chat'
@@ -21,11 +21,13 @@ import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import Settings from './Settings/Settings';
 import BlurBox from '../../components/BlurBox/BlurBox';
 import { createVideo } from '../../utils/videoFunctions';
+import { UserContext } from '../../contexts/UserContext';
 
 const isAndroid = Platform.OS === 'android'
 
 export default function Chat() {
   const navigation = useNavigation()
+  const { imgbbKey } = useContext(UserContext)
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ['1%', '95%'], []);
   const [sheetPosition, setSheetPosition] = useState(0)
@@ -215,7 +217,7 @@ export default function Chat() {
     const _imagePath = imagePath
     setImagePath('')
     setCreatingContentIDs(prev => [...prev, timestamp])
-    const {message, imageUrl} = await generateTags({imagePath: _imagePath})
+    const {message, imageUrl} = await generateTags({imagePath: _imagePath, imgbbKey})
     const botMessage = {
       _id: timestamp,
       createdAt: new Date(),

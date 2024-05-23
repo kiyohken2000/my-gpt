@@ -1,9 +1,8 @@
 import axios from "axios";
-import { imgbbKey } from "../openaiKeys";
 import * as FileSystem from 'expo-file-system';
 import { myEndpoints, imgurKey } from "../config";
 
-const uploadFunction = async({url, expiration}) => {
+const uploadFunction = async({url, expiration, imgbbKey}) => {
   try {
     const base64strings = await FileSystem.readAsStringAsync(url, {
       encoding: FileSystem.EncodingType.Base64

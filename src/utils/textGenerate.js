@@ -341,9 +341,9 @@ const saveNegativePrompt = async({
   await storage.save({key: imageModelData.YakiDofuMix.negativePromptKey, data: negativePromptYakiDofuMix})
 }
 
-const generateTags = async({imagePath}) => {
+const generateTags = async({imagePath, imgbbKey}) => {
   try {
-    const { imageUrl, viewerUrl } = await uploadFunction({url: imagePath, expiration: 300})
+    const { imageUrl, viewerUrl } = await uploadFunction({url: imagePath, expiration: 300, imgbbKey})
     const requestBody = {
       data: imageUrl,
     }
