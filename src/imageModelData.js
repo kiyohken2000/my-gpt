@@ -89,7 +89,14 @@ const imageModelData = {
     negativePromptKey: 'negativePromptYakiDofuMix',
     url: 'https://api-inference.huggingface.co/models/Vsukiyaki/Yaki-Dofu-Mix',
     recommendNegativePrompt: '(easynegative:1.0),(worst quality,low quality:1.2),(bad anatomy:1.4),(realistic:1.1),nose,lips,adult,fat,sad, (inaccurate limb:1.2),extra digit,fewer digits,six fingers,(monochrome:0.95),verybadimagenegative_v1.3,'
-  }
+  },
+  EbaraPony: {
+    label: 'EbaraPony',
+    sequence: 14,
+    negativePromptKey: 'negativePromptEbaraPony',
+    url: 'https://api-inference.huggingface.co/models/votepurchase/ebara-pony-v1-sdxl',
+    recommendNegativePrompt: 'low quality , bad anatomy, bad proportions, extra legs, deformed anatomy, messy color, deformed fingers, bad, distracted, hyperrealistic,source_furry, source_pony, source_cartoon',
+  },
 }
 
 export { imageModelData }

@@ -48,6 +48,7 @@ export default function Chat() {
   const [negativePromptArtiWaifu, setNegativePromptArtiWaifu] = useState('')
   const [negativePromptStarryXL, setNegativePromptStarryXL] = useState('')
   const [negativePromptYakiDofuMix, setNegativePromptYakiDofuMix] = useState('')
+  const [negativePromptEbaraPony, setNegativePromptEbaraPony] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -70,6 +71,7 @@ export default function Chat() {
         _negativePromptArtiWaifu,
         _negativePromptStarryXL,
         _negativePromptYakiDofuMix,
+        _negativePromptEbaraPony,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -84,6 +86,7 @@ export default function Chat() {
       setNegativePromptArtiWaifu(_negativePromptArtiWaifu)
       setNegativePromptStarryXL(_negativePromptStarryXL)
       setNegativePromptYakiDofuMix(_negativePromptYakiDofuMix)
+      setNegativePromptEbaraPony(_negativePromptEbaraPony)
     }
     loadStorage()
   }, [])
@@ -170,7 +173,7 @@ export default function Chat() {
             negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
             negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
             negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
-            negativePromptYakiDofuMix,
+            negativePromptYakiDofuMix, negativePromptEbaraPony,
           })
           const botMessage = {
             _id: timestamp,
@@ -368,6 +371,8 @@ export default function Chat() {
           setNegativePromptStarryXL={setNegativePromptStarryXL}
           negativePromptYakiDofuMix={negativePromptYakiDofuMix}
           setNegativePromptYakiDofuMix={setNegativePromptYakiDofuMix}
+          negativePromptEbaraPony={negativePromptEbaraPony}
+          setNegativePromptEbaraPony={setNegativePromptEbaraPony}
           setSheetPosition={setSheetPosition}
         />
       </BottomSheet>

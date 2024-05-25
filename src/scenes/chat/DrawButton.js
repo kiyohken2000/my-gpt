@@ -118,6 +118,11 @@ export default function DrawButton(props) {
           :null
         }
         <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.EbaraPony.sequence})}>{`${imageModelData.EbaraPony.label}${isImageMode === imageModelData.EbaraPony.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
         </ScrollView>
         <MenuItem onPress={onSettingsPress}>画像生成設定</MenuItem>
       </Menu>

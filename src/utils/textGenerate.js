@@ -208,14 +208,14 @@ const generateImage = async({
   negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
   negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
   negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
-  negativePromptYakiDofuMix,
+  negativePromptYakiDofuMix, negativePromptEbaraPony,
 }) => {
   const { apiUrl, negativePrompt, label } = selectImageAPI({
     isImageMode,
     negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
     negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
     negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
-    negativePromptYakiDofuMix,
+    negativePromptYakiDofuMix, negativePromptEbaraPony,
   })
   try {
     const { data } = await axios.post(
@@ -245,7 +245,7 @@ const selectImageAPI = ({
   negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
   negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
   negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
-  negativePromptYakiDofuMix,
+  negativePromptYakiDofuMix, negativePromptEbaraPony,
 }) => {
   switch (isImageMode){
     case imageModelData.RealisticVision.sequence:
@@ -274,6 +274,8 @@ const selectImageAPI = ({
       return { apiUrl: imageModelData.StarryXL.url, negativePrompt: negativePromptStarryXL, label: imageModelData.StarryXL.label }
     case imageModelData.YakiDofuMix.sequence:
       return { apiUrl: imageModelData.YakiDofuMix.url, negativePrompt: negativePromptYakiDofuMix, label: imageModelData.YakiDofuMix.label }
+    case imageModelData.EbaraPony.sequence:
+      return { apiUrl: imageModelData.EbaraPony.url, negativePrompt: negativePromptEbaraPony, label: imageModelData.EbaraPony.label }
     default:
       return { apiUrl: imageModelData.RealisticVision.url, negativePrompt: negativePromptRealisticVision, label: imageModelData.RealisticVision.label }
   }
@@ -293,6 +295,7 @@ const loadNegativePrompt = async() => {
   const _negativePromptArtiWaifu = await loadNegativePromptOfModel({key: imageModelData.ArtiWaifu.negativePromptKey})
   const _negativePromptStarryXL = await loadNegativePromptOfModel({key: imageModelData.StarryXL.negativePromptKey})
   const _negativePromptYakiDofuMix = await loadNegativePromptOfModel({key: imageModelData.YakiDofuMix.negativePromptKey})
+  const _negativePromptEbaraPony = await loadNegativePromptOfModel({key: imageModelData.EbaraPony.negativePromptKey})
   return {
     _negativePromptRealisticVision,
     _negativePromptAnimagine,
@@ -307,6 +310,7 @@ const loadNegativePrompt = async() => {
     _negativePromptArtiWaifu,
     _negativePromptStarryXL,
     _negativePromptYakiDofuMix,
+    _negativePromptEbaraPony,
   }
 }
 
@@ -324,7 +328,7 @@ const saveNegativePrompt = async({
   negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
   negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
   negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
-  negativePromptYakiDofuMix,
+  negativePromptYakiDofuMix, negativePromptEbaraPony,
 }) => {
   await storage.save({key: imageModelData.RealisticVision.negativePromptKey, data: negativePromptRealisticVision})
   await storage.save({key: imageModelData.Animagine.negativePromptKey, data: negativePromptAnimagine})
@@ -339,6 +343,7 @@ const saveNegativePrompt = async({
   await storage.save({key: imageModelData.ArtiWaifu.negativePromptKey, data: negativePromptArtiWaifu})
   await storage.save({key: imageModelData.StarryXL.negativePromptKey, data: negativePromptStarryXL})
   await storage.save({key: imageModelData.YakiDofuMix.negativePromptKey, data: negativePromptYakiDofuMix})
+  await storage.save({key: imageModelData.EbaraPony.negativePromptKey, data: negativePromptEbaraPony})
 }
 
 const generateTags = async({imagePath, imgbbKey}) => {
