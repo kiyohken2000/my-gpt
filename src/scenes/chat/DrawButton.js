@@ -123,6 +123,51 @@ export default function DrawButton(props) {
           :null
         }
         <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.waiANIMIXPONYXL.sequence})}>{`${imageModelData.waiANIMIXPONYXL.label}${isImageMode === imageModelData.waiANIMIXPONYXL.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.waiREALMIX.sequence})}>{`${imageModelData.waiREALMIX.label}${isImageMode === imageModelData.waiREALMIX.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.AnythingXL.sequence})}>{`${imageModelData.AnythingXL.label}${isImageMode === imageModelData.AnythingXL.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.waiREALCN.sequence})}>{`${imageModelData.waiREALCN.label}${isImageMode === imageModelData.waiREALCN.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.AnimeBulldozer.sequence})}>{`${imageModelData.AnimeBulldozer.label}${isImageMode === imageModelData.AnimeBulldozer.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.MomoiroPony.sequence})}>{`${imageModelData.MomoiroPony.label}${isImageMode === imageModelData.MomoiroPony.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.HanamomoPony.sequence})}>{`${imageModelData.HanamomoPony.label}${isImageMode === imageModelData.HanamomoPony.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.DeepDarkHentaiMix.sequence})}>{`${imageModelData.DeepDarkHentaiMix.label}${isImageMode === imageModelData.DeepDarkHentaiMix.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.SeventhAnimeXLPony.sequence})}>{`${imageModelData.SeventhAnimeXLPony.label}${isImageMode === imageModelData.SeventhAnimeXLPony.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
         </ScrollView>
         <MenuItem onPress={onSettingsPress}>画像生成設定</MenuItem>
       </Menu>

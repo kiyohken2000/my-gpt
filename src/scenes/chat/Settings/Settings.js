@@ -26,6 +26,15 @@ export default function Settings(props) {
     negativePromptStarryXL, setNegativePromptStarryXL,
     negativePromptYakiDofuMix, setNegativePromptYakiDofuMix,
     negativePromptEbaraPony, setNegativePromptEbaraPony,
+    negativePromptWaiANIMIXPONYXL, setNegativePromptWaiANIMIXPONYXL,
+    negativePromptWaiREALMIX, setNegativePromptWaiREALMIX,
+    negativePromptAnythingXL, setNegativePromptAnythingXL,
+    negativePromptWaiREALCN, setNegativePromptWaiREALCN,
+    negativePromptAnimeBulldozer, setNegativePromptAnimeBulldozer,
+    negativePromptMomoiroPony, setNegativePromptMomoiroPony,
+    negativePromptHanamomoPony, setNegativePromptHanamomoPony,
+    negativePromptDeepDarkHentaiMix, setNegativePromptDeepDarkHentaiMix,
+    negativePromptSeventhAnimeXLPony, setNegativePromptSeventhAnimeXLPony,
   } = props
   const { isReview } = useContext(UserContext)
 
@@ -34,7 +43,9 @@ export default function Settings(props) {
       negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
       negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
       negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
-      negativePromptYakiDofuMix, negativePromptEbaraPony,
+      negativePromptYakiDofuMix, negativePromptEbaraPony, negativePromptWaiANIMIXPONYXL, negativePromptWaiREALMIX,
+      negativePromptAnythingXL, negativePromptWaiREALCN, negativePromptAnimeBulldozer, negativePromptMomoiroPony,
+      negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony,
     })
     setSheetPosition(0)
   }
@@ -166,6 +177,87 @@ export default function Settings(props) {
           negativePrompt={negativePromptEbaraPony}
           setNegativePrompt={setNegativePromptEbaraPony}
           recommendNegativePrompt={imageModelData.EbaraPony.recommendNegativePrompt}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label={imageModelData.waiANIMIXPONYXL.label}
+          negativePrompt={negativePromptWaiANIMIXPONYXL}
+          setNegativePrompt={setNegativePromptWaiANIMIXPONYXL}
+          recommendNegativePrompt={imageModelData.waiANIMIXPONYXL.recommendNegativePrompt}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label={imageModelData.waiREALMIX.label}
+          negativePrompt={negativePromptWaiREALMIX}
+          setNegativePrompt={setNegativePromptWaiREALMIX}
+          recommendNegativePrompt={imageModelData.waiREALMIX.recommendNegativePrompt}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label={imageModelData.AnythingXL.label}
+          negativePrompt={negativePromptAnythingXL}
+          setNegativePrompt={setNegativePromptAnythingXL}
+          recommendNegativePrompt={imageModelData.AnythingXL.recommendNegativePrompt}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label={imageModelData.waiREALCN.label}
+          negativePrompt={negativePromptWaiREALCN}
+          setNegativePrompt={setNegativePromptWaiREALCN}
+          recommendNegativePrompt={imageModelData.waiREALCN.recommendNegativePrompt}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label={imageModelData.AnimeBulldozer.label}
+          negativePrompt={negativePromptAnimeBulldozer}
+          setNegativePrompt={setNegativePromptAnimeBulldozer}
+          recommendNegativePrompt={imageModelData.AnimeBulldozer.recommendNegativePrompt}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label={imageModelData.MomoiroPony.label}
+          negativePrompt={negativePromptMomoiroPony}
+          setNegativePrompt={setNegativePromptMomoiroPony}
+          recommendNegativePrompt={imageModelData.MomoiroPony.recommendNegativePrompt}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label={imageModelData.HanamomoPony.label}
+          negativePrompt={negativePromptHanamomoPony}
+          setNegativePrompt={setNegativePromptHanamomoPony}
+          recommendNegativePrompt={imageModelData.HanamomoPony.recommendNegativePrompt}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label={imageModelData.DeepDarkHentaiMix.label}
+          negativePrompt={negativePromptDeepDarkHentaiMix}
+          setNegativePrompt={setNegativePromptDeepDarkHentaiMix}
+          recommendNegativePrompt={imageModelData.DeepDarkHentaiMix.recommendNegativePrompt}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label={imageModelData.SeventhAnimeXLPony.label}
+          negativePrompt={negativePromptSeventhAnimeXLPony}
+          setNegativePrompt={setNegativePromptSeventhAnimeXLPony}
+          recommendNegativePrompt={imageModelData.SeventhAnimeXLPony.recommendNegativePrompt}
         />
         :null
       }

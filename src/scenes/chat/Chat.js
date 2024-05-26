@@ -49,6 +49,15 @@ export default function Chat() {
   const [negativePromptStarryXL, setNegativePromptStarryXL] = useState('')
   const [negativePromptYakiDofuMix, setNegativePromptYakiDofuMix] = useState('')
   const [negativePromptEbaraPony, setNegativePromptEbaraPony] = useState('')
+  const [negativePromptWaiANIMIXPONYXL, setNegativePromptWaiANIMIXPONYXL] = useState('')
+  const [negativePromptWaiREALMIX, setNegativePromptWaiREALMIX] = useState('')
+  const [negativePromptAnythingXL, setNegativePromptAnythingXL] = useState('')
+  const [negativePromptWaiREALCN, setNegativePromptWaiREALCN] = useState('')
+  const [negativePromptAnimeBulldozer, setNegativePromptAnimeBulldozer] = useState('')
+  const [negativePromptMomoiroPony, setNegativePromptMomoiroPony] = useState('')
+  const [negativePromptHanamomoPony, setNegativePromptHanamomoPony] = useState('')
+  const [negativePromptDeepDarkHentaiMix, setNegativePromptDeepDarkHentaiMix] = useState('')
+  const [negativePromptSeventhAnimeXLPony, setNegativePromptSeventhAnimeXLPony] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -72,6 +81,15 @@ export default function Chat() {
         _negativePromptStarryXL,
         _negativePromptYakiDofuMix,
         _negativePromptEbaraPony,
+        _negativePromptWaiANIMIXPONYXL,
+        _negativePromptWaiREALMIX,
+        _negativePromptAnythingXL,
+        _negativePromptWaiREALCN,
+        _negativePromptAnimeBulldozer,
+        _negativePromptMomoiroPony,
+        _negativePromptHanamomoPony,
+        _negativePromptDeepDarkHentaiMix,
+        _negativePromptSeventhAnimeXLPony,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -87,6 +105,15 @@ export default function Chat() {
       setNegativePromptStarryXL(_negativePromptStarryXL)
       setNegativePromptYakiDofuMix(_negativePromptYakiDofuMix)
       setNegativePromptEbaraPony(_negativePromptEbaraPony)
+      setNegativePromptWaiANIMIXPONYXL(_negativePromptWaiANIMIXPONYXL)
+      setNegativePromptWaiREALMIX(_negativePromptWaiREALMIX)
+      setNegativePromptAnythingXL(_negativePromptAnythingXL)
+      setNegativePromptWaiREALCN(_negativePromptWaiREALCN)
+      setNegativePromptAnimeBulldozer(_negativePromptAnimeBulldozer)
+      setNegativePromptMomoiroPony(_negativePromptMomoiroPony)
+      setNegativePromptHanamomoPony(_negativePromptHanamomoPony)
+      setNegativePromptDeepDarkHentaiMix(_negativePromptDeepDarkHentaiMix)
+      setNegativePromptSeventhAnimeXLPony(_negativePromptSeventhAnimeXLPony)
     }
     loadStorage()
   }, [])
@@ -173,7 +200,9 @@ export default function Chat() {
             negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
             negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
             negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
-            negativePromptYakiDofuMix, negativePromptEbaraPony,
+            negativePromptYakiDofuMix, negativePromptEbaraPony, negativePromptWaiANIMIXPONYXL, negativePromptWaiREALMIX,
+            negativePromptAnythingXL, negativePromptWaiREALCN, negativePromptAnimeBulldozer, negativePromptMomoiroPony,
+            negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony,
           })
           const botMessage = {
             _id: timestamp,
@@ -373,6 +402,24 @@ export default function Chat() {
           setNegativePromptYakiDofuMix={setNegativePromptYakiDofuMix}
           negativePromptEbaraPony={negativePromptEbaraPony}
           setNegativePromptEbaraPony={setNegativePromptEbaraPony}
+          negativePromptWaiANIMIXPONYXL={negativePromptWaiANIMIXPONYXL}
+          setNegativePromptWaiANIMIXPONYXL={setNegativePromptWaiANIMIXPONYXL}
+          negativePromptWaiREALMIX={negativePromptWaiREALMIX}
+          setNegativePromptWaiREALMIX={setNegativePromptWaiREALMIX}
+          negativePromptAnythingXL={negativePromptAnythingXL}
+          setNegativePromptAnythingXL={setNegativePromptAnythingXL}
+          negativePromptWaiREALCN={negativePromptWaiREALCN}
+          setNegativePromptWaiREALCN={setNegativePromptWaiREALCN}
+          negativePromptAnimeBulldozer={negativePromptAnimeBulldozer}
+          setNegativePromptAnimeBulldozer={setNegativePromptAnimeBulldozer}
+          negativePromptMomoiroPony={negativePromptMomoiroPony}
+          setNegativePromptMomoiroPony={setNegativePromptMomoiroPony}
+          negativePromptHanamomoPony={negativePromptHanamomoPony}
+          setNegativePromptHanamomoPony={setNegativePromptHanamomoPony}
+          negativePromptDeepDarkHentaiMix={negativePromptDeepDarkHentaiMix}
+          setNegativePromptDeepDarkHentaiMix={setNegativePromptDeepDarkHentaiMix}
+          negativePromptSeventhAnimeXLPony={negativePromptSeventhAnimeXLPony}
+          setNegativePromptSeventhAnimeXLPony={setNegativePromptSeventhAnimeXLPony}
           setSheetPosition={setSheetPosition}
         />
       </BottomSheet>
