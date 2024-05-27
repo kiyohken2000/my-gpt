@@ -168,6 +168,56 @@ export default function DrawButton(props) {
           :null
         }
         <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.RealPonyCuteJp.sequence})}>{`${imageModelData.RealPonyCuteJp.label}${isImageMode === imageModelData.RealPonyCuteJp.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.Rumblexl.sequence})}>{`${imageModelData.Rumblexl.label}${isImageMode === imageModelData.Rumblexl.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.Mix3x3x3xl.sequence})}>{`${imageModelData.Mix3x3x3xl.label}${isImageMode === imageModelData.Mix3x3x3xl.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.YamersAnime.sequence})}>{`${imageModelData.YamersAnime.label}${isImageMode === imageModelData.YamersAnime.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.Baxl.sequence})}>{`${imageModelData.Baxl.label}${isImageMode === imageModelData.Baxl.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.CuteCore.sequence})}>{`${imageModelData.CuteCore.label}${isImageMode === imageModelData.CuteCore.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.FeaturelessMix.sequence})}>{`${imageModelData.FeaturelessMix.label}${isImageMode === imageModelData.FeaturelessMix.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.ManmaruMix.sequence})}>{`${imageModelData.ManmaruMix.label}${isImageMode === imageModelData.ManmaruMix.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.ChacolOmegaMix.sequence})}>{`${imageModelData.ChacolOmegaMix.label}${isImageMode === imageModelData.ChacolOmegaMix.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.EponaMix.sequence})}>{`${imageModelData.EponaMix.label}${isImageMode === imageModelData.EponaMix.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
         </ScrollView>
         <MenuItem onPress={onSettingsPress}>画像生成設定</MenuItem>
       </Menu>

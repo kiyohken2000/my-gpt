@@ -58,6 +58,16 @@ export default function Chat() {
   const [negativePromptHanamomoPony, setNegativePromptHanamomoPony] = useState('')
   const [negativePromptDeepDarkHentaiMix, setNegativePromptDeepDarkHentaiMix] = useState('')
   const [negativePromptSeventhAnimeXLPony, setNegativePromptSeventhAnimeXLPony] = useState('')
+  const [negativePromptRealPonyCuteJp, setNegativePromptRealPonyCuteJp] = useState('')
+  const [negativePromptRumblexl, setNegativePromptRumblexl] = useState('')
+  const [negativePromptMix3x3x3xl, setNegativePromptMix3x3x3xl] = useState('')
+  const [negativePromptYamersAnime, setNegativePromptYamersAnime] = useState('')
+  const [negativePromptBaxl, setNegativePromptBaxl] = useState('')
+  const [negativePromptCuteCore, setNegativePromptCuteCore] = useState('')
+  const [negativePromptFeaturelessMix, setNegativePromptFeaturelessMix] = useState('')
+  const [negativePromptManmaruMix, setNegativePromptManmaruMix] = useState('')
+  const [negativePromptChacolOmegaMix, setNegativePromptChacolOmegaMix] = useState('')
+  const [negativePromptEponaMix, setNegativePromptEponaMix] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -90,6 +100,16 @@ export default function Chat() {
         _negativePromptHanamomoPony,
         _negativePromptDeepDarkHentaiMix,
         _negativePromptSeventhAnimeXLPony,
+        _negativePromptRealPonyCuteJp,
+        _negativePromptRumblexl,
+        _negativePromptMix3x3x3xl,
+        _negativePromptYamersAnime,
+        _negativePromptBaxl,
+        _negativePromptCuteCore,
+        _negativePromptFeaturelessMix,
+        _negativePromptManmaruMix,
+        _negativePromptChacolOmegaMix,
+        _negativePromptEponaMix,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -114,6 +134,16 @@ export default function Chat() {
       setNegativePromptHanamomoPony(_negativePromptHanamomoPony)
       setNegativePromptDeepDarkHentaiMix(_negativePromptDeepDarkHentaiMix)
       setNegativePromptSeventhAnimeXLPony(_negativePromptSeventhAnimeXLPony)
+      setNegativePromptRealPonyCuteJp(_negativePromptRealPonyCuteJp)
+      setNegativePromptRumblexl(_negativePromptRumblexl)
+      setNegativePromptMix3x3x3xl(_negativePromptMix3x3x3xl)
+      setNegativePromptYamersAnime(_negativePromptYamersAnime)
+      setNegativePromptBaxl(_negativePromptBaxl)
+      setNegativePromptCuteCore(_negativePromptCuteCore)
+      setNegativePromptFeaturelessMix(_negativePromptFeaturelessMix)
+      setNegativePromptManmaruMix(_negativePromptManmaruMix)
+      setNegativePromptChacolOmegaMix(_negativePromptChacolOmegaMix)
+      setNegativePromptEponaMix(_negativePromptEponaMix)
     }
     loadStorage()
   }, [])
@@ -202,7 +232,10 @@ export default function Chat() {
             negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
             negativePromptYakiDofuMix, negativePromptEbaraPony, negativePromptWaiANIMIXPONYXL, negativePromptWaiREALMIX,
             negativePromptAnythingXL, negativePromptWaiREALCN, negativePromptAnimeBulldozer, negativePromptMomoiroPony,
-            negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony,
+            negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony, negativePromptRealPonyCuteJp,
+            negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
+            negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
+            negativePromptEponaMix,
           })
           const botMessage = {
             _id: timestamp,
@@ -420,6 +453,26 @@ export default function Chat() {
           setNegativePromptDeepDarkHentaiMix={setNegativePromptDeepDarkHentaiMix}
           negativePromptSeventhAnimeXLPony={negativePromptSeventhAnimeXLPony}
           setNegativePromptSeventhAnimeXLPony={setNegativePromptSeventhAnimeXLPony}
+          negativePromptRealPonyCuteJp={negativePromptRealPonyCuteJp}
+          setNegativePromptRealPonyCuteJp={setNegativePromptRealPonyCuteJp}
+          negativePromptRumblexl={negativePromptRumblexl}
+          setNegativePromptRumblexl={setNegativePromptRumblexl}
+          negativePromptMix3x3x3xl={negativePromptMix3x3x3xl}
+          setNegativePromptMix3x3x3xl={setNegativePromptMix3x3x3xl}
+          negativePromptYamersAnime={negativePromptYamersAnime}
+          setNegativePromptYamersAnime={setNegativePromptYamersAnime}
+          negativePromptBaxl={negativePromptBaxl}
+          setNegativePromptBaxl={setNegativePromptBaxl}
+          negativePromptCuteCore={negativePromptCuteCore}
+          setNegativePromptCuteCore={setNegativePromptCuteCore}
+          negativePromptFeaturelessMix={negativePromptFeaturelessMix}
+          setNegativePromptFeaturelessMix={setNegativePromptFeaturelessMix}
+          negativePromptManmaruMix={negativePromptManmaruMix}
+          setNegativePromptManmaruMix={setNegativePromptManmaruMix}
+          negativePromptChacolOmegaMix={negativePromptChacolOmegaMix}
+          setNegativePromptChacolOmegaMix={setNegativePromptChacolOmegaMix}
+          negativePromptEponaMix={negativePromptEponaMix}
+          setNegativePromptEponaMix={setNegativePromptEponaMix}
           setSheetPosition={setSheetPosition}
         />
       </BottomSheet>

@@ -7,7 +7,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.40",
+    "version": "1.0.41",
     "orientation": "portrait",
     "icon": "./assets/images/logo-sm.png",
     "splash": {
@@ -26,7 +26,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "net.votepurchase.mygpt",
-      "buildNumber": "47",
+      "buildNumber": "48",
       "infoPlist": {
         "NSMicrophoneUsageDescription": "チャットに投稿するためにマイクを使用します",
         "NSCameraUsageDescription": "チャットに画像を投稿するためにカメラを使用します",
@@ -66,7 +66,7 @@
     },
     "android": {
       "package": "net.votepurchase.mygpt",
-      "versionCode": 46,
+      "versionCode": 47,
       "userInterfaceStyle": "automatic",
       "permissions": [
         "VIBRATE",

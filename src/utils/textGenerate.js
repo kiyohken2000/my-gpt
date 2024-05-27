@@ -210,7 +210,10 @@ const generateImage = async({
   negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
   negativePromptYakiDofuMix, negativePromptEbaraPony, negativePromptWaiANIMIXPONYXL, negativePromptWaiREALMIX,
   negativePromptAnythingXL, negativePromptWaiREALCN, negativePromptAnimeBulldozer, negativePromptMomoiroPony,
-  negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony,
+  negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony, negativePromptRealPonyCuteJp,
+  negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
+  negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
+  negativePromptEponaMix,
 }) => {
   const { apiUrl, negativePrompt, label } = selectImageAPI({
     isImageMode,
@@ -219,7 +222,10 @@ const generateImage = async({
     negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
     negativePromptYakiDofuMix, negativePromptEbaraPony, negativePromptWaiANIMIXPONYXL, negativePromptWaiREALMIX,
     negativePromptAnythingXL, negativePromptWaiREALCN, negativePromptAnimeBulldozer, negativePromptMomoiroPony,
-    negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony,
+    negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony, negativePromptRealPonyCuteJp,
+    negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
+    negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
+    negativePromptEponaMix,
   })
   try {
     const { data } = await axios.post(
@@ -251,7 +257,10 @@ const selectImageAPI = ({
   negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
   negativePromptYakiDofuMix, negativePromptEbaraPony, negativePromptWaiANIMIXPONYXL, negativePromptWaiREALMIX,
   negativePromptAnythingXL, negativePromptWaiREALCN, negativePromptAnimeBulldozer, negativePromptMomoiroPony,
-  negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony,
+  negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony, negativePromptRealPonyCuteJp,
+  negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
+  negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
+  negativePromptEponaMix,
 }) => {
   switch (isImageMode){
     case imageModelData.RealisticVision.sequence:
@@ -300,6 +309,27 @@ const selectImageAPI = ({
       return { apiUrl: imageModelData.DeepDarkHentaiMix.url, negativePrompt: negativePromptDeepDarkHentaiMix, label: imageModelData.DeepDarkHentaiMix.label }
     case imageModelData.SeventhAnimeXLPony.sequence:
       return { apiUrl: imageModelData.SeventhAnimeXLPony.url, negativePrompt: negativePromptSeventhAnimeXLPony, label: imageModelData.SeventhAnimeXLPony.label }
+    case imageModelData.RealPonyCuteJp.sequence:
+      return { apiUrl: imageModelData.RealPonyCuteJp.url, negativePrompt: negativePromptRealPonyCuteJp, label: imageModelData.RealPonyCuteJp.label }
+    case imageModelData.Rumblexl.sequence:
+      return { apiUrl: imageModelData.Rumblexl.url, negativePrompt: negativePromptRumblexl, label: imageModelData.Rumblexl.label }
+    case imageModelData.Mix3x3x3xl.sequence:
+      return { apiUrl: imageModelData.Mix3x3x3xl.url, negativePrompt: negativePromptMix3x3x3xl, label: imageModelData.Mix3x3x3xl.label }
+    case imageModelData.YamersAnime.sequence:
+      return { apiUrl: imageModelData.YamersAnime.url, negativePrompt: negativePromptYamersAnime, label: imageModelData.YamersAnime.label }
+    case imageModelData.Baxl.sequence:
+      return { apiUrl: imageModelData.Baxl.url, negativePrompt: negativePromptBaxl, label: imageModelData.Baxl.label }
+    case imageModelData.CuteCore.sequence:
+      return { apiUrl: imageModelData.CuteCore.url, negativePrompt: negativePromptCuteCore, label: imageModelData.CuteCore.label }
+    case imageModelData.FeaturelessMix.sequence:
+      return { apiUrl: imageModelData.FeaturelessMix.url, negativePrompt: negativePromptFeaturelessMix, label: imageModelData.FeaturelessMix.label }
+    case imageModelData.ManmaruMix.sequence:
+      return { apiUrl: imageModelData.ManmaruMix.url, negativePrompt: negativePromptManmaruMix, label: imageModelData.ManmaruMix.label }
+    case imageModelData.ChacolOmegaMix.sequence:
+      return { apiUrl: imageModelData.ChacolOmegaMix.url, negativePrompt: negativePromptChacolOmegaMix, label: imageModelData.ChacolOmegaMix.label }
+    case imageModelData.EponaMix.sequence:
+      return { apiUrl: imageModelData.EponaMix.url, negativePrompt: negativePromptEponaMix, label: imageModelData.EponaMix.label }
+
     default:
       return { apiUrl: imageModelData.RealisticVision.url, negativePrompt: negativePromptRealisticVision, label: imageModelData.RealisticVision.label }
   }
@@ -329,6 +359,16 @@ const loadNegativePrompt = async() => {
   const _negativePromptHanamomoPony = await loadNegativePromptOfModel({key: imageModelData.HanamomoPony.negativePromptKey})
   const _negativePromptDeepDarkHentaiMix = await loadNegativePromptOfModel({key: imageModelData.DeepDarkHentaiMix.negativePromptKey})
   const _negativePromptSeventhAnimeXLPony = await loadNegativePromptOfModel({key: imageModelData.SeventhAnimeXLPony.negativePromptKey})
+  const _negativePromptRealPonyCuteJp= await loadNegativePromptOfModel({key: imageModelData.RealPonyCuteJp.negativePromptKey})
+  const _negativePromptRumblexl= await loadNegativePromptOfModel({key: imageModelData.Rumblexl.negativePromptKey})
+  const _negativePromptMix3x3x3xl= await loadNegativePromptOfModel({key: imageModelData.Mix3x3x3xl.negativePromptKey})
+  const _negativePromptYamersAnime= await loadNegativePromptOfModel({key: imageModelData.YamersAnime.negativePromptKey})
+  const _negativePromptBaxl= await loadNegativePromptOfModel({key: imageModelData.Baxl.negativePromptKey})
+  const _negativePromptCuteCore= await loadNegativePromptOfModel({key: imageModelData.CuteCore.negativePromptKey})
+  const _negativePromptFeaturelessMix= await loadNegativePromptOfModel({key: imageModelData.FeaturelessMix.negativePromptKey})
+  const _negativePromptManmaruMix= await loadNegativePromptOfModel({key: imageModelData.ManmaruMix.negativePromptKey})
+  const _negativePromptChacolOmegaMix= await loadNegativePromptOfModel({key: imageModelData.ChacolOmegaMix.negativePromptKey})
+  const _negativePromptEponaMix= await loadNegativePromptOfModel({key: imageModelData.EponaMix.negativePromptKey})
   return {
     _negativePromptRealisticVision,
     _negativePromptAnimagine,
@@ -353,6 +393,16 @@ const loadNegativePrompt = async() => {
     _negativePromptHanamomoPony,
     _negativePromptDeepDarkHentaiMix,
     _negativePromptSeventhAnimeXLPony,
+    _negativePromptRealPonyCuteJp,
+    _negativePromptRumblexl,
+    _negativePromptMix3x3x3xl,
+    _negativePromptYamersAnime,
+    _negativePromptBaxl,
+    _negativePromptCuteCore,
+    _negativePromptFeaturelessMix,
+    _negativePromptManmaruMix,
+    _negativePromptChacolOmegaMix,
+    _negativePromptEponaMix,
   }
 }
 
@@ -372,7 +422,10 @@ const saveNegativePrompt = async({
   negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
   negativePromptYakiDofuMix, negativePromptEbaraPony, negativePromptWaiANIMIXPONYXL, negativePromptWaiREALMIX,
   negativePromptAnythingXL, negativePromptWaiREALCN, negativePromptAnimeBulldozer, negativePromptMomoiroPony,
-  negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony,
+  negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony, negativePromptRealPonyCuteJp,
+  negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
+  negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
+  negativePromptEponaMix,
 }) => {
   await storage.save({key: imageModelData.RealisticVision.negativePromptKey, data: negativePromptRealisticVision})
   await storage.save({key: imageModelData.Animagine.negativePromptKey, data: negativePromptAnimagine})
@@ -397,6 +450,16 @@ const saveNegativePrompt = async({
   await storage.save({key: imageModelData.HanamomoPony.negativePromptKey, data: negativePromptHanamomoPony})
   await storage.save({key: imageModelData.DeepDarkHentaiMix.negativePromptKey, data: negativePromptDeepDarkHentaiMix})
   await storage.save({key: imageModelData.SeventhAnimeXLPony.negativePromptKey, data: negativePromptSeventhAnimeXLPony})
+  await storage.save({key: imageModelData.RealPonyCuteJp.negativePromptKey, data: negativePromptRealPonyCuteJp})
+  await storage.save({key: imageModelData.Rumblexl.negativePromptKey, data: negativePromptRumblexl})
+  await storage.save({key: imageModelData.Mix3x3x3xl.negativePromptKey, data: negativePromptMix3x3x3xl})
+  await storage.save({key: imageModelData.YamersAnime.negativePromptKey, data: negativePromptYamersAnime})
+  await storage.save({key: imageModelData.Baxl.negativePromptKey, data: negativePromptBaxl})
+  await storage.save({key: imageModelData.CuteCore.negativePromptKey, data: negativePromptCuteCore})
+  await storage.save({key: imageModelData.FeaturelessMix.negativePromptKey, data: negativePromptFeaturelessMix})
+  await storage.save({key: imageModelData.ManmaruMix.negativePromptKey, data: negativePromptManmaruMix})
+  await storage.save({key: imageModelData.ChacolOmegaMix.negativePromptKey, data: negativePromptChacolOmegaMix})
+  await storage.save({key: imageModelData.EponaMix.negativePromptKey, data: negativePromptEponaMix})
 }
 
 const generateTags = async({imagePath, imgbbKey}) => {
