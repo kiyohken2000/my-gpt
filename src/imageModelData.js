@@ -52,7 +52,7 @@ const imageModelData = {
     label: 'NsfwGen',
     sequence: 8,
     negativePromptKey: 'negativePromptNsfwGen',
-    url: 'https://api-inference.huggingface.co/models/UnfilteredAI/NSFW-gen-v2',
+    url: 'https://api-inference.huggingface.co/models/UnfilteredAI/NSFW-gen-v2.1',
     recommendNegativePrompt: 'bad anatomy,long_neck,long_body,longbody,deformed mutated disfigured,missing arms,extra_arms,mutated hands,extra_legs,bad hands,poorly_drawn_hands,malformed_hands,missing_limb,floating_limbs,disconnected_limbs,extra_fingers,bad fingers,liquid fingers,poorly drawn fingers,missing fingers,extra digit,fewer digits,ugly face,deformed eyes,partial face,partial head,bad face,inaccurate limb,cropped',
   },
   Deliberate: {
@@ -229,6 +229,13 @@ const imageModelData = {
     negativePromptKey: 'negativePromptEponaMix',
     url: 'https://api-inference.huggingface.co/models/John6666/epona-mix-v3-sdxl',
     recommendNegativePrompt: 'low quality , bad anatomy, bad proportions, extra legs, deformed anatomy, messy color, deformed fingers, bad, distracted, hyperrealistic,source_furry, source_pony, source_cartoon',
+  },
+  PVCMovable: {
+    label: 'PVCMovable',
+    sequence: 34,
+    negativePromptKey: 'negativePromptPVCMovable',
+    url: 'https://api-inference.huggingface.co/models/votepurchase/PVCStyleModelMovable_pony151',
+    recommendNegativePrompt: 'engrish text,low quality,worstquality,shiny_skin,score_4,score_3,score_2,score_1,ugly,bad feet,bad hands,',
   },
 }
 

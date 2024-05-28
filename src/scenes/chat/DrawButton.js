@@ -218,6 +218,11 @@ export default function DrawButton(props) {
           :null
         }
         <MenuDivider />
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.PVCMovable.sequence})}>{`${imageModelData.PVCMovable.label}${isImageMode === imageModelData.PVCMovable.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        <MenuDivider />
         </ScrollView>
         <MenuItem onPress={onSettingsPress}>画像生成設定</MenuItem>
       </Menu>

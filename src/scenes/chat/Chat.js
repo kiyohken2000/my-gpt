@@ -68,6 +68,7 @@ export default function Chat() {
   const [negativePromptManmaruMix, setNegativePromptManmaruMix] = useState('')
   const [negativePromptChacolOmegaMix, setNegativePromptChacolOmegaMix] = useState('')
   const [negativePromptEponaMix, setNegativePromptEponaMix] = useState('')
+  const [negativePromptPVCMovable, setNegativePromptPVCMovable] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -110,6 +111,7 @@ export default function Chat() {
         _negativePromptManmaruMix,
         _negativePromptChacolOmegaMix,
         _negativePromptEponaMix,
+        _negativePromptPVCMovable,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -144,6 +146,7 @@ export default function Chat() {
       setNegativePromptManmaruMix(_negativePromptManmaruMix)
       setNegativePromptChacolOmegaMix(_negativePromptChacolOmegaMix)
       setNegativePromptEponaMix(_negativePromptEponaMix)
+      setNegativePromptPVCMovable(_negativePromptPVCMovable)
     }
     loadStorage()
   }, [])
@@ -235,7 +238,7 @@ export default function Chat() {
             negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony, negativePromptRealPonyCuteJp,
             negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
             negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
-            negativePromptEponaMix,
+            negativePromptEponaMix, negativePromptPVCMovable,
           })
           const botMessage = {
             _id: timestamp,
@@ -473,6 +476,8 @@ export default function Chat() {
           setNegativePromptChacolOmegaMix={setNegativePromptChacolOmegaMix}
           negativePromptEponaMix={negativePromptEponaMix}
           setNegativePromptEponaMix={setNegativePromptEponaMix}
+          negativePromptPVCMovable={negativePromptPVCMovable}
+          setNegativePromptPVCMovable={setNegativePromptPVCMovable}
           setSheetPosition={setSheetPosition}
         />
       </BottomSheet>
