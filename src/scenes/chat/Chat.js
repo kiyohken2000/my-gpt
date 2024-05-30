@@ -69,6 +69,8 @@ export default function Chat() {
   const [negativePromptChacolOmegaMix, setNegativePromptChacolOmegaMix] = useState('')
   const [negativePromptEponaMix, setNegativePromptEponaMix] = useState('')
   const [negativePromptPVCMovable, setNegativePromptPVCMovable] = useState('')
+  const [negativePromptPVCRealistic, setNegativePromptPVCRealistic] = useState('')
+  const [negativePromptPVCFantasy, setNegativePromptPVCFantasy] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -112,6 +114,8 @@ export default function Chat() {
         _negativePromptChacolOmegaMix,
         _negativePromptEponaMix,
         _negativePromptPVCMovable,
+        _negativePromptPVCRealistic,
+        _negativePromptPVCFantasy,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -147,6 +151,8 @@ export default function Chat() {
       setNegativePromptChacolOmegaMix(_negativePromptChacolOmegaMix)
       setNegativePromptEponaMix(_negativePromptEponaMix)
       setNegativePromptPVCMovable(_negativePromptPVCMovable)
+      setNegativePromptPVCRealistic(_negativePromptPVCRealistic)
+      setNegativePromptPVCFantasy(_negativePromptPVCFantasy)
     }
     loadStorage()
   }, [])
@@ -238,7 +244,7 @@ export default function Chat() {
             negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony, negativePromptRealPonyCuteJp,
             negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
             negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
-            negativePromptEponaMix, negativePromptPVCMovable,
+            negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
           })
           const botMessage = {
             _id: timestamp,
@@ -478,6 +484,10 @@ export default function Chat() {
           setNegativePromptEponaMix={setNegativePromptEponaMix}
           negativePromptPVCMovable={negativePromptPVCMovable}
           setNegativePromptPVCMovable={setNegativePromptPVCMovable}
+          negativePromptPVCRealistic={negativePromptPVCRealistic}
+          setNegativePromptPVCRealistic={setNegativePromptPVCRealistic}
+          negativePromptPVCFantasy={negativePromptPVCFantasy}
+          setNegativePromptPVCFantasy={setNegativePromptPVCFantasy}
           setSheetPosition={setSheetPosition}
         />
       </BottomSheet>

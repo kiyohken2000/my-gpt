@@ -222,6 +222,14 @@ export default function DrawButton(props) {
           <MenuItem onPress={() => onItemPress({val: imageModelData.PVCMovable.sequence})}>{`${imageModelData.PVCMovable.label}${isImageMode === imageModelData.PVCMovable.sequence?'✔':''}`}</MenuItem>
           :null
         }
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.PVCRealistic.sequence})}>{`${imageModelData.PVCRealistic.label}${isImageMode === imageModelData.PVCRealistic.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
+        {!isReview?
+          <MenuItem onPress={() => onItemPress({val: imageModelData.PVCFantasy.sequence})}>{`${imageModelData.PVCFantasy.label}${isImageMode === imageModelData.PVCFantasy.sequence?'✔':''}`}</MenuItem>
+          :null
+        }
         <MenuDivider />
         </ScrollView>
         <MenuItem onPress={onSettingsPress}>画像生成設定</MenuItem>

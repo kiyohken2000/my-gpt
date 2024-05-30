@@ -213,7 +213,7 @@ const generateImage = async({
   negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony, negativePromptRealPonyCuteJp,
   negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
   negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
-  negativePromptEponaMix, negativePromptPVCMovable,
+  negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
 }) => {
   const { apiUrl, negativePrompt, label } = selectImageAPI({
     isImageMode,
@@ -225,7 +225,7 @@ const generateImage = async({
     negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony, negativePromptRealPonyCuteJp,
     negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
     negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
-    negativePromptEponaMix, negativePromptPVCMovable,
+    negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
   })
   try {
     const { data } = await axios.post(
@@ -260,7 +260,7 @@ const selectImageAPI = ({
   negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony, negativePromptRealPonyCuteJp,
   negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
   negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
-  negativePromptEponaMix, negativePromptPVCMovable,
+  negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
 }) => {
   switch (isImageMode){
     case imageModelData.RealisticVision.sequence:
@@ -331,6 +331,10 @@ const selectImageAPI = ({
       return { apiUrl: imageModelData.EponaMix.url, negativePrompt: negativePromptEponaMix, label: imageModelData.EponaMix.label }
     case imageModelData.PVCMovable.sequence:
       return { apiUrl: imageModelData.PVCMovable.url, negativePrompt: negativePromptPVCMovable, label: imageModelData.PVCMovable.label }
+    case imageModelData.PVCRealistic.sequence:
+      return { apiUrl: imageModelData.PVCRealistic.url, negativePrompt: negativePromptPVCRealistic, label: imageModelData.PVCRealistic.label }
+    case imageModelData.PVCFantasy.sequence:
+      return { apiUrl: imageModelData.PVCFantasy.url, negativePrompt: negativePromptPVCFantasy, label: imageModelData.PVCFantasy.label }
     default:
       return { apiUrl: imageModelData.RealisticVision.url, negativePrompt: negativePromptRealisticVision, label: imageModelData.RealisticVision.label }
   }
@@ -360,17 +364,19 @@ const loadNegativePrompt = async() => {
   const _negativePromptHanamomoPony = await loadNegativePromptOfModel({key: imageModelData.HanamomoPony.negativePromptKey})
   const _negativePromptDeepDarkHentaiMix = await loadNegativePromptOfModel({key: imageModelData.DeepDarkHentaiMix.negativePromptKey})
   const _negativePromptSeventhAnimeXLPony = await loadNegativePromptOfModel({key: imageModelData.SeventhAnimeXLPony.negativePromptKey})
-  const _negativePromptRealPonyCuteJp= await loadNegativePromptOfModel({key: imageModelData.RealPonyCuteJp.negativePromptKey})
-  const _negativePromptRumblexl= await loadNegativePromptOfModel({key: imageModelData.Rumblexl.negativePromptKey})
-  const _negativePromptMix3x3x3xl= await loadNegativePromptOfModel({key: imageModelData.Mix3x3x3xl.negativePromptKey})
-  const _negativePromptYamersAnime= await loadNegativePromptOfModel({key: imageModelData.YamersAnime.negativePromptKey})
-  const _negativePromptBaxl= await loadNegativePromptOfModel({key: imageModelData.Baxl.negativePromptKey})
-  const _negativePromptCuteCore= await loadNegativePromptOfModel({key: imageModelData.CuteCore.negativePromptKey})
-  const _negativePromptFeaturelessMix= await loadNegativePromptOfModel({key: imageModelData.FeaturelessMix.negativePromptKey})
-  const _negativePromptManmaruMix= await loadNegativePromptOfModel({key: imageModelData.ManmaruMix.negativePromptKey})
-  const _negativePromptChacolOmegaMix= await loadNegativePromptOfModel({key: imageModelData.ChacolOmegaMix.negativePromptKey})
-  const _negativePromptEponaMix= await loadNegativePromptOfModel({key: imageModelData.EponaMix.negativePromptKey})
-  const _negativePromptPVCMovable= await loadNegativePromptOfModel({key: imageModelData.PVCMovable.negativePromptKey})
+  const _negativePromptRealPonyCuteJp = await loadNegativePromptOfModel({key: imageModelData.RealPonyCuteJp.negativePromptKey})
+  const _negativePromptRumblexl = await loadNegativePromptOfModel({key: imageModelData.Rumblexl.negativePromptKey})
+  const _negativePromptMix3x3x3xl = await loadNegativePromptOfModel({key: imageModelData.Mix3x3x3xl.negativePromptKey})
+  const _negativePromptYamersAnime = await loadNegativePromptOfModel({key: imageModelData.YamersAnime.negativePromptKey})
+  const _negativePromptBaxl = await loadNegativePromptOfModel({key: imageModelData.Baxl.negativePromptKey})
+  const _negativePromptCuteCore = await loadNegativePromptOfModel({key: imageModelData.CuteCore.negativePromptKey})
+  const _negativePromptFeaturelessMix = await loadNegativePromptOfModel({key: imageModelData.FeaturelessMix.negativePromptKey})
+  const _negativePromptManmaruMix = await loadNegativePromptOfModel({key: imageModelData.ManmaruMix.negativePromptKey})
+  const _negativePromptChacolOmegaMix = await loadNegativePromptOfModel({key: imageModelData.ChacolOmegaMix.negativePromptKey})
+  const _negativePromptEponaMix = await loadNegativePromptOfModel({key: imageModelData.EponaMix.negativePromptKey})
+  const _negativePromptPVCMovable = await loadNegativePromptOfModel({key: imageModelData.PVCMovable.negativePromptKey})
+  const _negativePromptPVCRealistic = await loadNegativePromptOfModel({key: imageModelData.PVCRealistic.negativePromptKey})
+  const _negativePromptPVCFantasy = await loadNegativePromptOfModel({key: imageModelData.PVCFantasy.negativePromptKey})
   return {
     _negativePromptRealisticVision,
     _negativePromptAnimagine,
@@ -406,6 +412,8 @@ const loadNegativePrompt = async() => {
     _negativePromptChacolOmegaMix,
     _negativePromptEponaMix,
     _negativePromptPVCMovable,
+    _negativePromptPVCRealistic,
+    _negativePromptPVCFantasy,
   }
 }
 
@@ -428,7 +436,7 @@ const saveNegativePrompt = async({
   negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony, negativePromptRealPonyCuteJp,
   negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
   negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
-  negativePromptEponaMix, negativePromptPVCMovable,
+  negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
 }) => {
   await storage.save({key: imageModelData.RealisticVision.negativePromptKey, data: negativePromptRealisticVision})
   await storage.save({key: imageModelData.Animagine.negativePromptKey, data: negativePromptAnimagine})
@@ -464,6 +472,8 @@ const saveNegativePrompt = async({
   await storage.save({key: imageModelData.ChacolOmegaMix.negativePromptKey, data: negativePromptChacolOmegaMix})
   await storage.save({key: imageModelData.EponaMix.negativePromptKey, data: negativePromptEponaMix})
   await storage.save({key: imageModelData.PVCMovable.negativePromptKey, data: negativePromptPVCMovable})
+  await storage.save({key: imageModelData.PVCRealistic.negativePromptKey, data: negativePromptPVCRealistic})
+  await storage.save({key: imageModelData.PVCFantasy.negativePromptKey, data: negativePromptPVCFantasy})
 }
 
 const generateTags = async({imagePath, imgbbKey}) => {

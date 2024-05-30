@@ -46,6 +46,8 @@ export default function Settings(props) {
     negativePromptChacolOmegaMix, setNegativePromptChacolOmegaMix,
     negativePromptEponaMix, setNegativePromptEponaMix,
     negativePromptPVCMovable, setNegativePromptPVCMovable,
+    negativePromptPVCRealistic, setNegativePromptPVCRealistic,
+    negativePromptPVCFantasy, setNegativePromptPVCFantasy,
   } = props
   const { isReview } = useContext(UserContext)
 
@@ -59,7 +61,7 @@ export default function Settings(props) {
       negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony, negativePromptRealPonyCuteJp,
       negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
       negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
-      negativePromptEponaMix, negativePromptPVCMovable,
+      negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
     })
     setSheetPosition(0)
   }
@@ -371,6 +373,24 @@ export default function Settings(props) {
           negativePrompt={negativePromptPVCMovable}
           setNegativePrompt={setNegativePromptPVCMovable}
           recommendNegativePrompt={imageModelData.PVCMovable.recommendNegativePrompt}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label={imageModelData.PVCRealistic.label}
+          negativePrompt={negativePromptPVCRealistic}
+          setNegativePrompt={setNegativePromptPVCRealistic}
+          recommendNegativePrompt={imageModelData.PVCRealistic.recommendNegativePrompt}
+        />
+        :null
+      }
+      {!isReview?
+        <NegativePromptItem
+          label={imageModelData.PVCFantasy.label}
+          negativePrompt={negativePromptPVCFantasy}
+          setNegativePrompt={setNegativePromptPVCFantasy}
+          recommendNegativePrompt={imageModelData.PVCFantasy.recommendNegativePrompt}
         />
         :null
       }

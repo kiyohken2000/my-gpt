@@ -237,6 +237,20 @@ const imageModelData = {
     url: 'https://api-inference.huggingface.co/models/votepurchase/PVCStyleModelMovable_pony151',
     recommendNegativePrompt: 'engrish text,low quality,worstquality,shiny_skin,score_4,score_3,score_2,score_1,ugly,bad feet,bad hands,',
   },
+  PVCRealistic: {
+    label: 'PVCRealistic',
+    sequence: 35,
+    negativePromptKey: 'negativePromptPVCRealistic',
+    url: 'https://api-inference.huggingface.co/models/votepurchase/PVCStyleModelMovable_beta27Realistic',
+    recommendNegativePrompt: 'lowres,(bad),text,error,fewer,extra,missing,worst quality,jpeg artifacts,low quality,watermark,unfinished,displeasing,oldest,early,chromatic aberration,artistic error,username,english text,scan,[abstract],',
+  },
+  PVCFantasy: {
+    label: 'PVCFantasy',
+    sequence: 36,
+    negativePromptKey: 'negativePromptPVCFantasy',
+    url: 'https://api-inference.huggingface.co/models/votepurchase/PVCStyleModelFantasy_beta12',
+    recommendNegativePrompt: 'blurry,lowres,bad anatomy,(text:1.2),error,missing fingers,(watermark:1.3),extra digit,fewer digits,cropped,worst quality,low quality,(artist name:1.1),normal quality,bad hands,signature,(username:1.2),',
+  },
 }
 
 export { imageModelData }
