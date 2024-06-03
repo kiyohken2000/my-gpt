@@ -245,8 +245,8 @@ const generateImage = async({
     const imageUrl = await convertBlobToImage({data})
     return { imageUrl: imageUrl, message: `画像は開いた後に長押しで保存できます ${label}`}
   } catch(e) {
-    console.log('generate image error', e)
-    return { imageUrl: null, message: `${errorMessage}。数分後に再度お試しください。${label}`}
+    console.log('generate image error', )
+    return { imageUrl: null, message: `${errorMessage}。数分後に再度お試しください。エラー:${e.response.status} ${label} `}
   }
 }
 
