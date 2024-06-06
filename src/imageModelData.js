@@ -251,6 +251,20 @@ const imageModelData = {
     url: 'https://api-inference.huggingface.co/models/votepurchase/PVCStyleModelFantasy_beta12',
     recommendNegativePrompt: 'blurry,lowres,bad anatomy,(text:1.2),error,missing fingers,(watermark:1.3),extra digit,fewer digits,cropped,worst quality,low quality,(artist name:1.1),normal quality,bad hands,signature,(username:1.2),',
   },
+  HolodayoXL: {
+    label: 'HolodayoXL',
+    sequence: 37,
+    negativePromptKey: 'negativePromptHolodayoXL',
+    url: 'https://api-inference.huggingface.co/models/yodayo-ai/holodayo-xl-2.1',
+    recommendNegativePrompt: 'nsfw, (low quality, worst quality:1.2), very displeasing, 3d, watermark, signature, ugly, poorly drawn',
+  },
+  KivotosXL: {
+    label: 'KivotosXL',
+    sequence: 38,
+    negativePromptKey: 'negativePromptKivotosXL',
+    url: 'https://api-inference.huggingface.co/models/yodayo-ai/kivotos-xl-2.0',
+    recommendNegativePrompt: 'nsfw, (low quality, worst quality:1.2), very displeasing, 3d, watermark, signature, ugly, poorly drawn',
+  },
 }
 
 export { imageModelData }

@@ -71,6 +71,8 @@ export default function Chat() {
   const [negativePromptPVCMovable, setNegativePromptPVCMovable] = useState('')
   const [negativePromptPVCRealistic, setNegativePromptPVCRealistic] = useState('')
   const [negativePromptPVCFantasy, setNegativePromptPVCFantasy] = useState('')
+  const [negativePromptHolodayoXL, setNegativePromptHolodayoXL] = useState('')
+  const [negativePromptKivotosXL, setNegativePromptKivotosXL] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -116,6 +118,8 @@ export default function Chat() {
         _negativePromptPVCMovable,
         _negativePromptPVCRealistic,
         _negativePromptPVCFantasy,
+        _negativePromptHolodayoXL,
+        _negativePromptKivotosXL,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -153,6 +157,8 @@ export default function Chat() {
       setNegativePromptPVCMovable(_negativePromptPVCMovable)
       setNegativePromptPVCRealistic(_negativePromptPVCRealistic)
       setNegativePromptPVCFantasy(_negativePromptPVCFantasy)
+      setNegativePromptHolodayoXL(_negativePromptHolodayoXL)
+      setNegativePromptKivotosXL(_negativePromptKivotosXL)
     }
     loadStorage()
   }, [])
@@ -245,6 +251,7 @@ export default function Chat() {
             negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
             negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
             negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
+            negativePromptHolodayoXL, negativePromptKivotosXL,
           })
           const botMessage = {
             _id: timestamp,
@@ -401,7 +408,7 @@ export default function Chat() {
           renderFooter={renderChatFooter}
           placeholder={messages.length?'メッセージを入力':'お気軽にご質問ください'}
           keyboardShouldPersistTaps='never'
-          maxInputLength={isImageMode?1000:100}
+          maxInputLength={isImageMode?1000:500}
           onPress={(context, message) => onMessagePress({message})}
           renderMessageImage={renderMessageImage}
           renderMessageVideo={(props) => <VideoMessage {...props} />}
@@ -416,6 +423,7 @@ export default function Chat() {
 				backdropComponent={renderBackdrop}
       >
         <Settings
+          setSheetPosition={setSheetPosition}
           negativePromptRealisticVision={negativePromptRealisticVision}
           setNegativePromptRealisticVision={setNegativePromptRealisticVision}
           negativePromptAnimagine={negativePromptAnimagine}
@@ -488,7 +496,10 @@ export default function Chat() {
           setNegativePromptPVCRealistic={setNegativePromptPVCRealistic}
           negativePromptPVCFantasy={negativePromptPVCFantasy}
           setNegativePromptPVCFantasy={setNegativePromptPVCFantasy}
-          setSheetPosition={setSheetPosition}
+          negativePromptHolodayoXL={negativePromptHolodayoXL}
+          setNegativePromptHolodayoXL={setNegativePromptHolodayoXL}
+          negativePromptKivotosXL={negativePromptKivotosXL}
+          setNegativePromptKivotosXL={setNegativePromptKivotosXL}
         />
       </BottomSheet>
     </ScreenTemplate>

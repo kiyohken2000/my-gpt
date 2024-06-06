@@ -144,6 +144,14 @@ export default function DrawButton(props) {
             <MenuItem onPress={() => onItemPress({val: imageModelData.CuteCore.sequence})}>{`${imageModelData.CuteCore.label}${isImageMode === imageModelData.CuteCore.sequence?'✔':''}`}</MenuItem>
             :null
           }
+          {!isReview?
+            <MenuItem onPress={() => onItemPress({val: imageModelData.HolodayoXL.sequence})}>{`${imageModelData.HolodayoXL.label}${isImageMode === imageModelData.HolodayoXL.sequence?'✔':''}`}</MenuItem>
+            :null
+          }
+          {!isReview?
+            <MenuItem onPress={() => onItemPress({val: imageModelData.KivotosXL.sequence})}>{`${imageModelData.KivotosXL.label}${isImageMode === imageModelData.KivotosXL.sequence?'✔':''}`}</MenuItem>
+            :null
+          }
         {/* ↑↑↑アニメ↑↑↑ */}
         <MenuDivider />
         {/* ↓↓↓アニメ(Pony)↓↓↓ */}

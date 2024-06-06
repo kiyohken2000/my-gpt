@@ -48,6 +48,8 @@ export default function Settings(props) {
     negativePromptPVCMovable, setNegativePromptPVCMovable,
     negativePromptPVCRealistic, setNegativePromptPVCRealistic,
     negativePromptPVCFantasy, setNegativePromptPVCFantasy,
+    negativePromptHolodayoXL, setNegativePromptHolodayoXL,
+    negativePromptKivotosXL, setNegativePromptKivotosXL,
   } = props
   const { isReview } = useContext(UserContext)
 
@@ -62,6 +64,7 @@ export default function Settings(props) {
       negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
       negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
       negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
+      negativePromptHolodayoXL, negativePromptKivotosXL,
     })
     setSheetPosition(0)
   }
@@ -261,6 +264,24 @@ export default function Settings(props) {
             negativePrompt={negativePromptCuteCore}
             setNegativePrompt={setNegativePromptCuteCore}
             recommendNegativePrompt={imageModelData.CuteCore.recommendNegativePrompt}
+          />
+          :null
+        }
+        {!isReview?
+          <NegativePromptItem
+            label={imageModelData.HolodayoXL.label}
+            negativePrompt={negativePromptHolodayoXL}
+            setNegativePrompt={setNegativePromptHolodayoXL}
+            recommendNegativePrompt={imageModelData.HolodayoXL.recommendNegativePrompt}
+          />
+          :null
+        }
+        {!isReview?
+          <NegativePromptItem
+            label={imageModelData.KivotosXL.label}
+            negativePrompt={negativePromptKivotosXL}
+            setNegativePrompt={setNegativePromptKivotosXL}
+            recommendNegativePrompt={imageModelData.KivotosXL.recommendNegativePrompt}
           />
           :null
         }
