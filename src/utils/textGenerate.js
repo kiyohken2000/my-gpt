@@ -18,6 +18,7 @@ const userIds = {
   bot3: 4,
   bot4: 5,
   bot5: 6,
+  bot6: 7,
 }
 
 const userNames = {
@@ -27,6 +28,7 @@ const userNames = {
   bot3: 'image',
   bot4: 'video',
   bot5: 'prompts',
+  bot6: 'song',
 }
 
 const generateMessage = async({inputText}) => {

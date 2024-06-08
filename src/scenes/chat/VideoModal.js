@@ -12,13 +12,13 @@ import * as Clipboard from 'expo-clipboard';
 import * as Linking from 'expo-linking';
 
 export default function VideoModal(props) {
-  const { url, isVisible, setIsVisible } = props
+  const { url, isVisible, setIsVisible, isSong } = props
   const [height, setHeight] = useState(100)
   const [isLoading, setIsLoading] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
 
   const calculateHeight = (width) => {
-    const aspectRatio = 9 / 16;
+    const aspectRatio = isSong? 3 / 2:9 / 16;
     return width * aspectRatio;
   };
 

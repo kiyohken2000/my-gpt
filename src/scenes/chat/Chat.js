@@ -3,6 +3,7 @@ import { View, StyleSheet, Platform, Image } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { GiftedChat, Send } from 'react-native-gifted-chat'
 import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage, loadNegativePrompt, generateTags } from '../../utils/textGenerate';
+import { generateSong } from '../../utils/songGenerate';
 import moment from 'moment';
 import SendButton from './SendButton';
 import ImageButton from './ImageButton';
@@ -13,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import HeaderRightButton from './HeaderRightButton';
 import HeaderLeftButton from './HeaderLeftButton';
 import DrawButton from './DrawButton';
+import SongButton from './SongButton';
 import RenderImage from './RenderImage';
 import { colors } from '../../theme';
 import * as Clipboard from 'expo-clipboard';
@@ -27,13 +29,14 @@ const isAndroid = Platform.OS === 'android'
 
 export default function Chat() {
   const navigation = useNavigation()
-  const { imgbbKey } = useContext(UserContext)
+  const { imgbbKey, isSongEnable } = useContext(UserContext)
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ['1%', '95%'], []);
   const [sheetPosition, setSheetPosition] = useState(0)
   const [messages, setMessages] = useState([])
   const [imagePath, setImagePath] = useState('')
   const [isThirdPerson, setIsThirdPerson] = useState(false)
+  const [isSongMode, setIsSongMode] = useState(false)
   const [isImageMode, setIsImageMode] = useState(0)
   const [negativePromptRealisticVision, setNegativePromptRealisticVision] = useState('')
   const [negativePromptAnimagine, setNegativePromptAnimagine] = useState('')
@@ -186,24 +189,43 @@ export default function Chat() {
             setIsImageMode={setIsImageMode}
             setSheetPosition={setSheetPosition}
           />
+          {isSongEnable?
+            <SongButton
+              isSongMode={isSongMode}
+              setIsSongMode={setIsSongMode}
+            />
+            :null
+          }
         </View>
       )
     });
-  }, [navigation, isThirdPerson, isImageMode, sheetPosition]);
+  }, [navigation, isThirdPerson, isImageMode, sheetPosition, isSongMode]);
 
   useEffect(() => {
     if(isImageMode === 0) {
       setMessages([])
+    }
+    if(isImageMode >= 1) {
+      setIsSongMode(false)
     }
     setImagePath('')
     setIsThirdPerson(false)
   }, [isImageMode])
 
   useEffect(() => {
+    if(isSongMode) {
+      setIsImageMode(0)
+      setMessages([])
+      setImagePath('')
+      setIsThirdPerson(false)
+    }
+  }, [isSongMode])
+
+  useEffect(() => {
     const onRecieveNewMessage = async() => {
       if(messages[0]) {
         const { text, user } = messages[0]
-        if(user._id === userIds.user && !isImageMode) {
+        if(user._id === userIds.user && !isImageMode && !isSongMode) {
           const timestamp = `${moment().valueOf()}`
           setCreatingContentIDs(prev => [...prev, timestamp])
           const reply = await generateChatMessage({messages})
@@ -266,6 +288,27 @@ export default function Chat() {
           setMessages(previousMessages =>
             GiftedChat.append(previousMessages, botMessage),
           )
+          setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
+        } else if(user._id === userIds.user && isSongMode) {
+          const timestamp = `${moment().valueOf()}`
+          setCreatingContentIDs(prev => [...prev, timestamp])
+          const response = await generateSong({text})
+          response.map((item, i) => {
+            const botMessage = {
+              _id: `${timestamp}_${i}`,
+              createdAt: new Date(),
+              text: item.message,
+              video: item.videoUrl,
+              extra: item.remoteUrl,
+              user: {
+                _id: userIds.bot6,
+                name: userNames.bot6,
+              }
+            }
+            setMessages(previousMessages =>
+              GiftedChat.append(previousMessages, botMessage),
+            )
+          })
           setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
         }
       }
@@ -351,7 +394,7 @@ export default function Chat() {
   const renderSend = (props) => {
     return (
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        {!isImageMode?
+        {!isImageMode && !isSongMode?
           <ImageButton
             onImageButtonPress={onImageButtonPress}
           />
@@ -386,9 +429,7 @@ export default function Chat() {
 				disappearsOnIndex={0}
 				appearsOnIndex={1}
 			/>
-		),
-		[]
-	);
+		), []);
 
   return (
     <ScreenTemplate color={isAndroid?colors.darkPurple:colors.white}>

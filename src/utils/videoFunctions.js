@@ -66,11 +66,7 @@ const getVideo = async({task_id}) => {
       }
     });
     if(data.videos[0] && data.videos[0].video_url) {
-      const downloadResumable = FileSystem.createDownloadResumable(
-        data.videos[0].video_url,
-        FileSystem.documentDirectory + moment().unix() + '.mp4'
-      );
-      const { uri } = await downloadResumable.downloadAsync();
+      const uri = await getLocalVideo(data.videos[0].video_url)
       return uri
     } else {
       return null
@@ -78,6 +74,19 @@ const getVideo = async({task_id}) => {
   } catch(e) {
     console.log('get video error', e)
     return null
+  }
+}
+
+const getLocalVideo = async(url) => {
+  try {
+    const downloadResumable = FileSystem.createDownloadResumable(
+      url,
+      FileSystem.documentDirectory + moment().unix() + '.mp4'
+    );
+    const { uri } = await downloadResumable.downloadAsync();
+    return uri
+  } catch(e) {
+    throw new Error('get local video error')
   }
 }
 
@@ -96,4 +105,4 @@ const saveVideo = async({url}) => {
   }
 }
 
-export { createVideo, saveVideo }
+export { createVideo, saveVideo, getLocalVideo }
