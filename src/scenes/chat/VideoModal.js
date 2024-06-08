@@ -95,13 +95,16 @@ export default function VideoModal(props) {
           />
         </TouchableOpacity>
         <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingTop: 10}}>
-          <ImageActionButton
-            source={require('../../../assets/images/twitter_x_logo.png')}
-            onPress={onTwitterSharePress}
-            isLoading={isUploading}
-            color={colors.white}
-            iconColor={colors.purple}
-          />
+          {!isSong?
+            <ImageActionButton
+              source={require('../../../assets/images/twitter_x_logo.png')}
+              onPress={onTwitterSharePress}
+              isLoading={isUploading}
+              color={colors.white}
+              iconColor={colors.purple}
+            />
+            :null
+          }
           <View style={{paddingHorizontal: 5}} />
           <FloatingActionButton
             icon='download'
@@ -111,13 +114,16 @@ export default function VideoModal(props) {
             iconColor={colors.white}
           />
           <View style={{paddingHorizontal: 5}} />
-          <FloatingActionButton
-            icon='copy'
-            onPress={onCopyPress}
-            isLoading={isLoading}
-            color={colors.purple}
-            iconColor={colors.white}
-          />
+          {!isSong?
+            <FloatingActionButton
+              icon='copy'
+              onPress={onCopyPress}
+              isLoading={isLoading}
+              color={colors.purple}
+              iconColor={colors.white}
+            />
+            :null
+          }
         </View>
       </View>
     </Modal>
