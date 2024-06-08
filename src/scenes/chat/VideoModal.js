@@ -12,7 +12,7 @@ import * as Clipboard from 'expo-clipboard';
 import * as Linking from 'expo-linking';
 
 export default function VideoModal(props) {
-  const { url, isVisible, setIsVisible, isSong } = props
+  const { url, isVisible, setIsVisible, isSong, extra } = props
   const [height, setHeight] = useState(100)
   const [isLoading, setIsLoading] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
@@ -69,6 +69,10 @@ export default function VideoModal(props) {
     }
   }
 
+  const onOpenVideo = async() => {
+    Linking.openURL(extra)
+  }
+
   return (
     <Modal
       isVisible={isVisible}
@@ -114,7 +118,15 @@ export default function VideoModal(props) {
             iconColor={colors.white}
           />
           <View style={{paddingHorizontal: 5}} />
-          {!isSong?
+          {isSong && extra?
+            <FloatingActionButton
+              icon='share'
+              onPress={onOpenVideo}
+              isLoading={isLoading}
+              color={colors.purple}
+              iconColor={colors.white}
+            />
+            :
             <FloatingActionButton
               icon='copy'
               onPress={onCopyPress}
@@ -122,7 +134,6 @@ export default function VideoModal(props) {
               color={colors.purple}
               iconColor={colors.white}
             />
-            :null
           }
         </View>
       </View>

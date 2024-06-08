@@ -63,6 +63,7 @@ export default function VideoMessage(props) {
         isVisible={isVisible}
         setIsVisible={setIsVisible}
         isSong={currentMessage.user._id === userIds.bot6}
+        extra={currentMessage.extra}
       />
     </View>
   )
