@@ -40,9 +40,9 @@ export default function SongButton(props) {
         anchor={renderAnchor()}
         onRequestClose={hideMenu}
       >
-        <MenuItem onPress={() => onItemPress({val: true})}>{`音楽モードオン${isSongMode?'✔':''}`}</MenuItem>
+        <MenuItem onPress={() => onItemPress({val: true})}>{`音楽生成オン${isSongMode?'✔':''}`}</MenuItem>
         <MenuDivider />
-        <MenuItem onPress={() => onItemPress({val: false})}>{`音楽モードオフ${!isSongMode?'✔':''}`}</MenuItem>
+        <MenuItem onPress={() => onItemPress({val: false})}>{`音楽生成オフ${!isSongMode?'✔':''}`}</MenuItem>
       </Menu>
     </View>
   )
