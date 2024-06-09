@@ -50,6 +50,6 @@ export default function HeaderLeftButton(props) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 15
+    paddingLeft: 10
   }
 })

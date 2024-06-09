@@ -49,7 +49,7 @@ const generateSong = async({text}) => {
     const ids = `${data[0].id},${data[1].id}`;
     console.log(`ids: ${ids}`);
   
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 70; i++) {
       const data = await getAudioInformation(ids);
       if (data[0].status === "complete" && data[1].status === "complete") {
         console.log(`${data[0].id} ==> ${data[0].audio_url}`);
@@ -75,6 +75,12 @@ const generateSong = async({text}) => {
       // sleep 5s
       await new Promise((resolve) => setTimeout(resolve, 5000));
     }
+    return [
+      {
+        message: errorMessage,
+        videoUrl: null
+      },
+    ]
   } catch(e) {
     console.log('generate song error', e)
     return [
