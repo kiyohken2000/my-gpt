@@ -4,8 +4,6 @@ import { errorMessage } from "./textGenerate";
 import { getLocalVideo } from "./videoFunctions";
 import { sleep } from "./utilFunctions";
 
-const baseUrl = "http://localhost:3000";
-
 async function generateAudioByPrompt(payload) {
   try {
     const url = `${songBaseUrl}/api/generate`;
@@ -35,6 +33,16 @@ async function getClipInformation(clipId) {
     return response.data;
   } catch(e) {
     throw new Error('get clip information error')
+  }
+}
+
+async function getQuotaInformation() {
+  try {
+    const url = `${songBaseUrl}/api/get_limit`;
+    const { data } = await axios.get(url);
+    return Math.floor(data.credits_left / 10);
+  } catch(e) {
+    console.log('get quata information error', e)
   }
 }
 
@@ -92,4 +100,4 @@ const generateSong = async({text}) => {
   }
 }
 
-export { generateSong }
+export { generateSong, getQuotaInformation }

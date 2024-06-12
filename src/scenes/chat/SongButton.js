@@ -5,7 +5,7 @@ import { colors, fontSize } from "../../theme";
 import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 
 export default function SongButton(props) {
-  const { isSongMode, setIsSongMode } = props
+  const { isSongMode, setIsSongMode, songsQuota } = props
   const [visible, setVisible] = useState(false);
 
   const hideMenu = () => setVisible(false);
@@ -43,6 +43,8 @@ export default function SongButton(props) {
         <MenuItem onPress={() => onItemPress({val: true})}>{`音楽生成オン${isSongMode?'✔':''}`}</MenuItem>
         <MenuDivider />
         <MenuItem onPress={() => onItemPress({val: false})}>{`音楽生成オフ${!isSongMode?'✔':''}`}</MenuItem>
+        <MenuDivider />
+        <MenuItem>{`残り${songsQuota}曲`}</MenuItem>
       </Menu>
     </View>
   )

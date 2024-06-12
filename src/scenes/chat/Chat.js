@@ -24,6 +24,7 @@ import Settings from './Settings/Settings';
 import BlurBox from '../../components/BlurBox/BlurBox';
 import { createVideo } from '../../utils/videoFunctions';
 import { UserContext } from '../../contexts/UserContext';
+import { getQuotaInformation } from '../../utils/songGenerate';
 
 const isAndroid = Platform.OS === 'android'
 
@@ -38,6 +39,7 @@ export default function Chat() {
   const [isThirdPerson, setIsThirdPerson] = useState(false)
   const [isSongMode, setIsSongMode] = useState(false)
   const [isImageMode, setIsImageMode] = useState(0)
+  const [songsQuota, setSongsQuota] = useState(0)
   const [negativePromptRealisticVision, setNegativePromptRealisticVision] = useState('')
   const [negativePromptAnimagine, setNegativePromptAnimagine] = useState('')
   const [negativePromptPony, setNegativePromptPony] = useState('')
@@ -194,13 +196,22 @@ export default function Chat() {
             <SongButton
               isSongMode={isSongMode}
               setIsSongMode={setIsSongMode}
+              songsQuota={songsQuota}
             />
             :null
           }
         </View>
       )
     });
-  }, [navigation, isThirdPerson, isImageMode, sheetPosition, isSongMode]);
+  }, [navigation, isThirdPerson, isImageMode, sheetPosition, isSongMode, songsQuota]);
+
+  useEffect(() => {
+    const fetchSongQuata = async() => {
+      const res = await getQuotaInformation()
+      setSongsQuota(res)
+    }
+    fetchSongQuata()
+  }, [isSongMode])
 
   useEffect(() => {
     if(isImageMode === 0) {
@@ -310,6 +321,8 @@ export default function Chat() {
               GiftedChat.append(previousMessages, botMessage),
             )
           })
+          const res = await getQuotaInformation()
+          setSongsQuota(res)
           setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
         }
       }
