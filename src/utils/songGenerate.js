@@ -43,6 +43,7 @@ async function getQuotaInformation() {
     return Math.floor(data.credits_left / 10);
   } catch(e) {
     console.log('get quata information error', e)
+    return 0
   }
 }
 
