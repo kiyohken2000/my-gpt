@@ -8,7 +8,6 @@ import { uploadFunction } from "./uploadFunctions";
 import { myEndpoints, headers } from "../config";
 import { imageModelData } from "../imageModelData";
 
-const apiUrl = 'https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage';
 const errorMessage = 'すみません。よくわかりませんでした'
 
 const userIds = {
@@ -29,31 +28,6 @@ const userNames = {
   bot4: 'video',
   bot5: 'prompts',
   bot6: 'song',
-}
-
-const generateMessage = async({inputText}) => {
-  try {
-    const {data} = await axios.post(apiUrl, {
-      prompt: { messages: [{ content: inputText }] },
-      temperature: 0.1,
-      candidateCount: 1,
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      params: {
-        key: palmKey,
-      },
-    });
-    if(data && data.candidates && data.candidates[0].content) {
-      return data.candidates[0].content
-    } else {
-      return errorMessage
-    }
-  } catch (error) {
-    console.log('generate message error:', error);
-    return errorMessage
-  }
 }
 
 const generateChatMessage = async({messages}) => {
@@ -84,7 +58,7 @@ const generateChatMessage = async({messages}) => {
         ],
       };
       const {data} = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${palmKey}`,
+        `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${palmKey}`,
         requestData,
         {
           headers: {
@@ -101,7 +75,7 @@ const generateChatMessage = async({messages}) => {
       const _messages = messages.filter((v) => v.user._id === userIds.user || v.user._id === userIds.bot1)
       const formatedChatlog = formatChatlog({messages: _messages})
       const {data} = await axios.post(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + palmKey,
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + palmKey,
         {
           contents: formatedChatlog,
         },
@@ -511,7 +485,7 @@ const generateTags = async({imagePath, imgbbKey}) => {
 }
 
 export {
-  generateMessage, generateChatMessage, userIds, errorMessage,
+  generateChatMessage, userIds, errorMessage,
   generateCommandRMessage, userNames, generateImage, loadNegativePrompt,
   saveNegativePrompt, generateTags,
 }
