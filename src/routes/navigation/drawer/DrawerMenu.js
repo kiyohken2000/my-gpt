@@ -49,10 +49,4 @@ DrawerMenu.propTypes = {
   }),
 }
 
-DrawerMenu.defaultProps = {
-  navigation: {
-    dispatch: () => null,
-  },
-}
-
 export default DrawerMenu
