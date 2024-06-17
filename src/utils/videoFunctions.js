@@ -6,7 +6,7 @@ import { errorMessage } from "./textGenerate";
 import * as MediaLibrary from 'expo-media-library';
 import moment from "moment";
 
-const MAX_RETRIES = 20;
+const MAX_RETRIES = 30;
 const RETRY_DELAY = 20000;
 
 const createVideo = async({url}) => {

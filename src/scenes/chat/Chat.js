@@ -13,7 +13,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import HeaderRightButton from './HeaderRightButton';
 import HeaderLeftButton from './HeaderLeftButton';
-import DrawButton from './DrawButton';
+import DrawButton from './DrawButton/DrawButton';
 import SongButton from './SongButton';
 import RenderImage from './RenderImage';
 import { colors } from '../../theme';
