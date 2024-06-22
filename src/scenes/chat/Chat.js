@@ -3,7 +3,7 @@ import { View, StyleSheet, Platform, Image } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { GiftedChat, Send } from 'react-native-gifted-chat'
 import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage, loadNegativePrompt, generateTags } from '../../utils/textGenerate';
-import { generateSong } from '../../utils/songGenerate';
+import { generateSong, invalidTextLength } from '../../utils/songGenerate';
 import moment from 'moment';
 import SendButton from './SendButton';
 import ImageButton from './ImageButton';
@@ -24,7 +24,6 @@ import Settings from './Settings/Settings';
 import BlurBox from '../../components/BlurBox/BlurBox';
 import { createVideo } from '../../utils/videoFunctions';
 import { UserContext } from '../../contexts/UserContext';
-import { getQuotaInformation } from '../../utils/songGenerate';
 
 const isAndroid = Platform.OS === 'android'
 
@@ -293,15 +292,11 @@ export default function Chat() {
           setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
         } else if(user._id === userIds.user && isSongMode) {
           const timestamp = `${moment().valueOf()}`
-          setCreatingContentIDs(prev => [...prev, timestamp])
-          const response = await generateSong({text})
-          response.map((item, i) => {
+          if(text.length <= 50) {
             const botMessage = {
-              _id: `${timestamp}_${i}`,
+              _id: timestamp,
               createdAt: new Date(),
-              text: item.message,
-              video: item.videoUrl,
-              extra: item.remoteUrl,
+              text: invalidTextLength,
               user: {
                 _id: userIds.bot6,
                 name: userNames.bot6,
@@ -310,8 +305,27 @@ export default function Chat() {
             setMessages(previousMessages =>
               GiftedChat.append(previousMessages, botMessage),
             )
-          })
-          setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
+          } else {
+            setCreatingContentIDs(prev => [...prev, timestamp])
+            const response = await generateSong({text})
+            response.map((item, i) => {
+              const botMessage = {
+                _id: `${timestamp}_${i}`,
+                createdAt: new Date(),
+                text: item.message,
+                video: item.videoUrl,
+                extra: item.remoteUrl,
+                user: {
+                  _id: userIds.bot6,
+                  name: userNames.bot6,
+                }
+              }
+              setMessages(previousMessages =>
+                GiftedChat.append(previousMessages, botMessage),
+              )
+            })
+            setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
+          }
         }
       }
     }

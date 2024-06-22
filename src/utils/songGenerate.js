@@ -4,6 +4,8 @@ import { errorMessage } from "./textGenerate";
 import { getLocalVideo } from "./videoFunctions";
 import { sleep } from "./utilFunctions";
 
+const invalidTextLength = '文字数が少ないので音楽を生成できません'
+
 async function generateAudioByPrompt(payload) {
   try {
     const url = `${songBaseUrl}/api/generate`;
@@ -101,4 +103,4 @@ const generateSong = async({text}) => {
   }
 }
 
-export { generateSong, getQuotaInformation }
+export { generateSong, getQuotaInformation, invalidTextLength }
