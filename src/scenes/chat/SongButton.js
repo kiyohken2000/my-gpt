@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Platform } from "react-native";
 import FontIcon from 'react-native-vector-icons/Feather'
 import { colors, fontSize } from "../../theme";
 import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 import { getQuotaInformation } from "../../utils/songGenerate";
+import { showToast } from "../../utils/showToast";
 
 export default function SongButton(props) {
   const { isSongMode, setIsSongMode } = props
@@ -48,6 +49,12 @@ export default function SongButton(props) {
     hideMenu()
   }
 
+  const onSongsQuotaPress = () => {
+    if(isLoading) return
+    hideMenu()
+    showToast({title: `あと${songsQuota}曲生成できます`})
+  }
+
   return (
     <View style={styles.container}>
       <Menu
@@ -59,7 +66,7 @@ export default function SongButton(props) {
         <MenuDivider />
         <MenuItem onPress={() => onItemPress({val: false})}>{`音楽生成オフ${!isSongMode?'✔':''}`}</MenuItem>
         <MenuDivider />
-        <MenuItem>{isLoading?'Loading...':`残り${songsQuota}曲`}</MenuItem>
+        <MenuItem onPress={onSongsQuotaPress} >{isLoading?'Loading...':`残り${songsQuota}曲`}</MenuItem>
       </Menu>
     </View>
   )
