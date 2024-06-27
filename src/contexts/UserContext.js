@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { Platform } from "react-native";
-import { googleSheetUrl, iosBuildNumber } from "../config";
+import { googleSheetUrl, iosBuildNumber, androidVersionCode } from "../config";
 import { formatData } from "../utils/utilFunctions";
 
 export const UserContext = createContext();
@@ -19,7 +19,10 @@ export const UserContextProvider = (props) => {
       setImgbbKey(_data[0].imgbbKey)
       setIsSongEnalbe(_data[0].song === '1')
       if(_data[0].nowReview === iosBuildNumber && Platform.OS === 'ios') {
-        console.log('レビュー中')
+        console.log('ios レビュー中')
+        setIsReview(true)
+      } else if(_data[0].androidVersionCode === androidVersionCode && Platform.OS ==='android') {
+        console.log('android レビュー中')
         setIsReview(true)
       } else {
         console.log('レビュー中ではない')

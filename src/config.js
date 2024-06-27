@@ -2,6 +2,7 @@ import { googleSheetKey } from "./openaiKeys"
 
 const versionName = '1.0.52'
 const iosBuildNumber = '59'
+const androidVersionCode = '62'
 
 const sheetId = '15OtDRuaSXWhZ8odAHi0E7Pn93hzvO3gvDIYSpopNngY'
 const sheetName = 'sheet2'
@@ -21,4 +22,4 @@ const headers = {
   "Content-Type": "application/json",
 }
 
-export { versionName, googleSheetUrl, myEndpoints, headers, imgurKey, iosBuildNumber, }
+export { versionName, googleSheetUrl, myEndpoints, headers, imgurKey, iosBuildNumber, androidVersionCode }
