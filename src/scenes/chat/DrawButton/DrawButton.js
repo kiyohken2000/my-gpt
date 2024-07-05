@@ -65,6 +65,12 @@ export default function DrawButton(props) {
             isImageMode={isImageMode}
             item={imageModelData.Rumblexl}
           />
+          <DrawButtonItem
+            onItemPress={onItemPress}
+            disable={isReview}
+            isImageMode={isImageMode}
+            item={imageModelData.JuggernautXL}
+          />
         {/* ↑↑↑実写↑↑↑ */}
         <MenuDivider />
         {/* ↓↓↓実写(Pony)↓↓↓ */}

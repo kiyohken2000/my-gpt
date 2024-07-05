@@ -190,7 +190,7 @@ const generateImage = async({
   negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
   negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
   negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
-  negativePromptHolodayoXL, negativePromptKivotosXL,
+  negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL,
 }) => {
   const { apiUrl, negativePrompt, label } = selectImageAPI({
     isImageMode,
@@ -203,7 +203,7 @@ const generateImage = async({
     negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
     negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
     negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
-    negativePromptHolodayoXL, negativePromptKivotosXL,
+    negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL,
   })
   try {
     const { data } = await axios.post(
@@ -239,7 +239,7 @@ const selectImageAPI = ({
   negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
   negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
   negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
-  negativePromptHolodayoXL, negativePromptKivotosXL,
+  negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL,
 }) => {
   switch (isImageMode){
     case imageModelData.RealisticVision.sequence:
@@ -318,6 +318,8 @@ const selectImageAPI = ({
       return { apiUrl: imageModelData.HolodayoXL.url, negativePrompt: negativePromptHolodayoXL, label: imageModelData.HolodayoXL.label }
     case imageModelData.KivotosXL.sequence:
       return { apiUrl: imageModelData.KivotosXL.url, negativePrompt: negativePromptKivotosXL, label: imageModelData.KivotosXL.label }
+    case imageModelData.JuggernautXL.sequence:
+      return { apiUrl: imageModelData.JuggernautXL.url, negativePrompt: negativePromptJuggernautXL, label: imageModelData.JuggernautXL.label }
     default:
       return { apiUrl: imageModelData.RealisticVision.url, negativePrompt: negativePromptRealisticVision, label: imageModelData.RealisticVision.label }
   }
@@ -362,6 +364,7 @@ const loadNegativePrompt = async() => {
   const _negativePromptPVCFantasy = await loadNegativePromptOfModel({key: imageModelData.PVCFantasy.negativePromptKey})
   const _negativePromptHolodayoXL = await loadNegativePromptOfModel({key: imageModelData.HolodayoXL.negativePromptKey})
   const _negativePromptKivotosXL = await loadNegativePromptOfModel({key: imageModelData.KivotosXL.negativePromptKey})
+  const _negativePromptJuggernautXL = await loadNegativePromptOfModel({key: imageModelData.JuggernautXL.negativePromptKey})
   return {
     _negativePromptRealisticVision,
     _negativePromptAnimagine,
@@ -401,6 +404,7 @@ const loadNegativePrompt = async() => {
     _negativePromptPVCFantasy,
     _negativePromptHolodayoXL,
     _negativePromptKivotosXL,
+    _negativePromptJuggernautXL,
   }
 }
 
@@ -424,7 +428,7 @@ const saveNegativePrompt = async({
   negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
   negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
   negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
-  negativePromptHolodayoXL, negativePromptKivotosXL,
+  negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL,
 }) => {
   await storage.save({key: imageModelData.RealisticVision.negativePromptKey, data: negativePromptRealisticVision})
   await storage.save({key: imageModelData.Animagine.negativePromptKey, data: negativePromptAnimagine})
@@ -464,6 +468,7 @@ const saveNegativePrompt = async({
   await storage.save({key: imageModelData.PVCFantasy.negativePromptKey, data: negativePromptPVCFantasy})
   await storage.save({key: imageModelData.HolodayoXL.negativePromptKey, data: negativePromptHolodayoXL})
   await storage.save({key: imageModelData.KivotosXL.negativePromptKey, data: negativePromptKivotosXL})
+  await storage.save({key: imageModelData.JuggernautXL.negativePromptKey, data: negativePromptJuggernautXL})
 }
 
 const generateTags = async({imagePath, imgbbKey}) => {

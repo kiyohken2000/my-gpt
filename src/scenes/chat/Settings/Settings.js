@@ -50,6 +50,7 @@ export default function Settings(props) {
     negativePromptPVCFantasy, setNegativePromptPVCFantasy,
     negativePromptHolodayoXL, setNegativePromptHolodayoXL,
     negativePromptKivotosXL, setNegativePromptKivotosXL,
+    negativePromptJuggernautXL, setNegativePromptJuggernautXL,
   } = props
   const { isReview } = useContext(UserContext)
 
@@ -64,7 +65,7 @@ export default function Settings(props) {
       negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
       negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
       negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
-      negativePromptHolodayoXL, negativePromptKivotosXL,
+      negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL,
     })
     setSheetPosition(0)
   }
@@ -107,6 +108,15 @@ export default function Settings(props) {
             negativePrompt={negativePromptRumblexl}
             setNegativePrompt={setNegativePromptRumblexl}
             recommendNegativePrompt={imageModelData.Rumblexl.recommendNegativePrompt}
+          />
+          :null
+        }
+        {!isReview?
+          <NegativePromptItem
+            label={imageModelData.JuggernautXL.label}
+            negativePrompt={negativePromptJuggernautXL}
+            setNegativePrompt={setNegativePromptJuggernautXL}
+            recommendNegativePrompt={imageModelData.JuggernautXL.recommendNegativePrompt}
           />
           :null
         }

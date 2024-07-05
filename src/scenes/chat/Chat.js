@@ -76,6 +76,7 @@ export default function Chat() {
   const [negativePromptPVCFantasy, setNegativePromptPVCFantasy] = useState('')
   const [negativePromptHolodayoXL, setNegativePromptHolodayoXL] = useState('')
   const [negativePromptKivotosXL, setNegativePromptKivotosXL] = useState('')
+  const [negativePromptJuggernautXL, setNegativePromptJuggernautXL] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -123,6 +124,7 @@ export default function Chat() {
         _negativePromptPVCFantasy,
         _negativePromptHolodayoXL,
         _negativePromptKivotosXL,
+        _negativePromptJuggernautXL,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -162,6 +164,7 @@ export default function Chat() {
       setNegativePromptPVCFantasy(_negativePromptPVCFantasy)
       setNegativePromptHolodayoXL(_negativePromptHolodayoXL)
       setNegativePromptKivotosXL(_negativePromptKivotosXL)
+      setNegativePromptJuggernautXL(_negativePromptJuggernautXL)
     }
     loadStorage()
   }, [])
@@ -274,7 +277,7 @@ export default function Chat() {
             negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
             negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
             negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
-            negativePromptHolodayoXL, negativePromptKivotosXL,
+            negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL,
           })
           const botMessage = {
             _id: timestamp,
@@ -557,6 +560,8 @@ export default function Chat() {
           setNegativePromptHolodayoXL={setNegativePromptHolodayoXL}
           negativePromptKivotosXL={negativePromptKivotosXL}
           setNegativePromptKivotosXL={setNegativePromptKivotosXL}
+          negativePromptJuggernautXL={negativePromptJuggernautXL}
+          setNegativePromptJuggernautXL={setNegativePromptJuggernautXL}
         />
       </BottomSheet>
     </ScreenTemplate>
