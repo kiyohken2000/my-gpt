@@ -49,6 +49,12 @@ export default function DrawButton(props) {
           />
           <DrawButtonItem
             onItemPress={onItemPress}
+            disable={false}
+            isImageMode={isImageMode}
+            item={imageModelData.JuggernautXL}
+          />
+          <DrawButtonItem
+            onItemPress={onItemPress}
             disable={isReview}
             isImageMode={isImageMode}
             item={imageModelData.ChilloutMix}
@@ -64,12 +70,6 @@ export default function DrawButton(props) {
             disable={isReview}
             isImageMode={isImageMode}
             item={imageModelData.Rumblexl}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.JuggernautXL}
           />
         {/* ↑↑↑実写↑↑↑ */}
         <MenuDivider />

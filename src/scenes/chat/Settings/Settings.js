@@ -83,6 +83,14 @@ export default function Settings(props) {
           negativePrompt={negativePromptRealisticVision}
           setNegativePrompt={setNegativePromptRealisticVision}
           recommendNegativePrompt={imageModelData.RealisticVision.recommendNegativePrompt}
+          item={imageModelData.RealisticVision}
+        />
+        <NegativePromptItem
+          label={imageModelData.JuggernautXL.label}
+          negativePrompt={negativePromptJuggernautXL}
+          setNegativePrompt={setNegativePromptJuggernautXL}
+          recommendNegativePrompt={imageModelData.JuggernautXL.recommendNegativePrompt}
+          item={imageModelData.JuggernautXL}
         />
         {!isReview?
           <NegativePromptItem
@@ -90,6 +98,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptChillOut}
             setNegativePrompt={setNegativePromptChillOut}
             recommendNegativePrompt={imageModelData.ChilloutMix.recommendNegativePrompt}
+            item={imageModelData.ChilloutMix}
           />
           :null
         }
@@ -99,6 +108,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptNsfwGen}
             setNegativePrompt={setNegativePromptNsfwGen}
             recommendNegativePrompt={imageModelData.NsfwGen.recommendNegativePrompt}
+            item={imageModelData.NsfwGen}
           />
           :null
         }
@@ -108,15 +118,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptRumblexl}
             setNegativePrompt={setNegativePromptRumblexl}
             recommendNegativePrompt={imageModelData.Rumblexl.recommendNegativePrompt}
-          />
-          :null
-        }
-        {!isReview?
-          <NegativePromptItem
-            label={imageModelData.JuggernautXL.label}
-            negativePrompt={negativePromptJuggernautXL}
-            setNegativePrompt={setNegativePromptJuggernautXL}
-            recommendNegativePrompt={imageModelData.JuggernautXL.recommendNegativePrompt}
+            item={imageModelData.Rumblexl}
           />
           :null
         }
@@ -128,6 +130,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptRealPony}
             setNegativePrompt={setNegativePromptRealPony}
             recommendNegativePrompt={imageModelData.RealPony.recommendNegativePrompt}
+            item={imageModelData.RealPony}
           />
           :null
         }
@@ -137,6 +140,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptWaiREALMIX}
             setNegativePrompt={setNegativePromptWaiREALMIX}
             recommendNegativePrompt={imageModelData.waiREALMIX.recommendNegativePrompt}
+            item={imageModelData.waiREALMIX}
           />
           :null
         }
@@ -146,6 +150,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptWaiREALCN}
             setNegativePrompt={setNegativePromptWaiREALCN}
             recommendNegativePrompt={imageModelData.waiREALCN.recommendNegativePrompt}
+            item={imageModelData.waiREALCN}
           />
           :null
         }
@@ -155,6 +160,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptRealPonyCuteJp}
             setNegativePrompt={setNegativePromptRealPonyCuteJp}
             recommendNegativePrompt={imageModelData.RealPonyCuteJp.recommendNegativePrompt}
+            item={imageModelData.RealPonyCuteJp}
           />
           :null
         }
@@ -166,6 +172,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptAnimagine}
             setNegativePrompt={setNegativePromptAnimagine}
             recommendNegativePrompt={imageModelData.Animagine.recommendNegativePrompt}
+            item={imageModelData.Animagine}
           />
           :null
         }
@@ -175,6 +182,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptNsfwGenAnime}
             setNegativePrompt={setNegativePromptNsfwGenAnime}
             recommendNegativePrompt={imageModelData.NsfwGenAnime.recommendNegativePrompt}
+            item={imageModelData.NsfwGenAnime}
           />
           :null
         }
@@ -184,6 +192,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptNovelAIRemix}
             setNegativePrompt={setNegativePromptNovelAIRemix}
             recommendNegativePrompt={imageModelData.NovelAIRemix.recommendNegativePrompt}
+            item={imageModelData.NovelAIRemix}
           />
           :null
         }
@@ -193,6 +202,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptDeliberate}
             setNegativePrompt={setNegativePromptDeliberate}
             recommendNegativePrompt={imageModelData.Deliberate.recommendNegativePrompt}
+            item={imageModelData.Deliberate}
           />
           :null
         }
@@ -202,6 +212,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptArtiWaifu}
             setNegativePrompt={setNegativePromptArtiWaifu}
             recommendNegativePrompt={imageModelData.ArtiWaifu.recommendNegativePrompt}
+            item={imageModelData.ArtiWaifu}
           />
           :null
         }
@@ -211,6 +222,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptStarryXL}
             setNegativePrompt={setNegativePromptStarryXL}
             recommendNegativePrompt={imageModelData.StarryXL.recommendNegativePrompt}
+            item={imageModelData.StarryXL}
           />
           :null
         }
@@ -220,6 +232,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptYakiDofuMix}
             setNegativePrompt={setNegativePromptYakiDofuMix}
             recommendNegativePrompt={imageModelData.YakiDofuMix.recommendNegativePrompt}
+            item={imageModelData.YakiDofuMix}
           />
           :null
         }
@@ -229,6 +242,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptAnythingXL}
             setNegativePrompt={setNegativePromptAnythingXL}
             recommendNegativePrompt={imageModelData.AnythingXL.recommendNegativePrompt}
+            item={imageModelData.AnythingXL}
           />
           :null
         }
@@ -238,6 +252,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptAnimeBulldozer}
             setNegativePrompt={setNegativePromptAnimeBulldozer}
             recommendNegativePrompt={imageModelData.AnimeBulldozer.recommendNegativePrompt}
+            item={imageModelData.AnimeBulldozer}
           />
           :null
         }
@@ -247,6 +262,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptDeepDarkHentaiMix}
             setNegativePrompt={setNegativePromptDeepDarkHentaiMix}
             recommendNegativePrompt={imageModelData.DeepDarkHentaiMix.recommendNegativePrompt}
+            item={imageModelData.DeepDarkHentaiMix}
           />
           :null
         }
@@ -256,6 +272,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptYamersAnime}
             setNegativePrompt={setNegativePromptYamersAnime}
             recommendNegativePrompt={imageModelData.YamersAnime.recommendNegativePrompt}
+            item={imageModelData.YamersAnime}
           />
           :null
         }
@@ -265,6 +282,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptBaxl}
             setNegativePrompt={setNegativePromptBaxl}
             recommendNegativePrompt={imageModelData.Baxl.recommendNegativePrompt}
+            item={imageModelData.Baxl}
           />
           :null
         }
@@ -274,6 +292,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptCuteCore}
             setNegativePrompt={setNegativePromptCuteCore}
             recommendNegativePrompt={imageModelData.CuteCore.recommendNegativePrompt}
+            item={imageModelData.CuteCore}
           />
           :null
         }
@@ -283,6 +302,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptHolodayoXL}
             setNegativePrompt={setNegativePromptHolodayoXL}
             recommendNegativePrompt={imageModelData.HolodayoXL.recommendNegativePrompt}
+            item={imageModelData.HolodayoXL}
           />
           :null
         }
@@ -292,6 +312,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptKivotosXL}
             setNegativePrompt={setNegativePromptKivotosXL}
             recommendNegativePrompt={imageModelData.KivotosXL.recommendNegativePrompt}
+            item={imageModelData.KivotosXL}
           />
           :null
         }
@@ -303,6 +324,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptPony}
             setNegativePrompt={setNegativePromptPony}
             recommendNegativePrompt={imageModelData.Pony.recommendNegativePrompt}
+            item={imageModelData.Pony}
           />
           :null
         }
@@ -312,6 +334,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptEbaraPony}
             setNegativePrompt={setNegativePromptEbaraPony}
             recommendNegativePrompt={imageModelData.EbaraPony.recommendNegativePrompt}
+            item={imageModelData.EbaraPony}
           />
           :null
         }
@@ -321,6 +344,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptWaiANIMIXPONYXL}
             setNegativePrompt={setNegativePromptWaiANIMIXPONYXL}
             recommendNegativePrompt={imageModelData.waiANIMIXPONYXL.recommendNegativePrompt}
+            item={imageModelData.waiANIMIXPONYXL}
           />
           :null
         }
@@ -330,6 +354,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptMomoiroPony}
             setNegativePrompt={setNegativePromptMomoiroPony}
             recommendNegativePrompt={imageModelData.MomoiroPony.recommendNegativePrompt}
+            item={imageModelData.MomoiroPony}
           />
           :null
         }
@@ -339,6 +364,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptHanamomoPony}
             setNegativePrompt={setNegativePromptHanamomoPony}
             recommendNegativePrompt={imageModelData.HanamomoPony.recommendNegativePrompt}
+            item={imageModelData.HanamomoPony}
           />
           :null
         }
@@ -348,6 +374,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptSeventhAnimeXLPony}
             setNegativePrompt={setNegativePromptSeventhAnimeXLPony}
             recommendNegativePrompt={imageModelData.SeventhAnimeXLPony.recommendNegativePrompt}
+            item={imageModelData.SeventhAnimeXLPony}
           />
           :null
         }
@@ -357,6 +384,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptMix3x3x3xl}
             setNegativePrompt={setNegativePromptMix3x3x3xl}
             recommendNegativePrompt={imageModelData.Mix3x3x3xl.recommendNegativePrompt}
+            item={imageModelData.Mix3x3x3xl}
           />
           :null
         }
@@ -366,6 +394,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptFeaturelessMix}
             setNegativePrompt={setNegativePromptFeaturelessMix}
             recommendNegativePrompt={imageModelData.FeaturelessMix.recommendNegativePrompt}
+            item={imageModelData.FeaturelessMix}
           />
           :null
         }
@@ -375,6 +404,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptManmaruMix}
             setNegativePrompt={setNegativePromptManmaruMix}
             recommendNegativePrompt={imageModelData.ManmaruMix.recommendNegativePrompt}
+            item={imageModelData.ManmaruMix}
           />
           :null
         }
@@ -384,6 +414,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptChacolOmegaMix}
             setNegativePrompt={setNegativePromptChacolOmegaMix}
             recommendNegativePrompt={imageModelData.ChacolOmegaMix.recommendNegativePrompt}
+            item={imageModelData.ChacolOmegaMix}
           />
           :null
         }
@@ -393,6 +424,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptEponaMix}
             setNegativePrompt={setNegativePromptEponaMix}
             recommendNegativePrompt={imageModelData.EponaMix.recommendNegativePrompt}
+            item={imageModelData.EponaMix}
           />
           :null
         }
@@ -404,6 +436,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptPvc}
             setNegativePrompt={setNegativePromptPvc}
             recommendNegativePrompt={imageModelData.PVC.recommendNegativePrompt}
+            item={imageModelData.PVC}
           />
           :null
         }
@@ -413,6 +446,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptPVCRealistic}
             setNegativePrompt={setNegativePromptPVCRealistic}
             recommendNegativePrompt={imageModelData.PVCRealistic.recommendNegativePrompt}
+            item={imageModelData.PVCRealistic}
           />
           :null
         }
@@ -422,6 +456,7 @@ export default function Settings(props) {
             negativePrompt={negativePromptPVCFantasy}
             setNegativePrompt={setNegativePromptPVCFantasy}
             recommendNegativePrompt={imageModelData.PVCFantasy.recommendNegativePrompt}
+            item={imageModelData.PVCFantasy}
           />
           :null
         }
@@ -433,6 +468,7 @@ export default function Settings(props) {
           negativePrompt={negativePromptPVCMovable}
           setNegativePrompt={setNegativePromptPVCMovable}
           recommendNegativePrompt={imageModelData.PVCMovable.recommendNegativePrompt}
+          item={imageModelData.PVCMovable}
         />
         :null
       }

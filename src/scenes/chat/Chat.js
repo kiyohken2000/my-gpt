@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useRef, useMemo, useContext } 
 import { View, StyleSheet, Platform, Image } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { GiftedChat, Send } from 'react-native-gifted-chat'
-import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage, loadNegativePrompt, generateTags } from '../../utils/textGenerate';
+import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage, loadNegativePrompt, generateTags, generateImageFromZeroGPU } from '../../utils/textGenerate';
 import { generateSong, invalidTextLength } from '../../utils/songGenerate';
 import moment from 'moment';
 import SendButton from './SendButton';
@@ -266,7 +266,7 @@ export default function Chat() {
         } else if(user._id === userIds.user && isImageMode) {
           const timestamp = `${moment().valueOf()}`
           setCreatingContentIDs(prev => [...prev, timestamp])
-          const {imageUrl, message} = await generateImage({
+          const {imageUrl, message} = await generateImageFromZeroGPU({
             text, isImageMode,
             negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
             negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,

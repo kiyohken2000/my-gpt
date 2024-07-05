@@ -7,8 +7,12 @@ import FloatingActionButton from "../../../components/FloatingActionButton";
 const { height, width } = Dimensions.get('screen')
 
 export default function NegativePromptItem(props) {
-  const { negativePrompt, setNegativePrompt, label, recommendNegativePrompt } = props
+  const { negativePrompt, setNegativePrompt, label, recommendNegativePrompt, item } = props
   const [visible, setVisible] = useState(false)
+
+  if(!item.enable) {
+    return null
+  }
 
   return (
     <View style={styles.container}>

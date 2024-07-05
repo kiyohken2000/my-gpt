@@ -16,6 +16,15 @@ const saveImage = async({url, fileName}) => {
   }
 }
 
+const convertBase64toImage = async({base64image}) => {
+  const { uri } = await manipulateAsync(
+    base64image,
+    [],
+    { compress: 1, format: SaveFormat.PNG }
+  );
+  return uri
+}
+
 const convertBlobToImage = async({data}) => {
   try {
     if(Platform.OS === 'ios') {
@@ -92,4 +101,4 @@ const removeDataURIPrefix = (dataURI) => {
 };
 
 
-export { saveImage, convertBlobToImage }
+export { saveImage, convertBlobToImage, convertBase64toImage }

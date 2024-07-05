@@ -5,6 +5,10 @@ import { View } from "react-native";
 export default function DrawButtonItem(props) {
   const { onItemPress, disable, item, isImageMode } = props
 
+  if(!item.enable) {
+    return null
+  }
+
   if(disable) {
     return null
   }

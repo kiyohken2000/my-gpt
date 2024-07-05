@@ -1,8 +1,8 @@
 import { googleSheetKey } from "./openaiKeys"
 
-const versionName = '1.0.52'
-const iosBuildNumber = '59'
-const androidVersionCode = '64'
+const versionName = '1.0.53'
+const iosBuildNumber = '60'
+const androidVersionCode = '65'
 
 const sheetId = '15OtDRuaSXWhZ8odAHi0E7Pn93hzvO3gvDIYSpopNngY'
 const sheetName = 'sheet2'
@@ -22,4 +22,6 @@ const headers = {
   "Content-Type": "application/json",
 }
 
-export { versionName, googleSheetUrl, myEndpoints, headers, imgurKey, iosBuildNumber, androidVersionCode }
+const zeroGPUUrl = 'https://mygpt-image-api-omc3n2et7a-an.a.run.app'
+
+export { versionName, googleSheetUrl, myEndpoints, headers, imgurKey, iosBuildNumber, androidVersionCode, zeroGPUUrl }

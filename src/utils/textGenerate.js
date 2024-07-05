@@ -2,10 +2,10 @@ import axios from "axios";
 import { palmKey, CO_API_KEY, huggingFaceKey } from "../openaiKeys";
 import * as FileSystem from 'expo-file-system';
 import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
-import { convertBlobToImage } from "./downloadFunctions";
+import { convertBlobToImage, convertBase64toImage } from "./downloadFunctions";
 import { storage } from "./storage";
 import { uploadFunction } from "./uploadFunctions";
-import { myEndpoints, headers } from "../config";
+import { myEndpoints, headers, zeroGPUUrl } from "../config";
 import { imageModelData } from "../imageModelData";
 
 const errorMessage = 'すみません。よくわかりませんでした'
@@ -228,6 +228,54 @@ const generateImage = async({
   }
 }
 
+const generateImageFromZeroGPU = async({
+  text, isImageMode,
+  negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
+  negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
+  negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
+  negativePromptYakiDofuMix, negativePromptEbaraPony, negativePromptWaiANIMIXPONYXL, negativePromptWaiREALMIX,
+  negativePromptAnythingXL, negativePromptWaiREALCN, negativePromptAnimeBulldozer, negativePromptMomoiroPony,
+  negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony, negativePromptRealPonyCuteJp,
+  negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
+  negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
+  negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
+  negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL,
+}) => {
+  const { negativePrompt, label, modelName } = selectImageAPI({
+    isImageMode,
+    negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
+    negativePromptChillOut, negativePromptNsfwGenAnime, negativePromptNovelAIRemix, negativePromptNsfwGen,
+    negativePromptDeliberate, negativePromptRealPony, negativePromptArtiWaifu, negativePromptStarryXL,
+    negativePromptYakiDofuMix, negativePromptEbaraPony, negativePromptWaiANIMIXPONYXL, negativePromptWaiREALMIX,
+    negativePromptAnythingXL, negativePromptWaiREALCN, negativePromptAnimeBulldozer, negativePromptMomoiroPony,
+    negativePromptHanamomoPony, negativePromptDeepDarkHentaiMix, negativePromptSeventhAnimeXLPony, negativePromptRealPonyCuteJp,
+    negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
+    negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
+    negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
+    negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL,
+  })
+  try {
+    const { data } = await axios.post(
+      zeroGPUUrl,
+      {
+        model: modelName,
+        prompt: text,
+        negative_prompt: negativePrompt,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+    );
+    const imageUrl = await convertBase64toImage({base64image: data.image})
+    return { imageUrl: imageUrl, message: `画像は開いた後に長押しで保存できます ${label}`}
+  } catch(e) {
+    console.log('generate image from zero gpu error', e)
+    return { imageUrl: null, message: `${errorMessage}。数分後に再度お試しください。エラー:${e.response.status} ${label} `}
+  }
+}
+
 const selectImageAPI = ({
   isImageMode,
   negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
@@ -243,85 +291,85 @@ const selectImageAPI = ({
 }) => {
   switch (isImageMode){
     case imageModelData.RealisticVision.sequence:
-      return { apiUrl: imageModelData.RealisticVision.url, negativePrompt: negativePromptRealisticVision, label: imageModelData.RealisticVision.label }
+      return { apiUrl: imageModelData.RealisticVision.url, negativePrompt: negativePromptRealisticVision, label: imageModelData.RealisticVision.label, modelName: imageModelData.RealisticVision.modelName }
     case imageModelData.Animagine.sequence:
-      return { apiUrl: imageModelData.Animagine.url, negativePrompt: negativePromptAnimagine, label: imageModelData.Animagine.label }
+      return { apiUrl: imageModelData.Animagine.url, negativePrompt: negativePromptAnimagine, label: imageModelData.Animagine.label, modelName: imageModelData.Animagine.modelName }
     case imageModelData.Pony.sequence:
-      return { apiUrl: imageModelData.Pony.url, negativePrompt: negativePromptPony, label: imageModelData.Pony.label }
+      return { apiUrl: imageModelData.Pony.url, negativePrompt: negativePromptPony, label: imageModelData.Pony.label, modelName: imageModelData.Pony.modelName }
     case imageModelData.PVC.sequence:
-      return { apiUrl: imageModelData.PVC.url, negativePrompt: negativePromptPvc, label: imageModelData.PVC.label }
+      return { apiUrl: imageModelData.PVC.url, negativePrompt: negativePromptPvc, label: imageModelData.PVC.label, modelName: imageModelData.PVC.modelName }
     case imageModelData.ChilloutMix.sequence:
-      return { apiUrl: imageModelData.ChilloutMix.url, negativePrompt: negativePromptChillOut, label: imageModelData.ChilloutMix.label }
+      return { apiUrl: imageModelData.ChilloutMix.url, negativePrompt: negativePromptChillOut, label: imageModelData.ChilloutMix.label, modelName: imageModelData.ChilloutMix.modelName }
     case imageModelData.NsfwGenAnime.sequence:
-      return { apiUrl: imageModelData.NsfwGenAnime.url, negativePrompt: negativePromptNsfwGenAnime, label: imageModelData.NsfwGenAnime.label }
+      return { apiUrl: imageModelData.NsfwGenAnime.url, negativePrompt: negativePromptNsfwGenAnime, label: imageModelData.NsfwGenAnime.label, modelName: imageModelData.NsfwGenAnime.modelName }
     case imageModelData.NovelAIRemix.sequence:
-      return { apiUrl: imageModelData.NovelAIRemix.url, negativePrompt: negativePromptNovelAIRemix, label: imageModelData.NovelAIRemix.label }
+      return { apiUrl: imageModelData.NovelAIRemix.url, negativePrompt: negativePromptNovelAIRemix, label: imageModelData.NovelAIRemix.label, modelName: imageModelData.NovelAIRemix.modelName }
     case imageModelData.NsfwGen.sequence:
-      return { apiUrl: imageModelData.NsfwGen.url, negativePrompt: negativePromptNsfwGen, label: imageModelData.NsfwGen.label }
+      return { apiUrl: imageModelData.NsfwGen.url, negativePrompt: negativePromptNsfwGen, label: imageModelData.NsfwGen.label, modelName: imageModelData.NsfwGen.modelName }
     case imageModelData.Deliberate.sequence:
-      return { apiUrl: imageModelData.Deliberate.url, negativePrompt: negativePromptDeliberate, label: imageModelData.Deliberate.label }
+      return { apiUrl: imageModelData.Deliberate.url, negativePrompt: negativePromptDeliberate, label: imageModelData.Deliberate.label, modelName: imageModelData.Deliberate.modelName }
     case imageModelData.RealPony.sequence:
-      return { apiUrl: imageModelData.RealPony.url, negativePrompt: negativePromptRealPony, label: imageModelData.RealPony.label }
+      return { apiUrl: imageModelData.RealPony.url, negativePrompt: negativePromptRealPony, label: imageModelData.RealPony.label, modelName: imageModelData.RealPony.modelName }
     case imageModelData.ArtiWaifu.sequence:
-      return { apiUrl: imageModelData.ArtiWaifu.url, negativePrompt: negativePromptArtiWaifu, label: imageModelData.ArtiWaifu.label }
+      return { apiUrl: imageModelData.ArtiWaifu.url, negativePrompt: negativePromptArtiWaifu, label: imageModelData.ArtiWaifu.label, modelName: imageModelData.ArtiWaifu.modelName }
     case imageModelData.StarryXL.sequence:
-      return { apiUrl: imageModelData.StarryXL.url, negativePrompt: negativePromptStarryXL, label: imageModelData.StarryXL.label }
+      return { apiUrl: imageModelData.StarryXL.url, negativePrompt: negativePromptStarryXL, label: imageModelData.StarryXL.label, modelName: imageModelData.StarryXL.modelName }
     case imageModelData.YakiDofuMix.sequence:
-      return { apiUrl: imageModelData.YakiDofuMix.url, negativePrompt: negativePromptYakiDofuMix, label: imageModelData.YakiDofuMix.label }
+      return { apiUrl: imageModelData.YakiDofuMix.url, negativePrompt: negativePromptYakiDofuMix, label: imageModelData.YakiDofuMix.label, modelName: imageModelData.YakiDofuMix.modelName }
     case imageModelData.EbaraPony.sequence:
-      return { apiUrl: imageModelData.EbaraPony.url, negativePrompt: negativePromptEbaraPony, label: imageModelData.EbaraPony.label }
+      return { apiUrl: imageModelData.EbaraPony.url, negativePrompt: negativePromptEbaraPony, label: imageModelData.EbaraPony.label, modelName: imageModelData.EbaraPony.modelName }
     case imageModelData.waiANIMIXPONYXL.sequence:
-      return { apiUrl: imageModelData.waiANIMIXPONYXL.url, negativePrompt: negativePromptWaiANIMIXPONYXL, label: imageModelData.waiANIMIXPONYXL.label }
+      return { apiUrl: imageModelData.waiANIMIXPONYXL.url, negativePrompt: negativePromptWaiANIMIXPONYXL, label: imageModelData.waiANIMIXPONYXL.label, modelName: imageModelData.waiANIMIXPONYXL.modelName }
     case imageModelData.waiREALMIX.sequence:
-      return { apiUrl: imageModelData.waiREALMIX.url, negativePrompt: negativePromptWaiREALMIX, label: imageModelData.waiREALMIX.label }
+      return { apiUrl: imageModelData.waiREALMIX.url, negativePrompt: negativePromptWaiREALMIX, label: imageModelData.waiREALMIX.label, modelName: imageModelData.waiREALMIX.modelName }
     case imageModelData.AnythingXL.sequence:
-      return { apiUrl: imageModelData.AnythingXL.url, negativePrompt: negativePromptAnythingXL, label: imageModelData.AnythingXL.label }
+      return { apiUrl: imageModelData.AnythingXL.url, negativePrompt: negativePromptAnythingXL, label: imageModelData.AnythingXL.label, modelName: imageModelData.AnythingXL.modelName }
     case imageModelData.waiREALCN.sequence:
-      return { apiUrl: imageModelData.waiREALCN.url, negativePrompt: negativePromptWaiREALCN, label: imageModelData.waiREALCN.label }
+      return { apiUrl: imageModelData.waiREALCN.url, negativePrompt: negativePromptWaiREALCN, label: imageModelData.waiREALCN.label, modelName: imageModelData.waiREALCN.modelName }
     case imageModelData.AnimeBulldozer.sequence:
-      return { apiUrl: imageModelData.AnimeBulldozer.url, negativePrompt: negativePromptAnimeBulldozer, label: imageModelData.AnimeBulldozer.label }
+      return { apiUrl: imageModelData.AnimeBulldozer.url, negativePrompt: negativePromptAnimeBulldozer, label: imageModelData.AnimeBulldozer.label, modelName: imageModelData.AnimeBulldozer.modelName }
     case imageModelData.MomoiroPony.sequence:
-      return { apiUrl: imageModelData.MomoiroPony.url, negativePrompt: negativePromptMomoiroPony, label: imageModelData.MomoiroPony.label }
+      return { apiUrl: imageModelData.MomoiroPony.url, negativePrompt: negativePromptMomoiroPony, label: imageModelData.MomoiroPony.label, modelName: imageModelData.MomoiroPony.modelName }
     case imageModelData.HanamomoPony.sequence:
-      return { apiUrl: imageModelData.HanamomoPony.url, negativePrompt: negativePromptHanamomoPony, label: imageModelData.HanamomoPony.label }
+      return { apiUrl: imageModelData.HanamomoPony.url, negativePrompt: negativePromptHanamomoPony, label: imageModelData.HanamomoPony.label, modelName: imageModelData.HanamomoPony.modelName }
     case imageModelData.DeepDarkHentaiMix.sequence:
-      return { apiUrl: imageModelData.DeepDarkHentaiMix.url, negativePrompt: negativePromptDeepDarkHentaiMix, label: imageModelData.DeepDarkHentaiMix.label }
+      return { apiUrl: imageModelData.DeepDarkHentaiMix.url, negativePrompt: negativePromptDeepDarkHentaiMix, label: imageModelData.DeepDarkHentaiMix.label, modelName: imageModelData.DeepDarkHentaiMix.modelName }
     case imageModelData.SeventhAnimeXLPony.sequence:
-      return { apiUrl: imageModelData.SeventhAnimeXLPony.url, negativePrompt: negativePromptSeventhAnimeXLPony, label: imageModelData.SeventhAnimeXLPony.label }
+      return { apiUrl: imageModelData.SeventhAnimeXLPony.url, negativePrompt: negativePromptSeventhAnimeXLPony, label: imageModelData.SeventhAnimeXLPony.label, modelName: imageModelData.SeventhAnimeXLPony.modelName }
     case imageModelData.RealPonyCuteJp.sequence:
-      return { apiUrl: imageModelData.RealPonyCuteJp.url, negativePrompt: negativePromptRealPonyCuteJp, label: imageModelData.RealPonyCuteJp.label }
+      return { apiUrl: imageModelData.RealPonyCuteJp.url, negativePrompt: negativePromptRealPonyCuteJp, label: imageModelData.RealPonyCuteJp.label, modelName: imageModelData.RealPonyCuteJp.modelName }
     case imageModelData.Rumblexl.sequence:
-      return { apiUrl: imageModelData.Rumblexl.url, negativePrompt: negativePromptRumblexl, label: imageModelData.Rumblexl.label }
+      return { apiUrl: imageModelData.Rumblexl.url, negativePrompt: negativePromptRumblexl, label: imageModelData.Rumblexl.label, modelName: imageModelData.Rumblexl.modelName }
     case imageModelData.Mix3x3x3xl.sequence:
-      return { apiUrl: imageModelData.Mix3x3x3xl.url, negativePrompt: negativePromptMix3x3x3xl, label: imageModelData.Mix3x3x3xl.label }
+      return { apiUrl: imageModelData.Mix3x3x3xl.url, negativePrompt: negativePromptMix3x3x3xl, label: imageModelData.Mix3x3x3xl.label, modelName: imageModelData.Mix3x3x3xl.modelName }
     case imageModelData.YamersAnime.sequence:
-      return { apiUrl: imageModelData.YamersAnime.url, negativePrompt: negativePromptYamersAnime, label: imageModelData.YamersAnime.label }
+      return { apiUrl: imageModelData.YamersAnime.url, negativePrompt: negativePromptYamersAnime, label: imageModelData.YamersAnime.label, modelName: imageModelData.YamersAnime.modelName }
     case imageModelData.Baxl.sequence:
-      return { apiUrl: imageModelData.Baxl.url, negativePrompt: negativePromptBaxl, label: imageModelData.Baxl.label }
+      return { apiUrl: imageModelData.Baxl.url, negativePrompt: negativePromptBaxl, label: imageModelData.Baxl.label, modelName: imageModelData.Baxl.modelName }
     case imageModelData.CuteCore.sequence:
-      return { apiUrl: imageModelData.CuteCore.url, negativePrompt: negativePromptCuteCore, label: imageModelData.CuteCore.label }
+      return { apiUrl: imageModelData.CuteCore.url, negativePrompt: negativePromptCuteCore, label: imageModelData.CuteCore.label, modelName: imageModelData.CuteCore.modelName }
     case imageModelData.FeaturelessMix.sequence:
-      return { apiUrl: imageModelData.FeaturelessMix.url, negativePrompt: negativePromptFeaturelessMix, label: imageModelData.FeaturelessMix.label }
+      return { apiUrl: imageModelData.FeaturelessMix.url, negativePrompt: negativePromptFeaturelessMix, label: imageModelData.FeaturelessMix.label, modelName: imageModelData.FeaturelessMix.modelName }
     case imageModelData.ManmaruMix.sequence:
-      return { apiUrl: imageModelData.ManmaruMix.url, negativePrompt: negativePromptManmaruMix, label: imageModelData.ManmaruMix.label }
+      return { apiUrl: imageModelData.ManmaruMix.url, negativePrompt: negativePromptManmaruMix, label: imageModelData.ManmaruMix.label, modelName: imageModelData.ManmaruMix.modelName }
     case imageModelData.ChacolOmegaMix.sequence:
-      return { apiUrl: imageModelData.ChacolOmegaMix.url, negativePrompt: negativePromptChacolOmegaMix, label: imageModelData.ChacolOmegaMix.label }
+      return { apiUrl: imageModelData.ChacolOmegaMix.url, negativePrompt: negativePromptChacolOmegaMix, label: imageModelData.ChacolOmegaMix.label, modelName: imageModelData.ChacolOmegaMix.modelName }
     case imageModelData.EponaMix.sequence:
-      return { apiUrl: imageModelData.EponaMix.url, negativePrompt: negativePromptEponaMix, label: imageModelData.EponaMix.label }
+      return { apiUrl: imageModelData.EponaMix.url, negativePrompt: negativePromptEponaMix, label: imageModelData.EponaMix.label, modelName: imageModelData.EponaMix.modelName }
     case imageModelData.PVCMovable.sequence:
-      return { apiUrl: imageModelData.PVCMovable.url, negativePrompt: negativePromptPVCMovable, label: imageModelData.PVCMovable.label }
+      return { apiUrl: imageModelData.PVCMovable.url, negativePrompt: negativePromptPVCMovable, label: imageModelData.PVCMovable.label, modelName: imageModelData.PVCMovable.modelName }
     case imageModelData.PVCRealistic.sequence:
-      return { apiUrl: imageModelData.PVCRealistic.url, negativePrompt: negativePromptPVCRealistic, label: imageModelData.PVCRealistic.label }
+      return { apiUrl: imageModelData.PVCRealistic.url, negativePrompt: negativePromptPVCRealistic, label: imageModelData.PVCRealistic.label, modelName: imageModelData.PVCRealistic.modelName }
     case imageModelData.PVCFantasy.sequence:
-      return { apiUrl: imageModelData.PVCFantasy.url, negativePrompt: negativePromptPVCFantasy, label: imageModelData.PVCFantasy.label }
+      return { apiUrl: imageModelData.PVCFantasy.url, negativePrompt: negativePromptPVCFantasy, label: imageModelData.PVCFantasy.label, modelName: imageModelData.PVCFantasy.modelName }
     case imageModelData.HolodayoXL.sequence:
-      return { apiUrl: imageModelData.HolodayoXL.url, negativePrompt: negativePromptHolodayoXL, label: imageModelData.HolodayoXL.label }
+      return { apiUrl: imageModelData.HolodayoXL.url, negativePrompt: negativePromptHolodayoXL, label: imageModelData.HolodayoXL.label, modelName: imageModelData.HolodayoXL.modelName }
     case imageModelData.KivotosXL.sequence:
-      return { apiUrl: imageModelData.KivotosXL.url, negativePrompt: negativePromptKivotosXL, label: imageModelData.KivotosXL.label }
+      return { apiUrl: imageModelData.KivotosXL.url, negativePrompt: negativePromptKivotosXL, label: imageModelData.KivotosXL.label, modelName: imageModelData.KivotosXL.modelName }
     case imageModelData.JuggernautXL.sequence:
-      return { apiUrl: imageModelData.JuggernautXL.url, negativePrompt: negativePromptJuggernautXL, label: imageModelData.JuggernautXL.label }
+      return { apiUrl: imageModelData.JuggernautXL.url, negativePrompt: negativePromptJuggernautXL, label: imageModelData.JuggernautXL.label, modelName: imageModelData.JuggernautXL.modelName }
     default:
-      return { apiUrl: imageModelData.RealisticVision.url, negativePrompt: negativePromptRealisticVision, label: imageModelData.RealisticVision.label }
+      return { apiUrl: imageModelData.RealisticVision.url, negativePrompt: negativePromptRealisticVision, label: imageModelData.RealisticVision.label, modelName: imageModelData.RealisticVision.modelName }
   }
 }
 
@@ -492,5 +540,5 @@ const generateTags = async({imagePath, imgbbKey}) => {
 export {
   generateChatMessage, userIds, errorMessage,
   generateCommandRMessage, userNames, generateImage, loadNegativePrompt,
-  saveNegativePrompt, generateTags,
+  saveNegativePrompt, generateTags, generateImageFromZeroGPU
 }
