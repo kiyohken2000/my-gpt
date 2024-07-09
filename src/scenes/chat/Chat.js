@@ -186,6 +186,7 @@ export default function Chat() {
               setIsImageMode(0)
               setImagePath('')
               setIsSongMode(false)
+              setIsVoiceMode(false)
               setMessages([])
             }}
           />
