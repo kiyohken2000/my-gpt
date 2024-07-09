@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Dimensions, TouchableOpacity, Image } from 'react-native';
 import { Video } from 'expo-av';
 import VideoModal from './VideoModal';
@@ -11,6 +11,12 @@ export default function VideoMessage(props) {
   const { currentMessage } = props
   const [isVisible, setIsVisible] = useState(false)
   const [isPlayable, setIsPlayable] = useState(false);
+
+  useEffect(() => {
+    if(currentMessage.user._id === userIds.bot7 || currentMessage.user._id === userIds.bot4) {
+      setIsPlayable(true)
+    }
+  }, [currentMessage])
 
   const handleReadyForDisplay = (event) => {
     if (event.naturalSize.width > 0 && event.naturalSize.height > 0) {
