@@ -5,6 +5,7 @@ import { GiftedChat, Send } from 'react-native-gifted-chat'
 import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage, loadNegativePrompt, generateTags, generateImageFromZeroGPU } from '../../utils/textGenerate';
 import { generateSong, invalidTextLength } from '../../utils/songGenerate';
 import moment from 'moment';
+import RenderVersion from './RenderVersion';
 import SendButton from './SendButton';
 import ImageButton from './ImageButton';
 import FooterImage from './FooterImage';
@@ -15,6 +16,7 @@ import HeaderRightButton from './HeaderRightButton';
 import HeaderLeftButton from './HeaderLeftButton';
 import DrawButton from './DrawButton/DrawButton';
 import SongButton from './SongButton';
+import VoiceButton from './VoiceButton';
 import RenderImage from './RenderImage';
 import { colors } from '../../theme';
 import * as Clipboard from 'expo-clipboard';
@@ -23,7 +25,10 @@ import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import Settings from './Settings/Settings';
 import BlurBox from '../../components/BlurBox/BlurBox';
 import { createVideo } from '../../utils/videoFunctions';
+import { generateVoice } from '../../utils/voiceGenerate';
 import { UserContext } from '../../contexts/UserContext';
+import { calculateMessageMaxLength } from './functions';
+import { generateRandomVoide } from '../../utils/voiceGenerate';
 
 const isAndroid = Platform.OS === 'android'
 
@@ -38,6 +43,7 @@ export default function Chat() {
   const [isThirdPerson, setIsThirdPerson] = useState(false)
   const [isSongMode, setIsSongMode] = useState(false)
   const [isImageMode, setIsImageMode] = useState(0)
+  const [isVoiceMode, setIsVoiceMode] = useState(false)
   const [negativePromptRealisticVision, setNegativePromptRealisticVision] = useState('')
   const [negativePromptAnimagine, setNegativePromptAnimagine] = useState('')
   const [negativePromptPony, setNegativePromptPony] = useState('')
@@ -172,15 +178,18 @@ export default function Chat() {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <HeaderRightButton
-          onPress={() => {
-            setIsThirdPerson(false)
-            setIsImageMode(0)
-            setImagePath('')
-            setIsSongMode(false)
-            setMessages([])
-          }}
-        />
+        <View style={{flexDirection: 'row'}}>
+          <RenderVersion/>
+          <HeaderRightButton
+            onPress={() => {
+              setIsThirdPerson(false)
+              setIsImageMode(0)
+              setImagePath('')
+              setIsSongMode(false)
+              setMessages([])
+            }}
+          />
+        </View>
       ),
       headerLeft: () => (
         <View style={{flexDirection: 'row'}}>
@@ -200,10 +209,15 @@ export default function Chat() {
             />
             :null
           }
+          <VoiceButton
+            isVoiceMode={isVoiceMode}
+            setIsVoiceMode={setIsVoiceMode}
+            onGenerateRandomVoice={onGenerateRandomVoice}
+          />
         </View>
       )
     });
-  }, [navigation, isThirdPerson, isImageMode, sheetPosition, isSongMode]);
+  }, [navigation, isThirdPerson, isImageMode, sheetPosition, isSongMode, isVoiceMode]);
 
   useEffect(() => {
     if(isImageMode === 0) {
@@ -211,6 +225,7 @@ export default function Chat() {
     }
     if(isImageMode >= 1) {
       setIsSongMode(false)
+      setIsVoiceMode(false)
     }
     setImagePath('')
     setIsThirdPerson(false)
@@ -222,14 +237,25 @@ export default function Chat() {
       setMessages([])
       setImagePath('')
       setIsThirdPerson(false)
+      setIsVoiceMode(false)
     }
   }, [isSongMode])
+
+  useEffect(() => {
+    if(isVoiceMode) {
+      setIsImageMode(0)
+      setMessages([])
+      setImagePath('')
+      setIsThirdPerson(false)
+      setIsSongMode(false)
+    }
+  }, [isVoiceMode])
 
   useEffect(() => {
     const onRecieveNewMessage = async() => {
       if(messages[0]) {
         const { text, user } = messages[0]
-        if(user._id === userIds.user && !isImageMode && !isSongMode) {
+        if(user._id === userIds.user && !isImageMode && !isSongMode && !isVoiceMode) {
           const timestamp = `${moment().valueOf()}`
           setCreatingContentIDs(prev => [...prev, timestamp])
           const reply = await generateChatMessage({messages})
@@ -329,6 +355,24 @@ export default function Chat() {
             })
             setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
           }
+        } else if(user._id === userIds.user && isVoiceMode) {
+          const timestamp = `${moment().valueOf()}`
+          setCreatingContentIDs(prev => [...prev, timestamp])
+          const { message, videoUrl } = await generateVoice({text})
+          const botMessage = {
+            _id: timestamp,
+            createdAt: new Date(),
+            text: message,
+            video: videoUrl,
+            user: {
+              _id: userIds.bot7,
+              name: userNames.bot7,
+            }
+          }
+          setMessages(previousMessages =>
+            GiftedChat.append(previousMessages, botMessage),
+          )
+          setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
         }
       }
     }
@@ -347,6 +391,26 @@ export default function Chat() {
       user: {
         _id: userIds.bot4,
         name: userNames.bot4,
+      }
+    }
+    setMessages(previousMessages =>
+      GiftedChat.append(previousMessages, botMessage),
+    )
+    setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
+  }
+
+  const onGenerateRandomVoice = async() => {
+    const timestamp = `${moment().valueOf()}`
+    setCreatingContentIDs(prev => [...prev, timestamp])
+    const { message, videoUrl } = await generateRandomVoide()
+    const botMessage = {
+      _id: timestamp,
+      createdAt: new Date(),
+      text: message,
+      video: videoUrl,
+      user: {
+        _id: userIds.bot7,
+        name: userNames.bot7,
       }
     }
     setMessages(previousMessages =>
@@ -413,7 +477,7 @@ export default function Chat() {
   const renderSend = (props) => {
     return (
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        {!isImageMode && !isSongMode?
+        {!isImageMode && !isSongMode && !isVoiceMode?
           <ImageButton
             onImageButtonPress={onImageButtonPress}
           />
@@ -468,7 +532,7 @@ export default function Chat() {
           renderFooter={renderChatFooter}
           placeholder={messages.length?'メッセージを入力':'お気軽にご質問ください'}
           keyboardShouldPersistTaps='never'
-          maxInputLength={isImageMode?1000:500}
+          maxInputLength={calculateMessageMaxLength({isImageMode, isVoiceMode})}
           onPress={(context, message) => onMessagePress({message})}
           renderMessageImage={renderMessageImage}
           renderMessageVideo={(props) => <VideoMessage {...props} />}

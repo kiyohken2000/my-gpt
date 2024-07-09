@@ -1,8 +1,8 @@
 import { googleSheetKey } from "./openaiKeys"
 
-const versionName = '1.0.53'
-const iosBuildNumber = '60'
-const androidVersionCode = '65'
+const versionName = '1.0.54'
+const iosBuildNumber = '61'
+const androidVersionCode = '66'
 
 const sheetId = '15OtDRuaSXWhZ8odAHi0E7Pn93hzvO3gvDIYSpopNngY'
 const sheetName = 'sheet2'
@@ -22,6 +22,14 @@ const headers = {
   "Content-Type": "application/json",
 }
 
+const convertHiraganaAPI = 'https://labs.goo.ne.jp/api/hiragana'
+
 const zeroGPUUrl = 'https://mygpt-image-api-omc3n2et7a-an.a.run.app'
 
-export { versionName, googleSheetUrl, myEndpoints, headers, imgurKey, iosBuildNumber, androidVersionCode, zeroGPUUrl }
+const chupaVoiceBaseUrl = 'https://chupa-api-omc3n2et7a-an.a.run.app'
+const chupaVoiceEndpoints = {
+  getRandom: `${chupaVoiceBaseUrl}/generate_random`,
+  generateVoice: `${chupaVoiceBaseUrl}/generate_sound`,
+}
+
+export { versionName, googleSheetUrl, myEndpoints, headers, imgurKey, iosBuildNumber, androidVersionCode, zeroGPUUrl, convertHiraganaAPI, chupaVoiceEndpoints }

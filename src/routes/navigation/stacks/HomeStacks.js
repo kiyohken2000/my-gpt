@@ -19,7 +19,7 @@ export const HomeStacks = () => {
         name="Chat"
         component={Chat}
         options={({ navigation }) => ({
-          title: `ver. ${versionName}`,
+          title: null,
           headerShown: true,
           headerBackTitleVisible: false,
           headerBackground: () => <GradientHeader />,

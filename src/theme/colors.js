@@ -20,6 +20,7 @@ const colors = {
   redPrimary: '#FF0000',
   redSecondary: '#FF4444',
   clearBlack: '#000000c0',
+  yellowgreen: '#9acd32',
 }
 
 export { colors }

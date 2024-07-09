@@ -105,4 +105,19 @@ const saveVideo = async({url}) => {
   }
 }
 
-export { createVideo, saveVideo, getLocalVideo }
+const convertBase64ToLocalUri = async({base64String}) => {
+  try {
+    const fileName = `${FileSystem.documentDirectory}temp_video_${moment().unix()}.mp4`;
+    // Base64データをデコードしてファイルに書き込む
+    await FileSystem.writeAsStringAsync(fileName, base64String, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+    // ファイルのURIを返す
+    return fileName;
+  } catch(e) {
+    console.log('convert base64 to local uri error', e)
+    throw new Error('convert base64 to local uri error')
+  }
+}
+
+export { createVideo, saveVideo, getLocalVideo, convertBase64ToLocalUri }
