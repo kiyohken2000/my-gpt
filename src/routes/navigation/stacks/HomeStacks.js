@@ -1,11 +1,10 @@
 import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
 import { navigationProps } from './navigationProps/navigationProps'
 import GradientHeader from '../../../components/GradientHeader'
 
 import Chat from '../../../scenes/chat/Chat'
-
-import { versionName } from '../../../config'
+import Donate from '../../../scenes/donate/Donate'
 
 const Stack = createStackNavigator()
 
@@ -26,6 +25,25 @@ export const HomeStacks = () => {
           headerTitleAlign: 'center'
         })}
       />
+      <Stack.Group
+        screenOptions={{
+          presentation: 'modal',
+          headerShown: false,
+          gestureEnabled: true,
+          cardOverlayEnabled: true,
+          ...TransitionPresets.ModalPresentationIOS,
+        }}
+      >
+        <Stack.Screen
+          name="Donate"
+          component={Donate}
+          options={({ navigation }) => ({
+            title: 'Donate',
+            headerBackTitleVisible: false,
+            headerBackground: () => <GradientHeader />,
+          })}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   )
 }

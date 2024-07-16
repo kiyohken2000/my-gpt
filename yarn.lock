@@ -2206,6 +2206,11 @@
     redux-thunk "^2.4.2"
     reselect "^4.1.8"
 
+"@revenuecat/purchases-typescript-internal@11.1.1":
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/@revenuecat/purchases-typescript-internal/-/purchases-typescript-internal-11.1.1.tgz#ce996cbf4b51ea37016790105a023159211e531e"
+  integrity sha512-xYxv+vZJRPc//XqMAjxtu0fiN66WRmBORap37zA3DQymB9vKAJuTYqv9xMP2xSMglUYsA42M5DgdW2PMBCxfHA==
+
 "@segment/loosely-validate-event@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@segment/loosely-validate-event/-/loosely-validate-event-2.0.0.tgz#87dfc979e5b4e7b82c5f1d8b722dfd5d77644681"
@@ -2615,6 +2620,16 @@ aggregate-error@^3.0.0:
   dependencies:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
+
+ajv@8.11.0:
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.11.0.tgz#977e91dd96ca669f54a11e23e378e33b884a565f"
+  integrity sha512-wGgprdCvMalC0BztXvitD2hC04YffAvtsUn93JbGXYLAtCUO4xd17mCCZQxUOItiBwZvJScWo8NIvQMQ71rdpg==
+  dependencies:
+    fast-deep-equal "^3.1.1"
+    json-schema-traverse "^1.0.0"
+    require-from-string "^2.0.2"
+    uri-js "^4.2.2"
 
 ajv@^6.10.0, ajv@^6.10.2:
   version "6.12.6"
@@ -4794,6 +4809,41 @@ expo-constants@~15.4.0, expo-constants@~15.4.3:
   dependencies:
     "@expo/config" "~8.5.0"
 
+expo-dev-client@~3.3.12:
+  version "3.3.12"
+  resolved "https://registry.yarnpkg.com/expo-dev-client/-/expo-dev-client-3.3.12.tgz#b6f4995daeb19046f3f03934765ccb0b7b9d72cb"
+  integrity sha512-v1CxlxPlt5SY+CVg+vn/EULAtZj7gP3GJji8UldxKTnTQHXggBLNYDIZFIbVkXHNOqtHGDjEsi36jBGqCynA8Q==
+  dependencies:
+    expo-dev-launcher "3.6.10"
+    expo-dev-menu "4.5.8"
+    expo-dev-menu-interface "1.7.2"
+    expo-manifests "~0.13.0"
+    expo-updates-interface "~0.15.1"
+
+expo-dev-launcher@3.6.10:
+  version "3.6.10"
+  resolved "https://registry.yarnpkg.com/expo-dev-launcher/-/expo-dev-launcher-3.6.10.tgz#e445ba38676630b82a52f06d1f97700ffab666c7"
+  integrity sha512-7sbatYHpORxNmc3vnOHdU51gP7vcRhSu25E4SpCZ/T+ijjWN5/0hZzGqLJyUy8cDs1xuA3G1tHQQwvT/1/WaHA==
+  dependencies:
+    ajv "8.11.0"
+    expo-dev-menu "4.5.8"
+    expo-manifests "~0.13.0"
+    resolve-from "^5.0.0"
+    semver "^7.5.3"
+
+expo-dev-menu-interface@1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/expo-dev-menu-interface/-/expo-dev-menu-interface-1.7.2.tgz#772fb97c6b0a44c27965cdfcfa078f316b0930ca"
+  integrity sha512-V/geSB9rW0IPTR+d7E5CcvkV0uVUCE7SMHZqE/J0/dH06Wo8AahB16fimXeh5/hTL2Qztq8CQ41xpFUBoA9TEw==
+
+expo-dev-menu@4.5.8:
+  version "4.5.8"
+  resolved "https://registry.yarnpkg.com/expo-dev-menu/-/expo-dev-menu-4.5.8.tgz#21940385124c7d2745066bbcb42185ebd35f66bc"
+  integrity sha512-GXfI0CmYlqjOqyFjtplXO9PSoJQoy89+50lbUSNZykDsGyvzCPzl4txdQcdHHSglKYr7lWV7aeMVeehuSct60w==
+  dependencies:
+    expo-dev-menu-interface "1.7.2"
+    semver "^7.5.3"
+
 expo-eas-client@~0.11.0:
   version "0.11.2"
   resolved "https://registry.yarnpkg.com/expo-eas-client/-/expo-eas-client-0.11.2.tgz#2e8d6f347dcea38b58c2b6a21db7c632383fb1ba"
@@ -6474,6 +6524,11 @@ json-schema-traverse@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz#69f6a87d9513ab8bb8fe63bdb0979c448e684660"
   integrity sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==
+
+json-schema-traverse@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-1.0.0.tgz#ae7bcb3656ab77a73ba5c49bf654f38e6b6860e2"
+  integrity sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==
 
 json-stable-stringify-without-jsonify@^1.0.1:
   version "1.0.1"
@@ -8191,6 +8246,13 @@ react-native-parsed-text@0.0.22:
   integrity sha512-hfD83RDXZf9Fvth3DowR7j65fMnlqM9PpxZBGWkzVcUTFtqe6/yPcIoIAgrJbKn6YmtzkivmhWE2MCE4JKBXrQ==
   dependencies:
     prop-types "^15.7.x"
+
+react-native-purchases@^7.28.1:
+  version "7.28.1"
+  resolved "https://registry.yarnpkg.com/react-native-purchases/-/react-native-purchases-7.28.1.tgz#3ee48869017e57ca74230bcc4a5873624ff36163"
+  integrity sha512-5nd8s79dq+O9O+B0Gn9QNrKHn63kMNm5NQx1mnN8awBaDe95YpjqBaAgmVI/K66BSEDAkzTR0ep2BzUMawNmtQ==
+  dependencies:
+    "@revenuecat/purchases-typescript-internal" "11.1.1"
 
 react-native-reanimated@~3.6.2:
   version "3.6.3"

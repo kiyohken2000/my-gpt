@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { View } from 'react-native'
+import { View, Platform } from 'react-native'
 import { Provider } from 'react-redux'
 import store from 'utils/store'
 import 'utils/ignore'
 import { UserContextProvider } from './contexts/UserContext'
+import { iapKey } from './openaiKeys'
+import Purchases from "react-native-purchases";
 
 // assets
 import { imageAssets } from 'theme/images'
@@ -21,9 +23,18 @@ export default function App() {
     setDidLoad(true)
   }
 
+  const initRevenueCat = async() => {
+    if (Platform.OS === "android") {
+      Purchases.configure({ apiKey: iapKey.android });
+    } else {
+      Purchases.configure({ apiKey: iapKey.ios });
+    }
+  }
+
   // lifecycle
   useEffect(() => {
     handleLoadAssets()
+    initRevenueCat()
   }, [])
 
   // rendering

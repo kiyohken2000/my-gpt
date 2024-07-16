@@ -5,9 +5,9 @@ import { GiftedChat, Send } from 'react-native-gifted-chat'
 import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage, loadNegativePrompt, generateTags, generateImageFromZeroGPU } from '../../utils/textGenerate';
 import { generateSong, invalidTextLength } from '../../utils/songGenerate';
 import moment from 'moment';
-import RenderVersion from './RenderVersion';
 import SendButton from './SendButton';
 import ImageButton from './ImageButton';
+import DonateButton from './DonateButton';
 import FooterImage from './FooterImage';
 import VideoMessage from './VideoMessage';
 import * as ImagePicker from 'expo-image-picker';
@@ -179,7 +179,7 @@ export default function Chat() {
     navigation.setOptions({
       headerRight: () => (
         <View style={{flexDirection: 'row'}}>
-          <RenderVersion/>
+          <DonateButton/>
           <HeaderRightButton
             onPress={() => {
               setIsThirdPerson(false)

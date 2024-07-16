@@ -13,8 +13,9 @@ export default function RenderVersion() {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'flex-end',
-    paddingRight: 10
+    alignItems: 'center',
+    backgroundColor: colors.blueSecondary,
+    paddingVertical: 10
   },
   text: {
     color: colors.white,

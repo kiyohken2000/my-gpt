@@ -1,9 +1,9 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
+import { StyleSheet, TouchableOpacity, Text, View, ActivityIndicator } from "react-native";
 import { fontSize, colors } from "../theme";
 
 export default function Button(props) {
-  const { label, onPress, color, disable, labelColor, labelBold, height } = props
+  const { label, onPress, color, disable, labelColor, labelBold, height, isLoading } = props
 
   if(disable) {
     return (
@@ -11,6 +11,16 @@ export default function Button(props) {
         style={[styles.button, { backgroundColor: color, opacity: 0.3, height: height?height:48 }]}
       >
         <Text style={[styles.buttonText, { color: labelColor, fontWeight: labelBold?'700':'500' }]}>{label}</Text>
+      </View>
+    )
+  }
+
+  if(isLoading) {
+    return (
+      <View
+        style={[styles.button, { backgroundColor: color, opacity: 0.3, height: height?height:48 }]}
+      >
+        <ActivityIndicator color={labelColor} size='small' />
       </View>
     )
   }
