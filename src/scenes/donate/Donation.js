@@ -57,7 +57,7 @@ export default function Donation() {
         return (
           <Button
             key={pkg.identifier}
-            label='寄付する 700円'
+            label='寄付する'
             onPress={() => onDonatePress({pkg})}
             color={colors.purple}
             disable={false}
