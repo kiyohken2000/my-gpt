@@ -15,7 +15,7 @@ const imageModelData = {
     url: 'https://api-inference.huggingface.co/models/cagliostrolab/animagine-xl-3.1',
     modelName: 'votepurchase/votepurchase-animagine-xl-3.1',
     enable: true,
-    recommendNegativePrompt: 'nsfw, lowres, (bad), text, error, fewer, extra, missing, worst quality, jpeg artifacts, low quality, watermark, unfinished, displeasing, oldest, early, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract]',
+    recommendNegativePrompt: 'lowres, bad anatomy, bad hands, text, error, missing finger, extra digits, fewer digits, cropped, worst quality, low quality, low score, bad score, average score, signature, watermark, username, blurry',
   },
   Pony: {
     label: 'Pony🐴',

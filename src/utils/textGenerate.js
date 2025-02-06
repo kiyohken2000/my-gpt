@@ -9,6 +9,8 @@ import { myEndpoints, headers, zeroGPUUrl } from "../config";
 import { imageModelData } from "../imageModelData";
 
 const errorMessage = 'すみません。よくわかりませんでした'
+const geminiBaseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='
+// const geminiBaseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key='
 
 const userIds = {
   user: 1,
@@ -77,7 +79,7 @@ const generateChatMessage = async({messages}) => {
       const _messages = messages.filter((v) => v.user._id === userIds.user || v.user._id === userIds.bot1)
       const formatedChatlog = formatChatlog({messages: _messages})
       const {data} = await axios.post(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + palmKey,
+        geminiBaseUrl + palmKey,
         {
           contents: formatedChatlog,
         },
