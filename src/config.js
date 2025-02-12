@@ -2,7 +2,7 @@ import { googleSheetKey } from "./openaiKeys"
 
 const versionName = '1.0.60'
 const iosBuildNumber = '68'
-const androidVersionCode = '73'
+const androidVersionCode = '75'
 
 const sheetId = '15OtDRuaSXWhZ8odAHi0E7Pn93hzvO3gvDIYSpopNngY'
 const sheetName = 'sheet2'
