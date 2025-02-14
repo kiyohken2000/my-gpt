@@ -16,6 +16,7 @@ const createVideo = async({url}) => {
     const payload = {
       model: 'vidu2.0',
       images: [imageUrl],
+      resolution: "720p",
       duration: '4',
       movement_amplitude: 'auto'
     };
