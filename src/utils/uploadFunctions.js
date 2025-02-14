@@ -49,4 +49,25 @@ const uploadImgur = async({imagePath}) => {
   }
 }
 
-export { uploadFunction, uploadImgur }
+const uploadImageImgur = async({imagePath}) => {
+  try {
+    const base64strings = await FileSystem.readAsStringAsync(imagePath, {
+      encoding: FileSystem.EncodingType.Base64
+    })
+    const { data } = await axios.post(
+      myEndpoints.imgur,
+      {image: base64strings, type: 'base64'},
+      {
+        headers: {
+          Authorization: `Client-ID ${imgurKey.client_id}`
+        }
+      }
+    )
+    return data.data.link
+  } catch(e) {
+    console.log('upload imgur error', e)
+    throw new Error('upload imgur error')
+  }
+}
+
+export { uploadFunction, uploadImgur, uploadImageImgur }

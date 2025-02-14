@@ -1,15 +1,56 @@
-import { novitaaiKey } from "../openaiKeys";
+import { novitaaiKey, viduKey } from "../openaiKeys";
 import axios from "axios";
 import * as FileSystem from 'expo-file-system';
 import { sleep } from "./utilFunctions";
 import { errorMessage } from "./textGenerate";
 import * as MediaLibrary from 'expo-media-library';
 import moment from "moment";
+import { uploadImageImgur } from "./uploadFunctions";
 
 const MAX_RETRIES = 30;
 const RETRY_DELAY = 20000;
 
 const createVideo = async({url}) => {
+   try {
+    const imageUrl = await uploadImageImgur({imagePath: url})
+    const payload = {
+      model: 'vidu2.0',
+      images: [imageUrl],
+      duration: '4',
+      movement_amplitude: 'auto'
+    };
+    const API_URL = 'https://api.vidu.com/ent/v2/img2video';
+    const { data } = await axios.post(
+      API_URL,
+      payload, {
+      headers: {
+        'Authorization': `Token ${viduKey}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    const { task_id } = data
+
+    for (let i = 0; i < MAX_RETRIES; i++) {
+      await sleep(RETRY_DELAY);
+      console.log(`sleep終わった ${i + 1}回目`);
+
+      const resVideo = await getVideo({ task_id });
+      if (resVideo) {
+        return {
+          videoUrl: resVideo,
+          message: "動画は開いた後に長押しで保存できます",
+        };
+      }
+    }
+
+    return { videoUrl: null, message: errorMessage}
+   } catch(e) {
+    console.log('create video error', e)
+    return { videoUrl: null, message: errorMessage}
+   }
+}
+
+const createVideo_old = async({url}) => {
   try {
     const base64strings = await FileSystem.readAsStringAsync(url, {
       encoding: FileSystem.EncodingType.Base64
@@ -59,6 +100,26 @@ const createVideo = async({url}) => {
 }
 
 const getVideo = async({task_id}) => {
+  try {
+    const API_URL = `https://api.vidu.com/ent/v2/tasks/${task_id}/creations`;
+    const { data } = await axios.get(API_URL, {
+      headers: {
+        'Authorization': `Token ${viduKey}`
+      }
+    });
+    if(data.state === 'success' && data.creations[0] && data.creations[0].url) {
+      const uri = await getLocalVideo(data.creations[0].url)
+      return uri
+    } else {
+      return null
+    }
+  } catch(e) {
+    console.log('get video error', e)
+    return null
+  }
+}
+
+const getVideo_old = async({task_id}) => {
   try {
     const { data } = await axios.get(`https://api.novita.ai/v3/async/task-result?task_id=${task_id}`, {
       headers: {
