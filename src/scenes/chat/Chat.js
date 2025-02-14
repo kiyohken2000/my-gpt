@@ -496,6 +496,25 @@ export default function Chat() {
     showToast({title: 'コピーしました', body: ''})
   }
 
+  const onLongPress = (context, message) => {
+    const options = ['コピーする', '通報する', 'キャンセル'];
+    const cancelButtonIndex = options.length - 1;
+    context.actionSheet().showActionSheetWithOptions({
+      options,
+      cancelButtonIndex
+    }, async (buttonIndex) => {
+      switch (buttonIndex) {
+        case 0:
+          await Clipboard.setStringAsync(message.text);
+          showToast({title: 'コピーしました', body: ''})
+          break
+        case 1:
+          showToast({title: '発言を通報しました', body: ''})
+          break
+      }
+    });
+  }
+
   const renderMessageImage = (props) => {
     const { image } = props.currentMessage
     return (
@@ -537,6 +556,7 @@ export default function Chat() {
           onPress={(context, message) => onMessagePress({message})}
           renderMessageImage={renderMessageImage}
           renderMessageVideo={(props) => <VideoMessage {...props} />}
+          onLongPress={onLongPress}
         />
         </BlurBox>
       </View>
