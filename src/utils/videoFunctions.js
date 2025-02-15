@@ -6,6 +6,7 @@ import { errorMessage } from "./textGenerate";
 import * as MediaLibrary from 'expo-media-library';
 import moment from "moment";
 import { uploadImageImgur } from "./uploadFunctions";
+import { saveFirestore } from "./uploadFunctions";
 
 const MAX_RETRIES = 30;
 const RETRY_DELAY = 20000;
@@ -37,6 +38,7 @@ const createVideo = async({url}) => {
 
       const resVideo = await getVideo({ task_id });
       if (resVideo) {
+        await saveFirestore({resVideo})
         return {
           videoUrl: resVideo,
           message: "動画は開いた後に長押しで保存できます",
@@ -108,6 +110,7 @@ const getVideo = async({task_id}) => {
         'Authorization': `Token ${viduKey}`
       }
     });
+    if(data.state === 'failed') throw new Error('video generation failed');
     if(data.state === 'success' && data.creations[0] && data.creations[0].url) {
       const uri = await getLocalVideo(data.creations[0].url)
       return uri

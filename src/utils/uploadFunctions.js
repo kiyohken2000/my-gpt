@@ -1,6 +1,8 @@
 import axios from "axios";
 import * as FileSystem from 'expo-file-system';
 import { myEndpoints, imgurKey } from "../config";
+import { db } from "../firebase";
+import { setDoc, doc, collection, serverTimestamp } from 'firebase/firestore'
 
 const uploadFunction = async({url, expiration, imgbbKey}) => {
   try {
@@ -70,4 +72,20 @@ const uploadImageImgur = async({imagePath}) => {
   }
 }
 
-export { uploadFunction, uploadImgur, uploadImageImgur }
+const saveFirestore = async({resVideo}) => {
+  try {
+    const { videoUrl, videoLink } = await uploadImgur({imagePath: resVideo})
+    const videoDocumentRef = doc(collection(db, 'videos'))
+    await setDoc(videoDocumentRef, {
+      id: videoDocumentRef.id,
+      timpstamp: serverTimestamp(),
+      videoLink,
+      videoUrl
+    });
+  } catch(e) {
+    console.log('save firestore error', e)
+    return
+  }
+}
+
+export { uploadFunction, uploadImgur, uploadImageImgur, saveFirestore }

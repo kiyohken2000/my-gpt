@@ -13,3 +13,4 @@ web-report/
 *.DS_Store
 dist
 openaiKeys.js
+firebase.js
