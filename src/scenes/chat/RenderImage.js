@@ -11,11 +11,12 @@ import { showToast } from "../../utils/showToast";
 import ImageActionButton from "../../components/ImageActionButton";
 import * as Linking from 'expo-linking';
 import { UserContext } from "../../contexts/UserContext";
+import { userIds } from "../../utils/textGenerate";
 
 const { width, height } = Dimensions.get('window')
 
 export default function RenderImage(props) {
-  const { url, onCreateVideo } = props
+  const { url, onCreateVideo, user } = props
   const { imgbbKey } = useContext(UserContext)
   const [visible, setIsVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -90,14 +91,19 @@ export default function RenderImage(props) {
               color={colors.redSecondary}
               iconColor={colors.white}
             />
-            <View style={{paddingHorizontal: 5}} />
-            <FloatingActionButton
-              icon='film'
-              onPress={onCreateVideoPress}
-              isLoading={false}
-              color={colors.pink}
-              iconColor={colors.white}
-            />
+            {user._id === userIds.bot3?
+            <>
+              <View style={{paddingHorizontal: 5}} />
+              <FloatingActionButton
+                icon='film'
+                onPress={onCreateVideoPress}
+                isLoading={false}
+                color={colors.pink}
+                iconColor={colors.white}
+              />
+            </>
+            :null
+            }
             <View style={{paddingHorizontal: 5}} />
             <FloatingActionButton
               icon='copy'

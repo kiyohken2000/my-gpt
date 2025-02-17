@@ -516,10 +516,11 @@ export default function Chat() {
   }
 
   const renderMessageImage = (props) => {
-    const { image } = props.currentMessage
+    const { image, user } = props.currentMessage
     return (
       <RenderImage
         url={image}
+        user={user}
         onCreateVideo={onCreateVideo}
       />
     )
