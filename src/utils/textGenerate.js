@@ -195,7 +195,7 @@ const generateImage = async({
   negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
   negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
   negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
-  negativePromptWaiNSFWIllustrious,
+  negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix,
 }) => {
   const { apiUrl, negativePrompt, label } = selectImageAPI({
     isImageMode,
@@ -209,7 +209,7 @@ const generateImage = async({
     negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
     negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
     negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
-    negativePromptWaiNSFWIllustrious,
+    negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix,
   })
   try {
     const { data } = await axios.post(
@@ -246,7 +246,7 @@ const generateImageFromZeroGPU = async({
   negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
   negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
   negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
-  negativePromptWaiNSFWIllustrious,
+  negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix,
 }) => {
   const { negativePrompt, label, modelName } = selectImageAPI({
     isImageMode,
@@ -260,7 +260,7 @@ const generateImageFromZeroGPU = async({
     negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
     negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
     negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
-    negativePromptWaiNSFWIllustrious,
+    negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix,
   })
   try {
     const { data } = await axios.post(
@@ -296,7 +296,7 @@ const selectImageAPI = ({
   negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
   negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
   negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
-  negativePromptWaiNSFWIllustrious,
+  negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix,
 }) => {
   switch (isImageMode){
     case imageModelData.RealisticVision.sequence:
@@ -381,6 +381,8 @@ const selectImageAPI = ({
       return { apiUrl: imageModelData.NovaAnimeXL.url, negativePrompt: negativePromptNovaAnimeXL, label: imageModelData.NovaAnimeXL.label, modelName: imageModelData.NovaAnimeXL.modelName }
     case imageModelData.WaiNSFWIllustrious.sequence:
       return { apiUrl: imageModelData.WaiNSFWIllustrious.url, negativePrompt: negativePromptWaiNSFWIllustrious, label: imageModelData.WaiNSFWIllustrious.label, modelName: imageModelData.WaiNSFWIllustrious.modelName }
+    case imageModelData.ShiitakeMix.sequence:
+      return { apiUrl: imageModelData.ShiitakeMix.url, negativePrompt: negativePromptShiitakeMix, label: imageModelData.ShiitakeMix.label, modelName: imageModelData.ShiitakeMix.modelName }
     default:
       return { apiUrl: imageModelData.RealisticVision.url, negativePrompt: negativePromptRealisticVision, label: imageModelData.RealisticVision.label, modelName: imageModelData.RealisticVision.modelName }
   }
@@ -428,6 +430,7 @@ const loadNegativePrompt = async() => {
   const _negativePromptJuggernautXL = await loadNegativePromptOfModel({key: imageModelData.JuggernautXL.negativePromptKey})
   const _negativePromptNovaAnimeXL = await loadNegativePromptOfModel({key: imageModelData.NovaAnimeXL.negativePromptKey})
   const _negativePromptWaiNSFWIllustrious = await loadNegativePromptOfModel({key: imageModelData.WaiNSFWIllustrious.negativePromptKey})
+  const _negativePromptShiitakeMix = await loadNegativePromptOfModel({key: imageModelData.ShiitakeMix.negativePromptKey})
   return {
     _negativePromptRealisticVision,
     _negativePromptAnimagine,
@@ -470,6 +473,7 @@ const loadNegativePrompt = async() => {
     _negativePromptJuggernautXL,
     _negativePromptNovaAnimeXL,
     _negativePromptWaiNSFWIllustrious,
+    _negativePromptShiitakeMix,
   }
 }
 
@@ -494,7 +498,7 @@ const saveNegativePrompt = async({
   negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
   negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
   negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
-  negativePromptWaiNSFWIllustrious,
+  negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix,
 }) => {
   await storage.save({key: imageModelData.RealisticVision.negativePromptKey, data: negativePromptRealisticVision})
   await storage.save({key: imageModelData.Animagine.negativePromptKey, data: negativePromptAnimagine})
@@ -537,6 +541,7 @@ const saveNegativePrompt = async({
   await storage.save({key: imageModelData.JuggernautXL.negativePromptKey, data: negativePromptJuggernautXL})
   await storage.save({key: imageModelData.NovaAnimeXL.negativePromptKey, data: negativePromptNovaAnimeXL})
   await storage.save({key: imageModelData.WaiNSFWIllustrious.negativePromptKey, data: negativePromptWaiNSFWIllustrious})
+  await storage.save({key: imageModelData.ShiitakeMix.negativePromptKey, data: negativePromptShiitakeMix})
 }
 
 const generateTags = async({imagePath, imgbbKey}) => {

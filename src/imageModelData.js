@@ -368,6 +368,15 @@ const imageModelData = {
     enable: true,
     recommendNegativePrompt: 'bad quality,worst quality,worst detail,sketch,censor',
   },
+  ShiitakeMix: {
+    label: 'ShiitakeMix',
+    sequence: 42,
+    negativePromptKey: 'negativePromptShiitakeMix',
+    url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
+    modelName: 'retwpay/shiitakeMix_v10',
+    enable: true,
+    recommendNegativePrompt: '(bad quality,worst quality,low quality,bad anatomy,bad hand:1.3), nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, artist name,',
+  },
 }
 
 export { imageModelData }

@@ -85,6 +85,7 @@ export default function Chat() {
   const [negativePromptJuggernautXL, setNegativePromptJuggernautXL] = useState('')
   const [negativePromptNovaAnimeXL, setNegativePromptNovaAnimeXL] = useState('')
   const [negativePromptWaiNSFWIllustrious, setNegativePromptWaiNSFWIllustrious] = useState('')
+  const [negativePromptShiitakeMix, setNegativePromptShiitakeMix] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -135,6 +136,7 @@ export default function Chat() {
         _negativePromptJuggernautXL,
         _negativePromptNovaAnimeXL,
         _negativePromptWaiNSFWIllustrious,
+        _negativePromptShiitakeMix,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -177,6 +179,7 @@ export default function Chat() {
       setNegativePromptJuggernautXL(_negativePromptJuggernautXL)
       setNegativePromptNovaAnimeXL(_negativePromptNovaAnimeXL)
       setNegativePromptWaiNSFWIllustrious(_negativePromptWaiNSFWIllustrious)
+      setNegativePromptShiitakeMix(_negativePromptShiitakeMix)
     }
     loadStorage()
   }, [])
@@ -311,7 +314,7 @@ export default function Chat() {
             negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
             negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
             negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
-            negativePromptWaiNSFWIllustrious,
+            negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix,
           })
           const botMessage = {
             _id: timestamp,
@@ -659,6 +662,8 @@ export default function Chat() {
           setNegativePromptNovaAnimeXL={setNegativePromptNovaAnimeXL}
           negativePromptWaiNSFWIllustrious={negativePromptWaiNSFWIllustrious}
           setNegativePromptWaiNSFWIllustrious={setNegativePromptWaiNSFWIllustrious}
+          negativePromptShiitakeMix={negativePromptShiitakeMix}
+          setNegativePromptShiitakeMix={setNegativePromptShiitakeMix}
         />
       </BottomSheet>
     </ScreenTemplate>

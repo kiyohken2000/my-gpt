@@ -275,6 +275,12 @@ export default function DrawButton(props) {
             isImageMode={isImageMode}
             item={imageModelData.WaiNSFWIllustrious}
           />
+          <DrawButtonItem
+            onItemPress={onItemPress}
+            disable={isReview}
+            isImageMode={isImageMode}
+            item={imageModelData.ShiitakeMix}
+          />
         {/* ↑↑↑アニメ(Illustrious)↑↑↑ */}
         <MenuDivider />
         {/* ↓↓↓フィギュア↓↓↓ */}

@@ -53,6 +53,7 @@ export default function Settings(props) {
     negativePromptJuggernautXL, setNegativePromptJuggernautXL,
     negativePromptNovaAnimeXL, setNegativePromptNovaAnimeXL,
     negativePromptWaiNSFWIllustrious, setNegativePromptWaiNSFWIllustrious,
+    negativePromptShiitakeMix, setNegativePromptShiitakeMix,
   } = props
   const { isReview } = useContext(UserContext)
 
@@ -68,7 +69,7 @@ export default function Settings(props) {
       negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
       negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
       negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
-      negativePromptWaiNSFWIllustrious,
+      negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix,
     })
     setSheetPosition(0)
   }
@@ -450,6 +451,16 @@ export default function Settings(props) {
             setNegativePrompt={setNegativePromptWaiNSFWIllustrious}
             recommendNegativePrompt={imageModelData.WaiNSFWIllustrious.recommendNegativePrompt}
             item={imageModelData.WaiNSFWIllustrious}
+          />
+          :null
+        }
+        {!isReview?
+          <NegativePromptItem
+            label={imageModelData.ShiitakeMix.label}
+            negativePrompt={negativePromptShiitakeMix}
+            setNegativePrompt={setNegativePromptShiitakeMix}
+            recommendNegativePrompt={imageModelData.ShiitakeMix.recommendNegativePrompt}
+            item={imageModelData.ShiitakeMix}
           />
           :null
         }
