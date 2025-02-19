@@ -229,7 +229,7 @@ const imageModelData = {
     sequence: 26,
     negativePromptKey: 'negativePromptMix3x3x3xl',
     url: 'https://api-inference.huggingface.co/models/John6666/3x3x3mixxl-v1-sdxl',
-    modelName: 'retwpay/3x3x3mixxl_3dV01',
+    modelName: 'retwpay/3x3x3mixxl-v2-sdxl-spo',
     enable: true,
     recommendNegativePrompt: 'score_6 , score_5 , score_4 , source_furry, source_pony, source_cartoon,',
   },
