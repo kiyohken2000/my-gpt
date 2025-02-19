@@ -1,6 +1,6 @@
 import { googleSheetKey } from "./openaiKeys"
 
-const versionName = '1.0.61.2'
+const versionName = '1.0.61.3'
 const iosBuildNumber = '69'
 const androidVersionCode = '77'
 
