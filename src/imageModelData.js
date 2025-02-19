@@ -350,6 +350,24 @@ const imageModelData = {
     enable: true,
     recommendNegativePrompt: 'nsfw, (low quality, worst quality:1.2), very displeasing, 3d, watermark, signature, ugly, poorly drawn',
   },
+  NovaAnimeXL: {
+    label: 'NovaAnimeXL',
+    sequence: 40,
+    negativePromptKey: 'negativePromptNovaAnimeXL',
+    url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
+    modelName: 'retwpay/retwpay-novaAnimeXL_ilV40HappyValentine',
+    enable: true,
+    recommendNegativePrompt: 'modern, recent, old, oldest, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), bad anatomy, sketch, jpeg artifacts, signature, watermark, username, signature, simple background, conjoined,bad ai-generated',
+  },
+  WaiNSFWIllustrious: {
+    label: 'WaiNSFWIllustrious',
+    sequence: 41,
+    negativePromptKey: 'negativePromptWaiNSFWIllustrious',
+    url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
+    modelName: 'retwpay/waiNSFWIllustrious_v110',
+    enable: true,
+    recommendNegativePrompt: 'bad quality,worst quality,worst detail,sketch,censor',
+  },
 }
 
 export { imageModelData }

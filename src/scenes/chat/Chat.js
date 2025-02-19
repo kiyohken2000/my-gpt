@@ -83,6 +83,8 @@ export default function Chat() {
   const [negativePromptHolodayoXL, setNegativePromptHolodayoXL] = useState('')
   const [negativePromptKivotosXL, setNegativePromptKivotosXL] = useState('')
   const [negativePromptJuggernautXL, setNegativePromptJuggernautXL] = useState('')
+  const [negativePromptNovaAnimeXL, setNegativePromptNovaAnimeXL] = useState('')
+  const [negativePromptWaiNSFWIllustrious, setNegativePromptWaiNSFWIllustrious] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -131,6 +133,8 @@ export default function Chat() {
         _negativePromptHolodayoXL,
         _negativePromptKivotosXL,
         _negativePromptJuggernautXL,
+        _negativePromptNovaAnimeXL,
+        _negativePromptWaiNSFWIllustrious,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -171,6 +175,8 @@ export default function Chat() {
       setNegativePromptHolodayoXL(_negativePromptHolodayoXL)
       setNegativePromptKivotosXL(_negativePromptKivotosXL)
       setNegativePromptJuggernautXL(_negativePromptJuggernautXL)
+      setNegativePromptNovaAnimeXL(_negativePromptNovaAnimeXL)
+      setNegativePromptWaiNSFWIllustrious(_negativePromptWaiNSFWIllustrious)
     }
     loadStorage()
   }, [])
@@ -304,7 +310,8 @@ export default function Chat() {
             negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
             negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
             negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
-            negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL,
+            negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
+            negativePromptWaiNSFWIllustrious,
           })
           const botMessage = {
             _id: timestamp,
@@ -648,6 +655,10 @@ export default function Chat() {
           setNegativePromptKivotosXL={setNegativePromptKivotosXL}
           negativePromptJuggernautXL={negativePromptJuggernautXL}
           setNegativePromptJuggernautXL={setNegativePromptJuggernautXL}
+          negativePromptNovaAnimeXL={negativePromptNovaAnimeXL}
+          setNegativePromptNovaAnimeXL={setNegativePromptNovaAnimeXL}
+          negativePromptWaiNSFWIllustrious={negativePromptWaiNSFWIllustrious}
+          setNegativePromptWaiNSFWIllustrious={setNegativePromptWaiNSFWIllustrious}
         />
       </BottomSheet>
     </ScreenTemplate>

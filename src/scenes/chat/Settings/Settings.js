@@ -51,6 +51,8 @@ export default function Settings(props) {
     negativePromptHolodayoXL, setNegativePromptHolodayoXL,
     negativePromptKivotosXL, setNegativePromptKivotosXL,
     negativePromptJuggernautXL, setNegativePromptJuggernautXL,
+    negativePromptNovaAnimeXL, setNegativePromptNovaAnimeXL,
+    negativePromptWaiNSFWIllustrious, setNegativePromptWaiNSFWIllustrious,
   } = props
   const { isReview } = useContext(UserContext)
 
@@ -65,7 +67,8 @@ export default function Settings(props) {
       negativePromptRumblexl, negativePromptMix3x3x3xl, negativePromptYamersAnime, negativePromptBaxl,
       negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
       negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
-      negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL,
+      negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
+      negativePromptWaiNSFWIllustrious,
     })
     setSheetPosition(0)
   }
@@ -429,6 +432,28 @@ export default function Settings(props) {
           :null
         }
       {/* ↑↑↑アニメ(Pony)↑↑↑ */}
+      {/* ↓↓↓アニメ(Illustrious)↓↓↓ */}
+        {!isReview?
+          <NegativePromptItem
+            label={imageModelData.NovaAnimeXL.label}
+            negativePrompt={negativePromptNovaAnimeXL}
+            setNegativePrompt={setNegativePromptNovaAnimeXL}
+            recommendNegativePrompt={imageModelData.NovaAnimeXL.recommendNegativePrompt}
+            item={imageModelData.NovaAnimeXL}
+          />
+          :null
+        }
+        {!isReview?
+          <NegativePromptItem
+            label={imageModelData.WaiNSFWIllustrious.label}
+            negativePrompt={negativePromptWaiNSFWIllustrious}
+            setNegativePrompt={setNegativePromptWaiNSFWIllustrious}
+            recommendNegativePrompt={imageModelData.WaiNSFWIllustrious.recommendNegativePrompt}
+            item={imageModelData.WaiNSFWIllustrious}
+          />
+          :null
+        }
+      {/* ↑↑↑アニメ(Illustrious)↑↑↑ */}
       {/* ↓↓↓フィギュア↓↓↓ */}
         {!isReview?
           <NegativePromptItem

@@ -262,6 +262,21 @@ export default function DrawButton(props) {
           />
         {/* ↑↑↑アニメ(Pony)↑↑↑ */}
         <MenuDivider />
+        {/* ↓↓↓アニメ(Illustrious)↓↓↓ */}
+          <DrawButtonItem
+            onItemPress={onItemPress}
+            disable={isReview}
+            isImageMode={isImageMode}
+            item={imageModelData.NovaAnimeXL}
+          />
+          <DrawButtonItem
+            onItemPress={onItemPress}
+            disable={isReview}
+            isImageMode={isImageMode}
+            item={imageModelData.WaiNSFWIllustrious}
+          />
+        {/* ↑↑↑アニメ(Illustrious)↑↑↑ */}
+        <MenuDivider />
         {/* ↓↓↓フィギュア↓↓↓ */}
           <DrawButtonItem
             onItemPress={onItemPress}
