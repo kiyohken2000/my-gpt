@@ -94,8 +94,8 @@ const imageModelData = {
     sequence: 11,
     negativePromptKey: 'negativePromptArtiWaifu',
     url: 'https://api-inference.huggingface.co/models/Eugeoter/artiwaifu-diffusion-1.0',
-    modelName: '',
-    enable: false,
+    modelName: 'retwpay/artiwaifuDiffusion_v20',
+    enable: true,
     recommendNegativePrompt: 'nsfw, lowres, (bad), text, error, fewer, extra, missing, worst quality, jpeg artifacts, low quality, watermark, unfinished, displeasing, oldest, early, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract]',
   },
   StarryXL: {
