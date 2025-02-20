@@ -100,6 +100,15 @@ export default function DrawButton(props) {
           />
         {/* ↑↑↑実写(Pony)↑↑↑ */}
         <MenuDivider />
+        {/* ↓↓↓実写(Illustrious)↓↓↓ */}
+          <DrawButtonItem
+            onItemPress={onItemPress}
+            disable={isReview}
+            isImageMode={isImageMode}
+            item={imageModelData.Noobreal}
+          />
+        {/* ↑↑↑実写(Illustrious)↑↑↑ */}
+        <MenuDivider />
         {/* ↓↓↓アニメ↓↓↓ */}
           <DrawButtonItem
             onItemPress={onItemPress}

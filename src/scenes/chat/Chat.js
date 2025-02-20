@@ -86,6 +86,7 @@ export default function Chat() {
   const [negativePromptNovaAnimeXL, setNegativePromptNovaAnimeXL] = useState('')
   const [negativePromptWaiNSFWIllustrious, setNegativePromptWaiNSFWIllustrious] = useState('')
   const [negativePromptShiitakeMix, setNegativePromptShiitakeMix] = useState('')
+  const [negativePromptNoobreal, setNegativePromptNoobreal] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -137,6 +138,7 @@ export default function Chat() {
         _negativePromptNovaAnimeXL,
         _negativePromptWaiNSFWIllustrious,
         _negativePromptShiitakeMix,
+        _negativePromptNoobreal,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -180,6 +182,7 @@ export default function Chat() {
       setNegativePromptNovaAnimeXL(_negativePromptNovaAnimeXL)
       setNegativePromptWaiNSFWIllustrious(_negativePromptWaiNSFWIllustrious)
       setNegativePromptShiitakeMix(_negativePromptShiitakeMix)
+      setNegativePromptShiitakeMix(_negativePromptNoobreal)
     }
     loadStorage()
   }, [])
@@ -314,7 +317,7 @@ export default function Chat() {
             negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
             negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
             negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
-            negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix,
+            negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix, negativePromptNoobreal,
           })
           const botMessage = {
             _id: timestamp,
@@ -664,6 +667,8 @@ export default function Chat() {
           setNegativePromptWaiNSFWIllustrious={setNegativePromptWaiNSFWIllustrious}
           negativePromptShiitakeMix={negativePromptShiitakeMix}
           setNegativePromptShiitakeMix={setNegativePromptShiitakeMix}
+          negativePromptNoobreal={negativePromptNoobreal}
+          setNegativePromptNoobreal={setNegativePromptNoobreal}
         />
       </BottomSheet>
     </ScreenTemplate>

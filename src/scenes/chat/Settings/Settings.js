@@ -54,6 +54,7 @@ export default function Settings(props) {
     negativePromptNovaAnimeXL, setNegativePromptNovaAnimeXL,
     negativePromptWaiNSFWIllustrious, setNegativePromptWaiNSFWIllustrious,
     negativePromptShiitakeMix, setNegativePromptShiitakeMix,
+    negativePromptNoobreal, setNegativePromptNoobreal,
   } = props
   const { isReview } = useContext(UserContext)
 
@@ -69,7 +70,7 @@ export default function Settings(props) {
       negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
       negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
       negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
-      negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix,
+      negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix, negativePromptNoobreal,
     })
     setSheetPosition(0)
   }
@@ -169,6 +170,18 @@ export default function Settings(props) {
           :null
         }
       {/* ↑↑↑実写(Pony)↑↑↑ */}
+      {/* ↓↓↓実写(Illustriout)↓↓↓ */}
+        {!isReview?
+          <NegativePromptItem
+            label={imageModelData.Noobreal.label}
+            negativePrompt={negativePromptNoobreal}
+            setNegativePrompt={setNegativePromptNoobreal}
+            recommendNegativePrompt={imageModelData.Noobreal.recommendNegativePrompt}
+            item={imageModelData.Noobreal}
+          />
+          :null
+        }
+      {/* ↑↑↑実写(Illustriout)↑↑↑ */}
       {/* ↓↓↓アニメ↓↓↓ */}
         {!isReview?
           <NegativePromptItem
