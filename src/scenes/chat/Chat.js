@@ -182,7 +182,7 @@ export default function Chat() {
       setNegativePromptNovaAnimeXL(_negativePromptNovaAnimeXL)
       setNegativePromptWaiNSFWIllustrious(_negativePromptWaiNSFWIllustrious)
       setNegativePromptShiitakeMix(_negativePromptShiitakeMix)
-      setNegativePromptShiitakeMix(_negativePromptNoobreal)
+      setNegativePromptNoobreal(_negativePromptNoobreal)
     }
     loadStorage()
   }, [])
