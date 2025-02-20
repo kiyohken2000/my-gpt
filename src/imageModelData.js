@@ -382,7 +382,7 @@ const imageModelData = {
     sequence: 43,
     negativePromptKey: 'negativePromptNoobreal',
     url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
-    modelName: 'retwpay/shiitakeMix_v10',
+    modelName: 'retwpay/noobreal_v21',
     enable: true,
     recommendNegativePrompt: 'blur, sketch, comic, cartoon, toon, oil painting \(medium\), flat color, outline, 3D, 2.5D, 2D, unreal, unity, blender, anime ,smooth skin,',
   },
