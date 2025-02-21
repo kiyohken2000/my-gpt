@@ -11,6 +11,7 @@ export const UserContextProvider = (props) => {
   const [isReview, setIsReview] = useState(false)
   const [imgbbKey, setImgbbKey] = useState('')
   const [isSongEnable, setIsSongEnalbe] = useState(false)
+  const [isVideoEnable, setIsVideoEnable] = useState(false)
 
   const getReviewStatus = async() => {
     try {
@@ -18,6 +19,7 @@ export const UserContextProvider = (props) => {
       const _data = formatData({data})
       setImgbbKey(_data[0].imgbbKey)
       setIsSongEnalbe(_data[0].song === '1')
+      setIsVideoEnable(_data[0].video === '1')
       if(_data[0].nowReview === iosBuildNumber && Platform.OS === 'ios') {
         console.log('ios レビュー中')
         setIsReview(true)
@@ -39,6 +41,7 @@ export const UserContextProvider = (props) => {
         isReview, setIsReview,
         imgbbKey, setImgbbKey,
         isSongEnable, setIsSongEnalbe,
+        isVideoEnable, setIsVideoEnable,
         getReviewStatus,
       }}
     >

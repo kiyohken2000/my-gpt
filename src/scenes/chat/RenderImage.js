@@ -17,7 +17,7 @@ const { width, height } = Dimensions.get('window')
 
 export default function RenderImage(props) {
   const { url, onCreateVideo, user } = props
-  const { imgbbKey } = useContext(UserContext)
+  const { imgbbKey, isVideoEnable } = useContext(UserContext)
   const [visible, setIsVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
@@ -91,7 +91,7 @@ export default function RenderImage(props) {
               color={colors.redSecondary}
               iconColor={colors.white}
             />
-            {user._id === userIds.bot3?
+            {user._id === userIds.bot3 && isVideoEnable?
             <>
               <View style={{paddingHorizontal: 5}} />
               <FloatingActionButton
