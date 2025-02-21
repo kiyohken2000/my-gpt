@@ -386,6 +386,15 @@ const imageModelData = {
     enable: true,
     recommendNegativePrompt: 'blur, sketch, comic, cartoon, toon, oil painting \(medium\), flat color, outline, 3D, 2.5D, 2D, unreal, unity, blender, anime ,smooth skin,',
   },
+  MatureRitual: {
+    label: 'MatureRitual',
+    sequence: 44,
+    negativePromptKey: 'negativePromptMatureRitual',
+    url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
+    modelName: 'retwpay/MatureRitual_v04',
+    enable: true,
+    recommendNegativePrompt: 'bad quality,worst quality,worst detail,sketch,censor',
+  },
 }
 
 export { imageModelData }

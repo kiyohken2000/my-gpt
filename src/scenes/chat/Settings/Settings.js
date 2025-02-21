@@ -55,6 +55,7 @@ export default function Settings(props) {
     negativePromptWaiNSFWIllustrious, setNegativePromptWaiNSFWIllustrious,
     negativePromptShiitakeMix, setNegativePromptShiitakeMix,
     negativePromptNoobreal, setNegativePromptNoobreal,
+    negativePromptMatureRitual, setNegativePromptMatureRitual,
   } = props
   const { isReview } = useContext(UserContext)
 
@@ -70,7 +71,7 @@ export default function Settings(props) {
       negativePromptCuteCore, negativePromptFeaturelessMix, negativePromptManmaruMix, negativePromptChacolOmegaMix,
       negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
       negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
-      negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix, negativePromptNoobreal,
+      negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix, negativePromptNoobreal, negativePromptMatureRitual,
     })
     setSheetPosition(0)
   }
@@ -474,6 +475,16 @@ export default function Settings(props) {
             setNegativePrompt={setNegativePromptShiitakeMix}
             recommendNegativePrompt={imageModelData.ShiitakeMix.recommendNegativePrompt}
             item={imageModelData.ShiitakeMix}
+          />
+          :null
+        }
+        {!isReview?
+          <NegativePromptItem
+            label={imageModelData.MatureRitual.label}
+            negativePrompt={negativePromptMatureRitual}
+            setNegativePrompt={setNegativePromptMatureRitual}
+            recommendNegativePrompt={imageModelData.MatureRitual.recommendNegativePrompt}
+            item={imageModelData.MatureRitual}
           />
           :null
         }
