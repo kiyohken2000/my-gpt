@@ -22,7 +22,7 @@ export default function MyAdmob() {
 
   return (
     <BannerAd
-      size={BannerAdSize.FULL_BANNER}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       unitId={isDevMode?unitId:adUnitID}
       requestOptions={{
         requestNonPersonalizedAdsOnly: true
