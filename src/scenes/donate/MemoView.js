@@ -23,7 +23,7 @@ export default function MemoView() {
   }
 
   return (
-    <View>
+    <View style={{paddingHorizontal: 20}}>
       <TextInput
         style={[styles.input, { backgroundColor: colors.white, color: colors.black }]}
         placeholderTextColor={colors.gray}
@@ -45,8 +45,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: 10,
     marginBottom: 10,
-    marginLeft: 30,
-    marginRight: 30,
     paddingLeft: 16,
     borderWidth: 1,
     borderColor: colors.grayFifth
