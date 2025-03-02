@@ -26,7 +26,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "net.votepurchase.mygpt",
-      "buildNumber": "71",
+      "buildNumber": "72",
       "infoPlist": {
         "NSMicrophoneUsageDescription": "チャットに投稿するためにマイクを使用します",
         "NSCameraUsageDescription": "チャットに画像を投稿するためにカメラを使用します",
@@ -66,7 +66,7 @@
     },
     "android": {
       "package": "net.votepurchase.mygpt",
-      "versionCode": 79,
+      "versionCode": 80,
       "userInterfaceStyle": "automatic",
       "permissions": [
         "VIBRATE",
@@ -108,7 +108,6 @@
   },
   "react-native-google-mobile-ads": {
     "android_app_id": "ca-app-pub-9747065248920607~8208716671",
-    "ios_app_id": "ca-app-pub-9747065248920607~9388747038",
-    "user_tracking_usage_description": "関連性の高い広告を表示するためにIDをトラッキングいたします。"
+    "ios_app_id": "ca-app-pub-9747065248920607~9388747038"
   }
 }

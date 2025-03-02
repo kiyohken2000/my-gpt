@@ -1,8 +1,8 @@
 import { googleSheetKey } from "./openaiKeys"
 
 const versionName = '1.0.63'
-const iosBuildNumber = '71'
-const androidVersionCode = '79'
+const iosBuildNumber = '72'
+const androidVersionCode = '80'
 const isDevMode = false
 const specialMemoWord = 'kenmo'
 

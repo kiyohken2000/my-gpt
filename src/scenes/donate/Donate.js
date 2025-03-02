@@ -8,12 +8,14 @@ import RenderVersion from "./RenderVersion";
 import Donation from "./Donation";
 import MyAdmob from "../../components/MyAdmob";
 import MemoView from "./MemoView";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default function Donate() {
   const navigation = useNavigation()
 
   return (
     <ScreenTemplate>
+      <KeyboardAwareScrollView enableOnAndroid={true}>
       <View style={styles.container}>
         <RenderVersion/>
         <Donation/>
@@ -32,6 +34,7 @@ export default function Donate() {
           labelBold={false}
         />
       </View>
+      </KeyboardAwareScrollView>
     </ScreenTemplate>
   )
 }
