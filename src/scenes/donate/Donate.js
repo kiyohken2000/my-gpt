@@ -6,6 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 import { colors } from "../../theme";
 import RenderVersion from "./RenderVersion";
 import Donation from "./Donation";
+import MyAdmob from "../../components/MyAdmob";
+import MemoView from "./MemoView";
 
 export default function Donate() {
   const navigation = useNavigation()
@@ -15,6 +17,10 @@ export default function Donate() {
       <View style={styles.container}>
         <RenderVersion/>
         <Donation/>
+      </View>
+      <MemoView/>
+      <View style={styles.adContainer}>
+        <MyAdmob/>
       </View>
       <View style={styles.footer}>
         <Button
@@ -37,5 +43,8 @@ const styles = StyleSheet.create({
   footer: {
     paddingBottom: 30,
     paddingHorizontal: 20
+  },
+  adContainer: {
+    paddingBottom: 20
   }
 })

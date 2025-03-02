@@ -1,8 +1,10 @@
 import { googleSheetKey } from "./openaiKeys"
 
-const versionName = '1.0.62'
-const iosBuildNumber = '70'
-const androidVersionCode = '78'
+const versionName = '1.0.63'
+const iosBuildNumber = '71'
+const androidVersionCode = '79'
+const isDevMode = true
+const specialMemoWord = 'kenmo'
 
 const sheetId = '15OtDRuaSXWhZ8odAHi0E7Pn93hzvO3gvDIYSpopNngY'
 const sheetName = 'sheet2'
@@ -32,4 +34,17 @@ const chupaVoiceEndpoints = {
   generateVoice: `${chupaVoiceBaseUrl}/generate_sound`,
 }
 
-export { versionName, googleSheetUrl, myEndpoints, headers, imgurKey, iosBuildNumber, androidVersionCode, zeroGPUUrl, convertHiraganaAPI, chupaVoiceEndpoints }
+export {
+  versionName,
+  googleSheetUrl,
+  myEndpoints,
+  headers,
+  imgurKey,
+  isDevMode,
+  specialMemoWord,
+  iosBuildNumber,
+  androidVersionCode,
+  zeroGPUUrl,
+  convertHiraganaAPI,
+  chupaVoiceEndpoints,
+}

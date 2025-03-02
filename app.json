@@ -7,7 +7,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.62",
+    "version": "1.0.63",
     "orientation": "portrait",
     "icon": "./assets/images/logo-sm.png",
     "splash": {
@@ -26,7 +26,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "net.votepurchase.mygpt",
-      "buildNumber": "70",
+      "buildNumber": "71",
       "infoPlist": {
         "NSMicrophoneUsageDescription": "チャットに投稿するためにマイクを使用します",
         "NSCameraUsageDescription": "チャットに画像を投稿するためにカメラを使用します",
@@ -66,7 +66,7 @@
     },
     "android": {
       "package": "net.votepurchase.mygpt",
-      "versionCode": 78,
+      "versionCode": 79,
       "userInterfaceStyle": "automatic",
       "permissions": [
         "VIBRATE",
@@ -87,6 +87,16 @@
         "tsx"
       ]
     },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ],
     "runtimeVersion": {
       "policy": "appVersion"
     },
@@ -95,5 +105,10 @@
         "projectId": "88f3c3ca-dc19-43ed-9ff3-7b3821e45b75"
       }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-9747065248920607~8208716671",
+    "ios_app_id": "ca-app-pub-9747065248920607~9388747038",
+    "user_tracking_usage_description": "関連性の高い広告を表示するためにIDをトラッキングいたします。"
   }
 }

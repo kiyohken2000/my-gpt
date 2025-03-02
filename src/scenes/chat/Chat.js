@@ -29,6 +29,7 @@ import { generateVoice } from '../../utils/voiceGenerate';
 import { UserContext } from '../../contexts/UserContext';
 import { calculateMessageMaxLength } from './functions';
 import { generateRandomVoide } from '../../utils/voiceGenerate';
+import AdContainer from './AdContainer';
 
 const isAndroid = Platform.OS === 'android'
 
@@ -553,6 +554,7 @@ export default function Chat() {
 
   return (
     <ScreenTemplate color={isAndroid?colors.darkPurple:colors.white}>
+      <AdContainer/>
       <View style={styles.container}>
         <BlurBox>
         <GiftedChat
