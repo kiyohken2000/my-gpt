@@ -4,6 +4,7 @@ import { authenticate } from 'slices/app.slice'
 import { Text, SafeAreaView, StyleSheet } from "react-native";
 import { UserContext } from '../../contexts/UserContext';
 import { fontSize } from 'theme'
+import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency';
 
 export default function Loading() {
   const dispatch = useDispatch()
@@ -16,6 +17,7 @@ export default function Loading() {
   const initialize = async() => {
     await getReviewStatus()
     await loadMemo()
+    const { status } = await requestTrackingPermissionsAsync();
     const user = {
       id: 'user-1234567',
       userName: 'abcdef'

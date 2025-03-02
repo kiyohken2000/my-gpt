@@ -24,6 +24,9 @@ export default function MyAdmob() {
     <BannerAd
       size={BannerAdSize.FULL_BANNER}
       unitId={isDevMode?unitId:adUnitID}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true
+      }}
     />
   );
 }
