@@ -3,7 +3,7 @@ import { googleSheetKey } from "./openaiKeys"
 const versionName = '1.0.63'
 const iosBuildNumber = '71'
 const androidVersionCode = '79'
-const isDevMode = true
+const isDevMode = false
 const specialMemoWord = 'kenmo'
 
 const sheetId = '15OtDRuaSXWhZ8odAHi0E7Pn93hzvO3gvDIYSpopNngY'
