@@ -12,16 +12,16 @@ import ImageActionButton from "../../components/ImageActionButton";
 import * as Linking from 'expo-linking';
 import { UserContext } from "../../contexts/UserContext";
 import { userIds } from "../../utils/textGenerate";
-import { adUnitIds, isDevMode } from "../../config";
+import { isDevMode } from "../../config";
 import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
 
 const { width, height } = Dimensions.get('window')
 
-const adUnitID = Platform.select({
-  ios: adUnitIds.ios,
-  android: adUnitIds.android,
+const adUnit = Platform.select({
+  ios: 'ca-app-pub-9747065248920607/5995279317',
+  android: 'ca-app-pub-9747065248920607/1427416716',
 });
-const adUnitId = isDevMode ? TestIds.REWARDED : adUnitID;
+const adUnitId = isDevMode ? TestIds.REWARDED : adUnit;
 
 export default function RenderImage(props) {
   const { url, onCreateVideo, user } = props
