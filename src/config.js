@@ -4,7 +4,6 @@ const versionName = '1.0.63'
 const iosBuildNumber = '72'
 const androidVersionCode = '80'
 const isDevMode = false
-const specialMemoWord = 'kenmo'
 
 const sheetId = '15OtDRuaSXWhZ8odAHi0E7Pn93hzvO3gvDIYSpopNngY'
 const sheetName = 'sheet2'
@@ -41,7 +40,6 @@ export {
   headers,
   imgurKey,
   isDevMode,
-  specialMemoWord,
   iosBuildNumber,
   androidVersionCode,
   zeroGPUUrl,

@@ -2,14 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import MyAdmob from "../../components/MyAdmob";
 import { UserContext } from "../../contexts/UserContext";
-import { specialMemoWord } from "../../config";
 
 export default function AdContainer() {
   const [adVisible, setAdVisible] = useState(true)
-  const { userMemo } = useContext(UserContext)
+  const { userMemo, noAdWord } = useContext(UserContext)
 
   useEffect(() => {
-    if(userMemo === specialMemoWord) {
+    if(userMemo === noAdWord) {
       console.log('広告非表示')
       setAdVisible(false)
     } else {

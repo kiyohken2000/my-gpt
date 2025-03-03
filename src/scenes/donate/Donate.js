@@ -15,25 +15,25 @@ export default function Donate() {
 
   return (
     <ScreenTemplate>
+      <RenderVersion/>
       <KeyboardAwareScrollView enableOnAndroid={true}>
-      <View style={styles.container}>
-        <RenderVersion/>
-        <Donation/>
-      </View>
-      <MemoView/>
-      <View style={styles.adContainer}>
-        <MyAdmob/>
-      </View>
-      <View style={styles.footer}>
-        <Button
-          label='戻る'
-          onPress={() => navigation.goBack()}
-          color={colors.bluePrimary}
-          disable={false}
-          labelColor={colors.white}
-          labelBold={false}
-        />
-      </View>
+        <View style={styles.container}>
+          <Donation/>
+        </View>
+        <MemoView/>
+        <View style={styles.adContainer}>
+          <MyAdmob/>
+        </View>
+        <View style={styles.footer}>
+          <Button
+            label='戻る'
+            onPress={() => navigation.goBack()}
+            color={colors.bluePrimary}
+            disable={false}
+            labelColor={colors.white}
+            labelBold={false}
+          />
+        </View>
       </KeyboardAwareScrollView>
     </ScreenTemplate>
   )
