@@ -23,6 +23,11 @@ const headers = {
   "Content-Type": "application/json",
 }
 
+const adUnitIds = {
+  ios: "ca-app-pub-9747065248920607/1891716180",
+  android: "ca-app-pub-9747065248920607/8630053349",
+}
+
 const convertHiraganaAPI = 'https://labs.goo.ne.jp/api/hiragana'
 
 const zeroGPUUrl = 'https://mygpt-image-api-omc3n2et7a-an.a.run.app'
@@ -40,6 +45,7 @@ export {
   headers,
   imgurKey,
   isDevMode,
+  adUnitIds,
   iosBuildNumber,
   androidVersionCode,
   zeroGPUUrl,

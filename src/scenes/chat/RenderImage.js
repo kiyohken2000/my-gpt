@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Image, StyleSheet, Dimensions, TouchableOpacity, View } from "react-native";
+import React, { useState, useContext, useEffect, useRef } from "react";
+import { Image, StyleSheet, Dimensions, TouchableOpacity, View, Platform } from "react-native";
 import ImageView from "react-native-image-viewing";
 import { saveImage, downloadAndSaveBlob } from "../../utils/downloadFunctions";
 import moment from "moment";
@@ -12,16 +12,84 @@ import ImageActionButton from "../../components/ImageActionButton";
 import * as Linking from 'expo-linking';
 import { UserContext } from "../../contexts/UserContext";
 import { userIds } from "../../utils/textGenerate";
+import { adUnitIds, isDevMode } from "../../config";
+import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
 
 const { width, height } = Dimensions.get('window')
 
+const adUnitID = Platform.select({
+  ios: adUnitIds.ios,
+  android: adUnitIds.android,
+});
+const adUnitId = isDevMode ? TestIds.REWARDED : adUnitID;
+
 export default function RenderImage(props) {
   const { url, onCreateVideo, user } = props
-  const { imgbbKey, isVideoEnable } = useContext(UserContext)
+  const { imgbbKey, isVideoEnable, userMemo, noAdWord } = useContext(UserContext)
   const [visible, setIsVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [isDownloading, setIsDownloading] = useState(false)
+  const [adLoaded, setAdLoaded] = useState(false);
+  const [adShown, setAdShown] = useState(false);  // 広告が表示されたかどうかを追跡する状態
+  const interstitialRef = useRef(null);
+
+  useEffect(() => {
+    // コンポーネントがマウントされたときに新しいインタースティシャル広告を作成
+    createAndLoadInterstitial();
+
+    return () => {
+      // クリーンアップ関数でイベントリスナーを解除
+      if (interstitialRef.current) {
+        interstitialRef.current.removeAllListeners();
+      }
+    };
+  }, []);
+
+  const createAndLoadInterstitial = () => {
+    console.log('Creating and loading new interstitial ad');
+    
+    // 既存の広告インスタンスがあれば、リスナーを解除
+    if (interstitialRef.current) {
+      interstitialRef.current.removeAllListeners();
+    }
+
+    // 新しいインタースティシャル広告を作成
+    const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+      keywords: ['fashion', 'clothing'],
+    });
+    interstitialRef.current = interstitial;
+
+    // 広告の読み込み状態を追跡
+    setAdLoaded(false);
+
+    // イベントリスナーを設定
+    const unsubscribeLoaded = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+      console.log('Interstitial ad loaded');
+      setAdLoaded(true);
+    });
+
+    const unsubscribeError = interstitial.addAdEventListener(AdEventType.ERROR, (error) => {
+      console.error('Interstitial ad error:', error);
+    });
+
+    const unsubscribeOpened = interstitial.addAdEventListener(AdEventType.OPENED, () => {
+    });
+
+    const unsubscribeClosed = interstitial.addAdEventListener(AdEventType.CLOSED, () => {
+      // 広告が閉じられたら画像ビューアーを表示
+      setIsVisible(true);
+      
+      // 少し遅延させてから次の広告をロード（UI処理の競合を避ける）
+      setTimeout(() => {
+        // 次回のために新しい広告を読み込む
+        createAndLoadInterstitial();
+      }, 1000);
+    });
+
+    // 広告の読み込みを開始
+    interstitial.load();
+  };
 
   const onSavePress = async() => {
     setIsDownloading(true)
@@ -63,6 +131,39 @@ export default function RenderImage(props) {
   const onCreateVideoPress = ()=> {
     onCreateVideo({url})
     setIsVisible(false)
+  }
+
+  const onThumbnailPress = () => {
+    // すでに一度広告を表示済みか、広告表示不可の場合は直接画像を表示
+    if (adShown || userMemo === noAdWord) {
+      setIsVisible(true);
+      return;
+    }
+    
+    // 広告表示の条件: 広告がロード済み、広告インスタンスが存在する
+    if (adLoaded && interstitialRef.current) {
+      try {
+        // 広告の準備状態を再確認
+        const isAdReady = interstitialRef.current.loaded;
+        
+        if (isAdReady) {
+          // 広告表示済みフラグをセット
+          setAdShown(true);
+          interstitialRef.current.show();
+        } else {
+          setIsVisible(true);
+          // 次回のために広告をリロード
+          createAndLoadInterstitial();
+        }
+      } catch (error) {
+        console.log('Error showing ad:', error);
+        // 広告表示に失敗した場合は直接画像ビューアを表示
+        setIsVisible(true);
+      }
+    } else {
+      // 広告が読み込まれていないか、または広告インスタンスがない場合は直接画像ビューアを表示
+      setIsVisible(true);
+    }
   }
 
   return (
@@ -118,7 +219,7 @@ export default function RenderImage(props) {
     />
     <TouchableOpacity
       style={styles.container}
-      onPress={() => setIsVisible(true)}
+      onPress={onThumbnailPress}
     >
       <Image
         source={{uri: url}}
