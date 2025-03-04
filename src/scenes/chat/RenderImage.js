@@ -17,12 +17,6 @@ import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile
 
 const { width, height } = Dimensions.get('window')
 
-const adUnit = Platform.select({
-  ios: 'ca-app-pub-9747065248920607/5995279317',
-  android: 'ca-app-pub-9747065248920607/1427416716',
-});
-const adUnitId = isDevMode ? TestIds.REWARDED : adUnit;
-
 export default function RenderImage(props) {
   const { url, onCreateVideo, user } = props
   const { imgbbKey, isVideoEnable, userMemo, noAdWord } = useContext(UserContext)
@@ -55,8 +49,13 @@ export default function RenderImage(props) {
     }
 
     // 新しいインタースティシャル広告を作成
+    const adUnit = Platform.select({
+      ios: 'ca-app-pub-9747065248920607/5995279317',
+      android: 'ca-app-pub-9747065248920607/1427416716',
+    });
+    const adUnitId = isDevMode ? TestIds.INTERSTITIAL : adUnit;
     const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-      keywords: ['fashion', 'clothing'],
+      //keywords: ['fashion', 'clothing'],
     });
     interstitialRef.current = interstitial;
 
@@ -71,24 +70,34 @@ export default function RenderImage(props) {
 
     const unsubscribeError = interstitial.addAdEventListener(AdEventType.ERROR, (error) => {
       console.error('Interstitial ad error:', error);
-    });
-
-    const unsubscribeOpened = interstitial.addAdEventListener(AdEventType.OPENED, () => {
+      // エラー時の再ロードはここでは行わない
+      setAdLoaded(false); // エラー時は広告表示不可に設定
     });
 
     const unsubscribeClosed = interstitial.addAdEventListener(AdEventType.CLOSED, () => {
       // 広告が閉じられたら画像ビューアーを表示
       setIsVisible(true);
       
-      // 少し遅延させてから次の広告をロード（UI処理の競合を避ける）
-      setTimeout(() => {
-        // 次回のために新しい広告を読み込む
-        createAndLoadInterstitial();
-      }, 1000);
+      // 広告表示後は新しい広告をロードしない
+      // 次回の表示のために状態をリセット
+      setAdLoaded(false);
+      
+      // 次の広告は必要になったときだけロードする
+      // ユーザーが画像を閉じたタイミングで準備
     });
 
     // 広告の読み込みを開始
     interstitial.load();
+  };
+
+  // 画像ビューアが閉じられたときに次の広告を準備
+  const onCloseImageViewer = () => {
+    setIsVisible(false);
+    
+    // 画像を閉じたときに次の広告をロードして準備
+    if (!adLoaded && !adShown) {
+      createAndLoadInterstitial();
+    }
   };
 
   const onSavePress = async() => {
@@ -152,8 +161,6 @@ export default function RenderImage(props) {
           interstitialRef.current.show();
         } else {
           setIsVisible(true);
-          // 次回のために広告をリロード
-          createAndLoadInterstitial();
         }
       } catch (error) {
         console.log('Error showing ad:', error);
@@ -172,7 +179,7 @@ export default function RenderImage(props) {
       images={[{uri: url}]}
       imageIndex={0}
       visible={visible}
-      onRequestClose={() => setIsVisible(false)}
+      onRequestClose={onCloseImageViewer}
       onLongPress={onSavePress}
       FooterComponent={(props) => {
         return (

@@ -5,7 +5,7 @@ import {
   BannerAdSize,
   TestIds,
 } from "react-native-google-mobile-ads";
-import { isDevMode, adUnitIds } from "../config";
+import { isDevMode } from "../config";
 
 export default function MyAdmob() {
 
@@ -25,7 +25,7 @@ export default function MyAdmob() {
       size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       unitId={isDevMode?unitId:adUnitID}
       requestOptions={{
-        requestNonPersonalizedAdsOnly: true
+        //requestNonPersonalizedAdsOnly: true
       }}
     />
   );
