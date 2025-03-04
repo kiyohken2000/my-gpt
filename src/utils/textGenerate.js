@@ -5,7 +5,7 @@ import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 import { convertBlobToImage, convertBase64toImage } from "./downloadFunctions";
 import { storage } from "./storage";
 import { uploadFunction } from "./uploadFunctions";
-import { myEndpoints, headers, zeroGPUUrl } from "../config";
+import { myEndpoints, headers, zeroGPUUrls, zeroGPUUrl } from "../config";
 import { imageModelData } from "../imageModelData";
 
 const errorMessage = 'すみません。よくわかりませんでした'
@@ -234,6 +234,11 @@ const generateImage = async({
   }
 }
 
+const getRandomZeroGPUUrl = () => {
+  const randomIndex = Math.floor(Math.random() * zeroGPUUrls.length);
+  return zeroGPUUrls[randomIndex];
+};
+
 const generateImageFromZeroGPU = async({
   text, isImageMode,
   negativePromptRealisticVision, negativePromptAnimagine, negativePromptPony, negativePromptPvc,
@@ -262,9 +267,10 @@ const generateImageFromZeroGPU = async({
     negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
     negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix, negativePromptNoobreal, negativePromptMatureRitual,
   })
+  const imageEndpoint = getRandomZeroGPUUrl()
   try {
     const { data } = await axios.post(
-      zeroGPUUrl,
+      imageEndpoint,
       {
         model: modelName,
         prompt: text,

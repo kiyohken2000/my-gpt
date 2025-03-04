@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
+import { View, StyleSheet, ScrollView, Dimensions, Platform } from "react-native";
 import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 import { sleep } from "../../../utils/utilFunctions";
 import { UserContext } from "../../../contexts/UserContext";
@@ -27,6 +27,12 @@ export default function DrawButton(props) {
     hideMenu()
     await sleep(500)
     setSheetPosition(1)
+  }
+
+  if(Platform.OS === 'android' && isReview) {
+    return (
+      <View/>
+    )
   }
 
   return (

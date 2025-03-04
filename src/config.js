@@ -1,8 +1,8 @@
 import { googleSheetKey } from "./openaiKeys"
 
-const versionName = '1.0.64'
-const iosBuildNumber = '73'
-const androidVersionCode = '81'
+const versionName = '1.0.65'
+const iosBuildNumber = '74'
+const androidVersionCode = '82'
 const isDevMode = false
 
 const sheetId = '15OtDRuaSXWhZ8odAHi0E7Pn93hzvO3gvDIYSpopNngY'
@@ -26,6 +26,14 @@ const headers = {
 const convertHiraganaAPI = 'https://labs.goo.ne.jp/api/hiragana'
 
 const zeroGPUUrl = 'https://mygpt-image-api-omc3n2et7a-an.a.run.app'
+const zeroGPUUrls = [
+  'https://mygpt-image-api-omc3n2et7a-an.a.run.app',
+  'https://mygpt-image-api-2-omc3n2et7a-uc.a.run.app',
+  'https://mygpt-image-api-3-omc3n2et7a-uc.a.run.app',
+  'https://mygpt-image-api-4-omc3n2et7a-uc.a.run.app',
+  'https://mygpt-image-api-5-omc3n2et7a-uc.a.run.app',
+  'https://mygpt-image-api-6-omc3n2et7a-uc.a.run.app',
+]
 
 const chupaVoiceBaseUrl = 'https://chupa-api-omc3n2et7a-an.a.run.app'
 const chupaVoiceEndpoints = {
@@ -43,6 +51,7 @@ export {
   iosBuildNumber,
   androidVersionCode,
   zeroGPUUrl,
+  zeroGPUUrls,
   convertHiraganaAPI,
   chupaVoiceEndpoints,
 }
