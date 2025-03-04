@@ -29,12 +29,6 @@ export default function DrawButton(props) {
     setSheetPosition(1)
   }
 
-  if(Platform.OS === 'android' && isReview) {
-    return (
-      <View/>
-    )
-  }
-
   return (
     <View style={styles.container}>
       <Menu

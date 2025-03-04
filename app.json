@@ -66,7 +66,7 @@
     },
     "android": {
       "package": "net.votepurchase.mygpt",
-      "versionCode": 82,
+      "versionCode": 83,
       "userInterfaceStyle": "automatic",
       "permissions": [
         "VIBRATE",
