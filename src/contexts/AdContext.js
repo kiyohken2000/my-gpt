@@ -86,7 +86,8 @@ export const AdProvider = ({ children }) => {
         }
       }
       
-      // 次回のために新しい広告をロード
+      // 次の広告読み込みを開始
+      // 広告非表示後すぐに再ロードし、次の新しい画像で広告を表示できるようにする
       setTimeout(() => {
         loadInterstitialAd();
       }, 1000);
@@ -158,8 +159,8 @@ export const AdProvider = ({ children }) => {
       return;
     }
 
-    // 広告がロードされている場合は広告を表示
-    if (adLoaded && interstitialRef.current) {
+    // 広告が完全にロードされていて、かつインスタンスが存在し、さらにloaded状態であることを確認
+    if (adLoaded && interstitialRef.current && interstitialRef.current.loaded) {
       try {
         console.log(`Showing interstitial ad for ID: ${uniqueId}`);
         // 広告表示済みセットに追加
@@ -178,25 +179,15 @@ export const AdProvider = ({ children }) => {
         // エラー時もビュード済みとして扱う
         setViewedAds(prev => new Set([...prev, uniqueId]));
         if (onComplete) onComplete();
-        
-        // 次の広告を読み込む
-        loadInterstitialAd();
-      }
-    } else if (isLoading) {
-      // 広告がロード中の場合は、コールバックをキューに追加するだけ
-      console.log(`Ad is still loading, queuing callback for ID: ${uniqueId}`);
-      setViewedAds(prev => new Set([...prev, uniqueId]));
-      if (onComplete) {
-        callbackQueueRef.current.push(onComplete);
       }
     } else {
-      // 広告がロードされていない・ロード中でもない場合は直接コールバック実行
-      console.log('Ad not loaded, skipping and executing callback directly');
+      // 広告がロードされていない場合は直接コールバック実行して画像を表示
+      console.log('Ad not fully loaded, showing image directly');
       setViewedAds(prev => new Set([...prev, uniqueId]));
       if (onComplete) onComplete();
       
-      // 念のため新しい広告をロード試行
-      if (!isLoading && retryCount === 0) {
+      // 次回のために広告をロード
+      if (!isLoading && !adLoaded) {
         loadInterstitialAd();
       }
     }
