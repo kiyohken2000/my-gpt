@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import store from 'utils/store'
 import 'utils/ignore'
 import { UserContextProvider } from './contexts/UserContext'
+import { AdProvider } from './contexts/AdContext'
 import { iapKey } from './openaiKeys'
 import Purchases from "react-native-purchases";
 
@@ -42,7 +43,9 @@ export default function App() {
   return (
     <Provider store={store}>
       <UserContextProvider>
-        <Router />
+        <AdProvider>
+          <Router />
+        </AdProvider>
       </UserContextProvider>
     </Provider>
   )
