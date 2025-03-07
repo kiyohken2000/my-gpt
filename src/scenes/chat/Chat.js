@@ -27,7 +27,7 @@ import BlurBox from '../../components/BlurBox/BlurBox';
 import { createVideo } from '../../utils/videoFunctions';
 import { generateVoice } from '../../utils/voiceGenerate';
 import { UserContext } from '../../contexts/UserContext';
-import { calculateMessageMaxLength } from './functions';
+import { calculateMessageMaxLength, onRecieveNewMessageHaptic } from './functions';
 import { generateRandomVoide } from '../../utils/voiceGenerate';
 import AdContainer from './AdContainer';
 
@@ -288,6 +288,7 @@ export default function Chat() {
           setMessages(previousMessages =>
             GiftedChat.append(previousMessages, botMessage),
           )
+          onRecieveNewMessageHaptic()
           setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
         } else if(user._id === userIds.bot1 && isThirdPerson) {
           const timestamp = `${moment().valueOf()}`
@@ -305,6 +306,7 @@ export default function Chat() {
           setMessages(previousMessages =>
             GiftedChat.append(previousMessages, botMessage),
           )
+          onRecieveNewMessageHaptic()
           setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
         } else if(user._id === userIds.user && isImageMode) {
           const timestamp = `${moment().valueOf()}`
@@ -336,6 +338,7 @@ export default function Chat() {
           setMessages(previousMessages =>
             GiftedChat.append(previousMessages, botMessage),
           )
+          onRecieveNewMessageHaptic()
           setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
         } else if(user._id === userIds.user && isSongMode) {
           const timestamp = `${moment().valueOf()}`
@@ -352,6 +355,7 @@ export default function Chat() {
             setMessages(previousMessages =>
               GiftedChat.append(previousMessages, botMessage),
             )
+            onRecieveNewMessageHaptic()
           } else {
             setCreatingContentIDs(prev => [...prev, timestamp])
             const response = await generateSong({text})
@@ -371,6 +375,7 @@ export default function Chat() {
                 GiftedChat.append(previousMessages, botMessage),
               )
             })
+            onRecieveNewMessageHaptic()
             setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
           }
         } else if(user._id === userIds.user && isVoiceMode) {
@@ -390,6 +395,7 @@ export default function Chat() {
           setMessages(previousMessages =>
             GiftedChat.append(previousMessages, botMessage),
           )
+          onRecieveNewMessageHaptic()
           setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
         }
       }
@@ -414,6 +420,7 @@ export default function Chat() {
     setMessages(previousMessages =>
       GiftedChat.append(previousMessages, botMessage),
     )
+    onRecieveNewMessageHaptic()
     setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
   }
 
@@ -434,6 +441,7 @@ export default function Chat() {
     setMessages(previousMessages =>
       GiftedChat.append(previousMessages, botMessage),
     )
+    onRecieveNewMessageHaptic()
     setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
   }
 
@@ -456,6 +464,7 @@ export default function Chat() {
     setMessages(previousMessages =>
       GiftedChat.append(previousMessages, botMessage),
     )
+    onRecieveNewMessageHaptic()
     setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
   }
 

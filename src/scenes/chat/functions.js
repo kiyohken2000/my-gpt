@@ -1,3 +1,4 @@
+import * as Haptics from 'expo-haptics';
 /*
 最大入力文字数
 画像生成モード: 1000
@@ -11,4 +12,13 @@ const calculateMessageMaxLength = ({isImageMode, isVoiceMode}) => {
   return 500
 }
 
-export { calculateMessageMaxLength }
+const onRecieveNewMessageHaptic = () => {
+  Haptics.notificationAsync(
+    Haptics.NotificationFeedbackType.Success
+  )
+}
+
+export {
+  calculateMessageMaxLength,
+  onRecieveNewMessageHaptic,
+}
