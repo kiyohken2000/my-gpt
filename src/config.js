@@ -1,6 +1,6 @@
 import { googleSheetKey } from "./openaiKeys"
 
-const versionName = '1.0.66'
+const versionName = '1.0.66.1'
 const iosBuildNumber = '75'
 const androidVersionCode = '84'
 const isDevMode = false
@@ -24,6 +24,7 @@ const headers = {
 }
 
 const convertHiraganaAPI = 'https://labs.goo.ne.jp/api/hiragana'
+const convertHiraganaYahooAPI = 'https://jlp.yahooapis.jp/FuriganaService/V2/furigana'
 
 const zeroGPUUrl = 'https://mygpt-image-api-omc3n2et7a-an.a.run.app'
 const zeroGPUUrls = [
@@ -53,5 +54,6 @@ export {
   zeroGPUUrl,
   zeroGPUUrls,
   convertHiraganaAPI,
+  convertHiraganaYahooAPI,
   chupaVoiceEndpoints,
 }

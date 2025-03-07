@@ -1,22 +1,39 @@
-import { gooLabApplicationId } from "../openaiKeys";
-import { chupaVoiceEndpoints, convertHiraganaAPI, headers } from "../config";
+import { yahooKey } from "../openaiKeys";
+import { chupaVoiceEndpoints, convertHiraganaAPI, headers, convertHiraganaYahooAPI } from "../config";
 import axios from "axios";
 import { errorMessage } from "./textGenerate";
 import { convertBase64ToLocalUri } from "./videoFunctions";
 
 const convertText = async({text}) => {
   try {
+    const requestBody = {
+      id: 'your-request-id', // リクエストを識別するID（任意）
+      jsonrpc: '2.0',
+      method: 'jlp.furiganaservice.furigana',
+      params: {
+        q: text, // 変換対象のテキスト
+        grade: 1, // 学年レベル (1: 小学校1年生, 2: 小学校2年生, ..., 8: 常用漢字)
+        output_type: 'hiragana' // ひらがなで出力（"furigana" を指定するとフリガナ形式で返される）
+      }
+    };
     const { data } = await axios.post(
-      convertHiraganaAPI,
+      convertHiraganaYahooAPI,
+      requestBody,
       {
-        app_id: gooLabApplicationId,
-        sentence: text,
-        output_type: 'hiragana'
-      },
-      {headers}
-    )
-    const { converted } = data
-    return converted
+        headers: {
+          'Content-Type': 'application/json',
+          'User-Agent': `Yahoo AppID: ${yahooKey}`
+        }
+      }
+    );
+    const convertedText = data.result.word.map(item => {
+      // ひらがなに変換されたテキストを取得
+      if (item.furigana) {
+        return item.furigana;
+      }
+      return item.surface; // 変換されていない部分はそのまま返す
+    }).join(' ');
+    return convertedText;
   } catch(e) {
     console.log('convert text error', e)
     throw new Error('convert text error')
