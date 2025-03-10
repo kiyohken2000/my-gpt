@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useEffect, useRef, useMemo, useContext } from 'react'
-import { View, StyleSheet, Platform, Image } from "react-native";
+import { View, StyleSheet, Platform, Text, TextInput} from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
-import { GiftedChat, Send } from 'react-native-gifted-chat'
+import { GiftedChat, Send, Bubble } from 'react-native-gifted-chat'
+import CustomBubble from './CustomBubble';
 import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage, loadNegativePrompt, generateTags, generateImageFromZeroGPU } from '../../utils/textGenerate';
 import { generateSong, invalidTextLength } from '../../utils/songGenerate';
 import moment from 'moment';
@@ -45,6 +46,7 @@ export default function Chat() {
   const [isSongMode, setIsSongMode] = useState(false)
   const [isImageMode, setIsImageMode] = useState(0)
   const [isVoiceMode, setIsVoiceMode] = useState(false)
+  const [selectionModeMessageId, setSelectionModeMessageId] = useState(null);
   const [negativePromptRealisticVision, setNegativePromptRealisticVision] = useState('')
   const [negativePromptAnimagine, setNegativePromptAnimagine] = useState('')
   const [negativePromptPony, setNegativePromptPony] = useState('')
@@ -517,13 +519,8 @@ export default function Chat() {
     )
   }
 
-  const onMessagePress = async({message}) => {
-    await Clipboard.setStringAsync(message.text);
-    showToast({title: 'コピーしました', body: ''})
-  }
-
   const onLongPress = (context, message) => {
-    const options = ['コピーする', '通報する', 'キャンセル'];
+    const options = ['コピーする', '通報する', '選択モード', 'キャンセル'];
     const cancelButtonIndex = options.length - 1;
     context.actionSheet().showActionSheetWithOptions({
       options,
@@ -537,8 +534,55 @@ export default function Chat() {
         case 1:
           showToast({title: '発言を通報しました', body: ''})
           break
+        case 2:
+          setSelectionModeMessageId(message._id);
+          showToast({title: '選択モードにしました', body: ''})
+          break
       }
     });
+  }
+
+  // メッセージIDに基づいて適切なバブルレンダラーを返す関数
+  const renderBubble = (props) => {
+    // 選択モードが設定されているメッセージの場合、CustomBubbleを使用
+    if (selectionModeMessageId === props.currentMessage._id) {
+      return <CustomBubble {...props} />;
+    }
+    // それ以外は通常のBubbleを使用
+    return renderDefaultBubble(props);
+  }
+
+  // 通常のバブルをレンダリングする関数
+  const renderDefaultBubble = (props) => {
+    return <Bubble {...props} />;
+  }
+
+  // メッセージがタップされたときの処理
+  const onMessagePress = ({ message }) => {
+    // 選択モードになっているメッセージがタップされた場合、選択モードを解除する
+    if (selectionModeMessageId === message._id) {
+      setSelectionModeMessageId(null);
+    }
+  }
+
+  // 特定のメッセージを選択モードに切り替える関数
+  const toggleSelectionMode = (messageId) => {
+    setMessages(previousMessages => 
+      previousMessages.map(msg => {
+        if (msg._id === messageId) {
+          // 選択モードフラグを追加または切り替え
+          return {
+            ...msg,
+            selectionMode: !msg.selectionMode
+          };
+        }
+        // その他のメッセージは選択モードをオフにする
+        return {
+          ...msg,
+          selectionMode: false
+        };
+      })
+    );
   }
 
   const renderMessageImage = (props) => {
@@ -574,6 +618,7 @@ export default function Chat() {
             name: userNames.user
           }}
           renderAvatar={null}
+          renderBubble={renderBubble}
           //isTyping={creatingContentIDs.length?true:false}
           renderSend={renderSend}
           alwaysShowSend={true}
@@ -694,5 +739,36 @@ export default function Chat() {
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  }
+  },
+  messageBubble: {
+    padding: 0,
+    marginBottom: 0,
+    borderRadius: 15,
+    overflow: 'hidden',
+  },
+  userBubble: {
+    backgroundColor: '#0084ff',
+  },
+  otherBubble: {
+    backgroundColor: '#f0f0f0',
+  },
+  messageText: {
+    fontSize: 16,
+    lineHeight: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    textAlignVertical: 'center',
+  },
+  userMessageText: {
+    color: 'white',
+  },
+  otherMessageText: {
+    color: 'black',
+  },
+  leftBubbleWrapper: {
+    marginRight: 60,
+  },
+  rightBubbleWrapper: {
+    marginLeft: 60,
+  },
 })
