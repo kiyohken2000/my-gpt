@@ -338,7 +338,9 @@ export default function Chat() {
           setMessages(previousMessages =>
             GiftedChat.append(previousMessages, botMessage),
           )
-          onRecieveNewMessageHaptic()
+          if(botMessage.image) {
+            onRecieveNewMessageHaptic()
+          }
           setCreatingContentIDs(prev => prev.filter((v) => v !== timestamp))
         } else if(user._id === userIds.user && isSongMode) {
           const timestamp = `${moment().valueOf()}`
