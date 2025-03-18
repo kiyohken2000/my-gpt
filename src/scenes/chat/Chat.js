@@ -89,6 +89,7 @@ export default function Chat() {
   const [negativePromptShiitakeMix, setNegativePromptShiitakeMix] = useState('')
   const [negativePromptNoobreal, setNegativePromptNoobreal] = useState('')
   const [negativePromptMatureRitual, setNegativePromptMatureRitual] = useState('')
+  const [negativePromptRedcraft, setNegativePromptRedcraft] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -142,6 +143,7 @@ export default function Chat() {
         _negativePromptShiitakeMix,
         _negativePromptNoobreal,
         _negativePromptMatureRitual,
+        _negativePromptRedcraft,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -187,6 +189,7 @@ export default function Chat() {
       setNegativePromptShiitakeMix(_negativePromptShiitakeMix)
       setNegativePromptNoobreal(_negativePromptNoobreal)
       setNegativePromptMatureRitual(_negativePromptMatureRitual)
+      setNegativePromptRedcraft(_negativePromptRedcraft)
     }
     loadStorage()
   }, [])
@@ -324,6 +327,7 @@ export default function Chat() {
             negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
             negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
             negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix, negativePromptNoobreal, negativePromptMatureRitual,
+            negativePromptRedcraft,
           })
           const botMessage = {
             _id: timestamp,
@@ -687,6 +691,8 @@ export default function Chat() {
           setNegativePromptNoobreal={setNegativePromptNoobreal}
           negativePromptMatureRitual={negativePromptMatureRitual}
           setNegativePromptMatureRitual={setNegativePromptMatureRitual}
+          negativePromptRedcraft={negativePromptRedcraft}
+          setNegativePromptRedcraft={setNegativePromptRedcraft}
         />
       </BottomSheet>
     </ScreenTemplate>

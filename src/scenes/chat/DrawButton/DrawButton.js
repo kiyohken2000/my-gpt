@@ -107,6 +107,12 @@ export default function DrawButton(props) {
             isImageMode={isImageMode}
             item={imageModelData.Noobreal}
           />
+          <DrawButtonItem
+            onItemPress={onItemPress}
+            disable={isReview}
+            isImageMode={isImageMode}
+            item={imageModelData.Redcraft}
+          />
         {/* ↑↑↑実写(Illustrious)↑↑↑ */}
         <MenuDivider />
         {/* ↓↓↓アニメ↓↓↓ */}

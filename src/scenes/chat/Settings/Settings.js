@@ -56,6 +56,7 @@ export default function Settings(props) {
     negativePromptShiitakeMix, setNegativePromptShiitakeMix,
     negativePromptNoobreal, setNegativePromptNoobreal,
     negativePromptMatureRitual, setNegativePromptMatureRitual,
+    negativePromptRedcraft, setNegativePromptRedcraft,
   } = props
   const { isReview } = useContext(UserContext)
 
@@ -72,6 +73,7 @@ export default function Settings(props) {
       negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
       negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
       negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix, negativePromptNoobreal, negativePromptMatureRitual,
+      negativePromptRedcraft,
     })
     setSheetPosition(0)
   }
@@ -179,6 +181,16 @@ export default function Settings(props) {
             setNegativePrompt={setNegativePromptNoobreal}
             recommendNegativePrompt={imageModelData.Noobreal.recommendNegativePrompt}
             item={imageModelData.Noobreal}
+          />
+          :null
+        }
+        {!isReview?
+          <NegativePromptItem
+            label={imageModelData.Redcraft.label}
+            negativePrompt={negativePromptRedcraft}
+            setNegativePrompt={setNegativePromptRedcraft}
+            recommendNegativePrompt={imageModelData.Redcraft.recommendNegativePrompt}
+            item={imageModelData.Redcraft}
           />
           :null
         }

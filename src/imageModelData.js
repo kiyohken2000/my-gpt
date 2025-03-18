@@ -395,6 +395,15 @@ const imageModelData = {
     enable: true,
     recommendNegativePrompt: 'bad quality,worst quality,worst detail,sketch,censor',
   },
+  Redcraft: {
+    label: 'Redcraft',
+    sequence: 45,
+    negativePromptKey: 'negativePromptRedcraft',
+    url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
+    modelName: 'retwpay/RedcraftCADSUpdatedFeb08_2relustionIL',
+    enable: true,
+    recommendNegativePrompt: 'bad quality,worst quality,worst detail,sketch,censor',
+  },
 }
 
 export { imageModelData }
