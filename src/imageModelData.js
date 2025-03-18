@@ -402,7 +402,7 @@ const imageModelData = {
     url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
     modelName: 'retwpay/RedcraftCADSUpdatedFeb08_2relustionIL',
     enable: true,
-    recommendNegativePrompt: 'bad quality,worst quality,worst detail,sketch,censor',
+    recommendNegativePrompt: 'low quality,ugly,deformed,bad anatomy,extra fingers,censored',
   },
 }
 
