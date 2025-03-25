@@ -1,349 +1,386 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet, ScrollView, Dimensions, Platform } from "react-native";
-import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
+import { View, StyleSheet, ScrollView, Dimensions, Text } from "react-native";
+import { 
+  Menu, 
+  MenuOptions, 
+  MenuOption, 
+  MenuTrigger,
+} from 'react-native-popup-menu';
 import { sleep } from "../../../utils/utilFunctions";
 import { UserContext } from "../../../contexts/UserContext";
 import { imageModelData } from "../../../imageModelData";
 import DrawButtonItem from "./DrawButtonItem";
+import { colors, fontSize } from "../../../theme";
 import Anchor from "./Anchor";
+import Divider from "./Divider";
 
-const { height } = Dimensions.get('window')
+const { height } = Dimensions.get('window');
 
 export default function DrawButton(props) {
-  const { isImageMode, setIsImageMode, setSheetPosition } = props
-  const [visible, setVisible] = useState(false);
-  const { isReview } = useContext(UserContext)
+  const { isImageMode, setIsImageMode, setSheetPosition } = props;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { isReview } = useContext(UserContext);
 
-  const hideMenu = () => setVisible(false);
+  const handleOptionSelect = async(val) => {
+    console.log({val})
+    setIsImageMode(val);
+  };
 
-  const showMenu = () => setVisible(true);
-
-  const onItemPress = async({val}) => {
-    setIsImageMode(val)
-    hideMenu()
-  }
-
-  const onSettingsPress = async() => {
-    hideMenu()
-    await sleep(500)
-    setSheetPosition(1)
-  }
+  const handleSettingsPress = async() => {
+    await sleep(500);
+    setSheetPosition(1);
+  };
 
   return (
     <View style={styles.container}>
       <Menu
-        visible={visible}
-        anchor={<Anchor onPress={showMenu} isImageMode={isImageMode} />}
-        onRequestClose={hideMenu}
-        style={{maxHeight: height * 0.9 }}
+        onOpen={() => setMenuOpen(true)}
+        onClose={() => setMenuOpen(false)}
       >
-        <MenuItem onPress={() => onItemPress({val: 0})}>{`画像生成オフ${!isImageMode?'✔':''}`}</MenuItem>
-        <MenuDivider />
-        <ScrollView style={{flexGrow:0}}>
-        {/* ↓↓↓実写↓↓↓ */}
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={false}
-            isImageMode={isImageMode}
-            item={imageModelData.RealisticVision}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={false}
-            isImageMode={isImageMode}
-            item={imageModelData.JuggernautXL}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.ChilloutMix}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.NsfwGen}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.Rumblexl}
-          />
-        {/* ↑↑↑実写↑↑↑ */}
-        <MenuDivider />
-        {/* ↓↓↓実写(Pony)↓↓↓ */}
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.RealPony}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.waiREALMIX}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.waiREALCN}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.RealPonyCuteJp}
-          />
-        {/* ↑↑↑実写(Pony)↑↑↑ */}
-        <MenuDivider />
-        {/* ↓↓↓実写(Illustrious)↓↓↓ */}
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.Noobreal}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.Redcraft}
-          />
-        {/* ↑↑↑実写(Illustrious)↑↑↑ */}
-        <MenuDivider />
-        {/* ↓↓↓アニメ↓↓↓ */}
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.Animagine}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.NsfwGenAnime}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.NovelAIRemix}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.Deliberate}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.ArtiWaifu}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.StarryXL}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.YakiDofuMix}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.AnythingXL}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.AnimeBulldozer}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.DeepDarkHentaiMix}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.YamersAnime}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.Baxl}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.CuteCore}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.HolodayoXL}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.KivotosXL}
-          />
-        {/* ↑↑↑アニメ↑↑↑ */}
-        <MenuDivider />
-        {/* ↓↓↓アニメ(Pony)↓↓↓ */}
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.Pony}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.EbaraPony}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.waiANIMIXPONYXL}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.MomoiroPony}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.HanamomoPony}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.SeventhAnimeXLPony}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.Mix3x3x3xl}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.FeaturelessMix}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.ManmaruMix}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.ChacolOmegaMix}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.EponaMix}
-          />
-        {/* ↑↑↑アニメ(Pony)↑↑↑ */}
-        <MenuDivider />
-        {/* ↓↓↓アニメ(Illustrious)↓↓↓ */}
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.NovaAnimeXL}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.WaiNSFWIllustrious}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.ShiitakeMix}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.MatureRitual}
-          />
-        {/* ↑↑↑アニメ(Illustrious)↑↑↑ */}
-        <MenuDivider />
-        {/* ↓↓↓フィギュア↓↓↓ */}
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.PVC}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.PVCRealistic}
-          />
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.PVCFantasy}
-          />
-        {/* ↑↑↑フィギュア↑↑↑ */}
-        <MenuDivider />
-        {/* ↓↓↓フィギュア(Pony)↓↓↓ */}
-          <DrawButtonItem
-            onItemPress={onItemPress}
-            disable={isReview}
-            isImageMode={isImageMode}
-            item={imageModelData.PVCMovable}
-          />
-        {/* ↑↑↑フィギュア(Pony)↑↑↑ */}
-        {/* 未分類 */}
-        <MenuDivider />
-        </ScrollView>
-        <MenuItem onPress={onSettingsPress}>画像生成設定</MenuItem>
+        <MenuTrigger>
+          <Anchor isImageMode={isImageMode} />
+        </MenuTrigger>
+        <MenuOptions customStyles={optionsStyles}>
+          <MenuOption onSelect={() => handleOptionSelect(0)}>
+            <View style={styles.menuItem}>
+              <Text style={styles.optionText}>{`画像生成オフ${!isImageMode ? '✔' : ''}`}</Text>
+            </View>
+          </MenuOption>
+          <Divider isReview={false} />
+          
+          <ScrollView style={{maxHeight: height * 0.7}}>
+            {/* ↓↓↓実写↓↓↓ */}
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={false}
+              isImageMode={isImageMode}
+              item={imageModelData.RealisticVision}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={false}
+              isImageMode={isImageMode}
+              item={imageModelData.JuggernautXL}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.ChilloutMix}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.NsfwGen}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.Rumblexl}
+            />
+            {/* ↑↑↑実写↑↑↑ */}
+            <Divider isReview={isReview} />
+            
+            {/* ↓↓↓実写(Pony)↓↓↓ */}
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.RealPony}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.waiREALMIX}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.waiREALCN}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.RealPonyCuteJp}
+            />
+            {/* ↑↑↑実写(Pony)↑↑↑ */}
+            <Divider isReview={isReview} />
+            
+            {/* ↓↓↓実写(Illustrious)↓↓↓ */}
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.Noobreal}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.Redcraft}
+            />
+            {/* ↑↑↑実写(Illustrious)↑↑↑ */}
+            <Divider isReview={isReview} />
+            
+            {/* ↓↓↓アニメ↓↓↓ */}
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.Animagine}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.NsfwGenAnime}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.NovelAIRemix}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.Deliberate}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.ArtiWaifu}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.StarryXL}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.YakiDofuMix}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.AnythingXL}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.AnimeBulldozer}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.DeepDarkHentaiMix}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.YamersAnime}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.Baxl}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.CuteCore}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.HolodayoXL}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.KivotosXL}
+            />
+            {/* ↑↑↑アニメ↑↑↑ */}
+            <Divider isReview={isReview} />
+            
+            {/* ↓↓↓アニメ(Pony)↓↓↓ */}
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.Pony}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.EbaraPony}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.waiANIMIXPONYXL}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.MomoiroPony}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.HanamomoPony}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.SeventhAnimeXLPony}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.Mix3x3x3xl}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.FeaturelessMix}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.ManmaruMix}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.ChacolOmegaMix}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.EponaMix}
+            />
+            {/* ↑↑↑アニメ(Pony)↑↑↑ */}
+            <Divider isReview={isReview} />
+            
+            {/* ↓↓↓アニメ(Illustrious)↓↓↓ */}
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.NovaAnimeXL}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.WaiNSFWIllustrious}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.ShiitakeMix}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.MatureRitual}
+            />
+            {/* ↑↑↑アニメ(Illustrious)↑↑↑ */}
+            <Divider isReview={isReview} />
+            
+            {/* ↓↓↓フィギュア↓↓↓ */}
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.PVC}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.PVCRealistic}
+            />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.PVCFantasy}
+            />
+            {/* ↑↑↑フィギュア↑↑↑ */}
+            <Divider isReview={isReview} />
+            
+            {/* ↓↓↓フィギュア(Pony)↓↓↓ */}
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.PVCMovable}
+            />
+            {/* ↑↑↑フィギュア(Pony)↑↑↑ */}
+            <Divider isReview={false} />
+          </ScrollView>
+          
+          <MenuOption onSelect={handleSettingsPress}>
+            <View style={styles.menuItem}>
+              <Text style={styles.optionText}>画像生成設定</Text>
+            </View>
+          </MenuOption>
+        </MenuOptions>
       </Menu>
     </View>
-  )
+  );
 }
+
+const optionsStyles = {
+  optionsContainer: {
+    maxHeight: height * 0.9
+  }
+};
 
 const styles = StyleSheet.create({
   container: {
     paddingLeft: 10
-  }
-})
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  optionText: {
+    fontSize: 14,
+    color: colors.text
+  },
+});

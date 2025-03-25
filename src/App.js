@@ -7,6 +7,7 @@ import { UserContextProvider } from './contexts/UserContext'
 import { AdProvider } from './contexts/AdContext'
 import { iapKey } from './openaiKeys'
 import Purchases from "react-native-purchases";
+import { MenuProvider } from 'react-native-popup-menu';
 
 // assets
 import { imageAssets } from 'theme/images'
@@ -44,7 +45,9 @@ export default function App() {
     <Provider store={store}>
       <UserContextProvider>
         <AdProvider>
-          <Router />
+          <MenuProvider>
+            <Router />
+          </MenuProvider>
         </AdProvider>
       </UserContextProvider>
     </Provider>

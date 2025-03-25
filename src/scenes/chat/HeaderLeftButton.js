@@ -1,55 +1,63 @@
-import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
-import FontIcon from 'react-native-vector-icons/Feather'
-import { colors, fontSize } from "../../theme";
-import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
+import React from "react";
+import { View, StyleSheet, Text } from "react-native";
+import FontIcon from 'react-native-vector-icons/Feather';
+import { 
+  Menu, 
+  MenuOptions, 
+  MenuOption, 
+  MenuTrigger,
+  MenuProvider
+} from 'react-native-popup-menu';
+import { colors, fonts, fontSize } from "../../theme";
 
 export default function HeaderLeftButton(props) {
-  const { isThirdPerson, setIsThirdPerson } = props
-  const [visible, setVisible] = useState(false);
+  const { isThirdPerson, setIsThirdPerson } = props;
 
-  const hideMenu = () => setVisible(false);
-
-  const showMenu = () => setVisible(true);
-
-  const renderAnchor = () => {
-    return (
-      <TouchableOpacity
-        onPress={showMenu}
-      >
-        <FontIcon
-          name="users"
-          color={isThirdPerson?colors.lightPurple:colors.white}
-          size={fontSize.xxxxxxxLarge}
-          style={{
-          }}
-        />
-      </TouchableOpacity>
-    )
-  }
-
-  const onItemPress = ({val}) => {
-    setIsThirdPerson(val)
-    hideMenu()
-  }
+  const handleOptionSelect = (value) => {
+    setIsThirdPerson(value);
+  };
 
   return (
     <View style={styles.container}>
-      <Menu
-        visible={visible}
-        anchor={renderAnchor()}
-        onRequestClose={hideMenu}
-      >
-        <MenuItem onPress={() => onItemPress({val: true})}>{`3人モードオン${isThirdPerson?'✔':''}`}</MenuItem>
-        <MenuDivider />
-        <MenuItem onPress={() => onItemPress({val: false})}>{`3人モードオフ${!isThirdPerson?'✔':''}`}</MenuItem>
+      <Menu>
+        <MenuTrigger>
+          <FontIcon
+            name="users"
+            color={isThirdPerson?colors.lightPurple:colors.white}
+            size={fontSize.xxxxxxxLarge}
+            style={{
+            }}
+          />
+        </MenuTrigger>
+        <MenuOptions>
+          <MenuOption onSelect={() => handleOptionSelect(true)}>
+            <View style={styles.menuItem}>
+              <View style={styles.menuTextContainer}>
+                <Text style={styles.optionText}>{`3人モードオン${isThirdPerson?'✔':''}`}</Text>
+              </View>
+            </View>
+          </MenuOption>
+          <MenuOption onSelect={() => handleOptionSelect(false)}>
+            <View style={styles.menuItem}>
+              <View style={styles.menuTextContainer}>
+                <Text style={styles.optionText}>{`3人モードオフ${!isThirdPerson?'✔':''}`}</Text>
+              </View>
+            </View>
+          </MenuOption>
+        </MenuOptions>
       </Menu>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 10
-  }
-})
+    paddingLeft: 10,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+});
