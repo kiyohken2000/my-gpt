@@ -8183,10 +8183,10 @@ react-native-gifted-chat@^2.4.0:
     react-native-lightbox-v2 "^0.9.2"
     react-native-parsed-text "^0.0.22"
 
-react-native-google-mobile-ads@^12.9.0:
-  version "12.11.0"
-  resolved "https://registry.yarnpkg.com/react-native-google-mobile-ads/-/react-native-google-mobile-ads-12.11.0.tgz#b99b45a8d3221f6db528a0aa478fa69883441b13"
-  integrity sha512-czoczIfeNzB5UKreYvWlxY8BBGm4/7QiaTO8dmGkg6cMyPXudoiR3qkgkkaNcnHALCktUFYz7mWTk54G6hnTRw==
+react-native-google-mobile-ads@14.0.0:
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-google-mobile-ads/-/react-native-google-mobile-ads-14.0.0.tgz#146c640ae0c3d80f6f9bc314523aa6eaf0e83967"
+  integrity sha512-32lvA3CxZ0gbbevh4DsT4jNIKUwoXo0qWk9nO7+vabz28xn+RKvv/NJnOeuioR9fRaAQF2npagnnKM2jRmH1yg==
   dependencies:
     "@iabtcf/core" "^1.5.3"
     use-deep-compare-effect "^1.8.1"
