@@ -68,7 +68,7 @@ const imageModelData = {
     negativePromptKey: 'negativePromptNsfwGen',
     url: 'https://api-inference.huggingface.co/models/UnfilteredAI/NSFW-gen-v2.1',
     modelName: 'votepurchase/NSFW-gen-v2',
-    enable: true,
+    enable: false,
     recommendNegativePrompt: 'bad anatomy,long_neck,long_body,longbody,deformed mutated disfigured,missing arms,extra_arms,mutated hands,extra_legs,bad hands,poorly_drawn_hands,malformed_hands,missing_limb,floating_limbs,disconnected_limbs,extra_fingers,bad fingers,liquid fingers,poorly drawn fingers,missing fingers,extra digit,fewer digits,ugly face,deformed eyes,partial face,partial head,bad face,inaccurate limb,cropped',
   },
   Deliberate: {
@@ -356,7 +356,7 @@ const imageModelData = {
     negativePromptKey: 'negativePromptNovaAnimeXL',
     url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
     modelName: 'retwpay/retwpay-novaAnimeXL_ilV40HappyValentine',
-    enable: true,
+    enable: false,
     recommendNegativePrompt: 'modern, recent, old, oldest, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), bad anatomy, sketch, jpeg artifacts, signature, watermark, username, signature, simple background, conjoined,bad ai-generated',
   },
   WaiNSFWIllustrious: {
