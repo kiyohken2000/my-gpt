@@ -356,7 +356,7 @@ const imageModelData = {
     negativePromptKey: 'negativePromptNovaAnimeXL',
     url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
     modelName: 'retwpay/retwpay-novaAnimeXL_ilV40HappyValentine',
-    enable: false,
+    enable: true,
     recommendNegativePrompt: 'modern, recent, old, oldest, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), bad anatomy, sketch, jpeg artifacts, signature, watermark, username, signature, simple background, conjoined,bad ai-generated',
   },
   WaiNSFWIllustrious: {
