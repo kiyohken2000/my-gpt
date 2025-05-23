@@ -90,6 +90,7 @@ export default function Chat() {
   const [negativePromptNoobreal, setNegativePromptNoobreal] = useState('')
   const [negativePromptMatureRitual, setNegativePromptMatureRitual] = useState('')
   const [negativePromptRedcraft, setNegativePromptRedcraft] = useState('')
+  const [negativePromptNovaFurryXL, setNegativePromptNovaFurryXL] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -144,6 +145,7 @@ export default function Chat() {
         _negativePromptNoobreal,
         _negativePromptMatureRitual,
         _negativePromptRedcraft,
+        _negativePromptNovaFurryXL,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -190,6 +192,7 @@ export default function Chat() {
       setNegativePromptNoobreal(_negativePromptNoobreal)
       setNegativePromptMatureRitual(_negativePromptMatureRitual)
       setNegativePromptRedcraft(_negativePromptRedcraft)
+      setNegativePromptNovaFurryXL(_negativePromptNovaFurryXL)
     }
     loadStorage()
   }, [])
@@ -327,7 +330,7 @@ export default function Chat() {
             negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
             negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
             negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix, negativePromptNoobreal, negativePromptMatureRitual,
-            negativePromptRedcraft,
+            negativePromptRedcraft, negativePromptNovaFurryXL,
           })
           const botMessage = {
             _id: timestamp,
@@ -693,6 +696,8 @@ export default function Chat() {
           setNegativePromptMatureRitual={setNegativePromptMatureRitual}
           negativePromptRedcraft={negativePromptRedcraft}
           setNegativePromptRedcraft={setNegativePromptRedcraft}
+          negativePromptNovaFurryXL={negativePromptNovaFurryXL}
+          setNegativePromptNovaFurryXL={setNegativePromptNovaFurryXL}
         />
       </BottomSheet>
     </ScreenTemplate>

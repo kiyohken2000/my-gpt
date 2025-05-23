@@ -316,6 +316,12 @@ export default function DrawButton(props) {
               isImageMode={isImageMode}
               item={imageModelData.MatureRitual}
             />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.NovaFurryXL}
+            />
             {/* ↑↑↑アニメ(Illustrious)↑↑↑ */}
             <Divider isReview={isReview} />
             

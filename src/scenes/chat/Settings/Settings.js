@@ -57,6 +57,7 @@ export default function Settings(props) {
     negativePromptNoobreal, setNegativePromptNoobreal,
     negativePromptMatureRitual, setNegativePromptMatureRitual,
     negativePromptRedcraft, setNegativePromptRedcraft,
+    negativePromptNovaFurryXL, setNegativePromptNovaFurryXL,
   } = props
   const { isReview } = useContext(UserContext)
 
@@ -73,7 +74,7 @@ export default function Settings(props) {
       negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
       negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
       negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix, negativePromptNoobreal, negativePromptMatureRitual,
-      negativePromptRedcraft,
+      negativePromptRedcraft, negativePromptNovaFurryXL,
     })
     setSheetPosition(0)
   }
@@ -497,6 +498,16 @@ export default function Settings(props) {
             setNegativePrompt={setNegativePromptMatureRitual}
             recommendNegativePrompt={imageModelData.MatureRitual.recommendNegativePrompt}
             item={imageModelData.MatureRitual}
+          />
+          :null
+        }
+        {!isReview?
+          <NegativePromptItem
+            label={imageModelData.NovaFurryXL.label}
+            negativePrompt={negativePromptNovaFurryXL}
+            setNegativePrompt={setNegativePromptNovaFurryXL}
+            recommendNegativePrompt={imageModelData.NovaFurryXL.recommendNegativePrompt}
+            item={imageModelData.NovaFurryXL}
           />
           :null
         }

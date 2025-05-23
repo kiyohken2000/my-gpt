@@ -404,6 +404,15 @@ const imageModelData = {
     enable: true,
     recommendNegativePrompt: 'low quality,ugly,deformed,bad anatomy,extra fingers,censored',
   },
+  NovaFurryXL: {
+    label: 'NovaFurryXL',
+    sequence: 46,
+    negativePromptKey: 'negativePromptNovaFurryXL',
+    url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
+    modelName: 'votepurchase/novaFurryXL_illustriousV7b',
+    enable: true,
+    recommendNegativePrompt: 'human, multiple tails, modern, recent, old, oldest, graphic, cartoon, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra digits, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), bad anatomy, sketch, jpeg artifacts, signature, watermark, username, simple background, conjoined, bad ai-generated',
+  },
 }
 
 export { imageModelData }
