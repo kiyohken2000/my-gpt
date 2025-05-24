@@ -124,6 +124,12 @@ export default function DrawButton(props) {
               isImageMode={isImageMode}
               item={imageModelData.Redcraft}
             />
+            <DrawButtonItem
+              onItemPress={handleOptionSelect}
+              disable={isReview}
+              isImageMode={isImageMode}
+              item={imageModelData.PornMasterPro}
+            />
             {/* ↑↑↑実写(Illustrious)↑↑↑ */}
             <Divider isReview={isReview} />
             

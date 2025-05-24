@@ -413,6 +413,15 @@ const imageModelData = {
     enable: true,
     recommendNegativePrompt: 'human, multiple tails, modern, recent, old, oldest, graphic, cartoon, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra digits, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), bad anatomy, sketch, jpeg artifacts, signature, watermark, username, simple background, conjoined, bad ai-generated',
   },
+  PornMasterPro: {
+    label: 'PornMasterPro',
+    sequence: 47,
+    negativePromptKey: 'negativePromptPornMasterPro',
+    url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
+    modelName: 'retwpay/pornmasterPro_noobV3VAE',
+    enable: true,
+    recommendNegativePrompt: 'lowres, worst aesthetic, bad quality, worst quality, bad anatomy, jpeg artifacts, scan artifacts, lossy-lossless, unfinished, ugly, poorly drawn, greyscale, (illustration, 2d, 2.5D, 3d, painting \(medium\), toon \(style\), sketch, comic, anime,flat color,outline,smooth skin:1.2) watermark, text, extra digits',
+  },
 }
 
 export { imageModelData }

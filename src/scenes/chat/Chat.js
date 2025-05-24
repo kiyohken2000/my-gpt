@@ -91,6 +91,7 @@ export default function Chat() {
   const [negativePromptMatureRitual, setNegativePromptMatureRitual] = useState('')
   const [negativePromptRedcraft, setNegativePromptRedcraft] = useState('')
   const [negativePromptNovaFurryXL, setNegativePromptNovaFurryXL] = useState('')
+  const [negativePromptPornMasterPro, setNegativePromptPornMasterPro] = useState('')
   const [creatingContentIDs, setCreatingContentIDs] = useState([])
 
   const handleSheetChanges = useCallback((index) => {
@@ -146,6 +147,7 @@ export default function Chat() {
         _negativePromptMatureRitual,
         _negativePromptRedcraft,
         _negativePromptNovaFurryXL,
+        _negativePromptPornMasterPro,
       } = await loadNegativePrompt()
       setNegativePromptRealisticVision(_negativePromptRealisticVision)
       setNegativePromptAnimagine(_negativePromptAnimagine)
@@ -193,6 +195,7 @@ export default function Chat() {
       setNegativePromptMatureRitual(_negativePromptMatureRitual)
       setNegativePromptRedcraft(_negativePromptRedcraft)
       setNegativePromptNovaFurryXL(_negativePromptNovaFurryXL)
+      setNegativePromptPornMasterPro(_negativePromptPornMasterPro)
     }
     loadStorage()
   }, [])
@@ -330,7 +333,7 @@ export default function Chat() {
             negativePromptEponaMix, negativePromptPVCMovable, negativePromptPVCRealistic, negativePromptPVCFantasy,
             negativePromptHolodayoXL, negativePromptKivotosXL, negativePromptJuggernautXL, negativePromptNovaAnimeXL,
             negativePromptWaiNSFWIllustrious, negativePromptShiitakeMix, negativePromptNoobreal, negativePromptMatureRitual,
-            negativePromptRedcraft, negativePromptNovaFurryXL,
+            negativePromptRedcraft, negativePromptNovaFurryXL, negativePromptPornMasterPro,
           })
           const botMessage = {
             _id: timestamp,
@@ -698,6 +701,8 @@ export default function Chat() {
           setNegativePromptRedcraft={setNegativePromptRedcraft}
           negativePromptNovaFurryXL={negativePromptNovaFurryXL}
           setNegativePromptNovaFurryXL={setNegativePromptNovaFurryXL}
+          negativePromptPornMasterPro={negativePromptPornMasterPro}
+          setNegativePromptPornMasterPro={setNegativePromptPornMasterPro}
         />
       </BottomSheet>
     </ScreenTemplate>
