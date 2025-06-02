@@ -530,6 +530,8 @@ export default function Chat() {
   }
 
   const onMessagePress = async({message}) => {
+    const isErrorMessage = message.text.includes('数分後に再度お試しください。エラー:')
+    if(isErrorMessage) return
     await Clipboard.setStringAsync(message.text);
     showToast({title: 'コピーしました', body: ''})
   }
