@@ -9,7 +9,8 @@ import { myEndpoints, headers, zeroGPUUrls, zeroGPUUrl } from "../config";
 import { imageModelData } from "../imageModelData";
 
 const errorMessage = 'すみません。よくわかりませんでした'
-const geminiBaseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='
+const geminiBaseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='
+// const geminiBaseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='
 // const geminiBaseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key='
 
 const userIds = {
