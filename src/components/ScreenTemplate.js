@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { StyleSheet, SafeAreaView, StatusBar, View } from "react-native";
+import { StyleSheet, StatusBar, View } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from "../theme";
 import LoadingScreen from "./LoadingScreen";
 import ErrorScreen from "./ErrorScreen";
@@ -21,7 +22,10 @@ export default function ScreenTemplate(props) {
   }
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: color?color:colors.white}]}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: color?color:colors.white}]}
+      edges={['right', 'left', 'bottom']}
+    >
       <StatusBar barStyle='light-content' />
       <View style={styles.main}>
         {props.children}
