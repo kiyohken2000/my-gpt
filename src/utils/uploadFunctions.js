@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import { myEndpoints, imgurKey } from "../config";
 import { db } from "../firebase";
 import { setDoc, doc, collection, serverTimestamp } from 'firebase/firestore'

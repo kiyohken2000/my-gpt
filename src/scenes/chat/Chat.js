@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef, useMemo, useContext } from 'react'
-import { View, StyleSheet, Platform, Image } from "react-native";
+import { View, StyleSheet, Platform } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
-import { GiftedChat, Send } from 'react-native-gifted-chat'
+import { GiftedChat, Send, Composer, InputToolbar } from 'react-native-gifted-chat'
 import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage, loadNegativePrompt, generateTags, generateImageFromZeroGPU } from '../../utils/textGenerate';
 import { generateSong, invalidTextLength } from '../../utils/songGenerate';
 import moment from 'moment';
@@ -21,7 +21,7 @@ import RenderImage from './RenderImage';
 import { colors } from '../../theme';
 import * as Clipboard from 'expo-clipboard';
 import { showToast } from '../../utils/showToast';
-import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import Settings from './Settings/Settings';
 import BlurBox from '../../components/BlurBox/BlurBox';
 import { createVideo } from '../../utils/videoFunctions';
@@ -493,7 +493,7 @@ export default function Chat() {
 
   const onImageButtonPress = async() => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ['images'],
       allowsEditing: false,
       allowsMultipleSelection: false,
     });
@@ -609,6 +609,7 @@ export default function Chat() {
         onChange={handleSheetChanges}
 				backdropComponent={renderBackdrop}
       >
+        <BottomSheetView style={styles.contentContainer}>
         <Settings
           setSheetPosition={setSheetPosition}
           negativePromptRealisticVision={negativePromptRealisticVision}
@@ -706,6 +707,7 @@ export default function Chat() {
           negativePromptPornMasterPro={negativePromptPornMasterPro}
           setNegativePromptPornMasterPro={setNegativePromptPornMasterPro}
         />
+        </BottomSheetView>
       </BottomSheet>
     </ScreenTemplate>
   )
@@ -714,5 +716,8 @@ export default function Chat() {
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  }
+  },
+  contentContainer: {
+    //flex: 1,
+  },
 })

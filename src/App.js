@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Platform } from 'react-native'
 import { Provider } from 'react-redux'
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import store from 'utils/store'
 import 'utils/ignore'
 import { UserContextProvider } from './contexts/UserContext'
@@ -8,6 +9,7 @@ import { AdProvider } from './contexts/AdContext'
 import { iapKey } from './openaiKeys'
 import Purchases from "react-native-purchases";
 import { MenuProvider } from 'react-native-popup-menu';
+import * as Device from 'expo-device';
 
 // assets
 import { imageAssets } from 'theme/images'
@@ -26,6 +28,7 @@ export default function App() {
   }
 
   const initRevenueCat = async() => {
+    if(!Device.isDevice) return
     if (Platform.OS === "android") {
       Purchases.configure({ apiKey: iapKey.android });
     } else {
@@ -42,14 +45,16 @@ export default function App() {
   // rendering
   if (!didLoad) return <View />
   return (
-    <Provider store={store}>
-      <UserContextProvider>
-        <AdProvider>
-          <MenuProvider>
-            <Router />
-          </MenuProvider>
-        </AdProvider>
-      </UserContextProvider>
-    </Provider>
+    <SafeAreaProvider>
+      <Provider store={store}>
+        <UserContextProvider>
+          <AdProvider>
+            <MenuProvider>
+              <Router />
+            </MenuProvider>
+          </AdProvider>
+        </UserContextProvider>
+      </Provider>
+    </SafeAreaProvider>
   )
 }

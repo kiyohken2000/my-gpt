@@ -1,6 +1,6 @@
 import axios from "axios";
 import { palmKey, CO_API_KEY, huggingFaceKey } from "../openaiKeys";
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 import { convertBlobToImage, convertBase64toImage } from "./downloadFunctions";
 import { storage } from "./storage";

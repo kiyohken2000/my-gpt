@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { colors, fontSize } from "../../../theme";
@@ -593,9 +593,10 @@ export default function Settings(props) {
   )
 }
 
+const { height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: height * 0.7
   },
   label: {
     fontSize: fontSize.large
