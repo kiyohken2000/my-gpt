@@ -5,6 +5,7 @@ import { GiftedChat, Send, Composer, InputToolbar } from 'react-native-gifted-ch
 import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage, loadNegativePrompt, generateTags, generateImageFromZeroGPU } from '../../utils/textGenerate';
 import { generateSong, invalidTextLength } from '../../utils/songGenerate';
 import moment from 'moment';
+import CustomComposer from './CustomComposer';
 import SendButton from './SendButton';
 import ImageButton from './ImageButton';
 import DonateButton from './DonateButton';
@@ -590,6 +591,7 @@ export default function Chat() {
           renderAvatar={null}
           //isTyping={creatingContentIDs.length?true:false}
           renderSend={renderSend}
+          renderComposer={(props) => <CustomComposer {...props} />}
           alwaysShowSend={true}
           renderFooter={renderChatFooter}
           placeholder={messages.length?'メッセージを入力':'お気軽にご質問ください'}
@@ -715,7 +717,7 @@ export default function Chat() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   contentContainer: {
     //flex: 1,

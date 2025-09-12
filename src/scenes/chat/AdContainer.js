@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import MyAdmob from "../../components/MyAdmob";
 import { UserContext } from "../../contexts/UserContext";
+import { colors } from "../../theme";
 
 export default function AdContainer() {
   const [adVisible, setAdVisible] = useState(true)
@@ -19,12 +20,18 @@ export default function AdContainer() {
 
   if(adVisible) {
     return (
-      <View>
+      <View style={styles.container}>
         <MyAdmob/>
       </View>
     )
   }
   return (
-    <View/>
+    <View style={styles.container} />
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    //backgroundColor: colors.white
+  }
+})
