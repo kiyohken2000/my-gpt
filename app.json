@@ -27,7 +27,7 @@
       "supportsTablet": false,
       "icon": "./assets/images/gachiai.icon",
       "bundleIdentifier": "net.votepurchase.mygpt",
-      "buildNumber": "81",
+      "buildNumber": "82",
       "infoPlist": {
         "NSMicrophoneUsageDescription": "チャットに投稿するためにマイクを使用します",
         "NSCameraUsageDescription": "チャットに画像を投稿するためにカメラを使用します",
@@ -125,7 +125,12 @@
       ],
       "expo-asset",
       "expo-font",
-      "expo-tracking-transparency"
+      [
+        "expo-tracking-transparency",
+        {
+          "userTrackingPermission": "許可することで、より関連性の高い広告を表示することができるようになります。"
+        }
+      ]
     ],
     "runtimeVersion": {
       "policy": "appVersion"
