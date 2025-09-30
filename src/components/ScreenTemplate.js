@@ -37,7 +37,7 @@ export default function ScreenTemplate(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.bluePrimary
+    backgroundColor: colors.white
   },
   main: {
     flex: 1,
