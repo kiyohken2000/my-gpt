@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { Video } from 'expo-av';
+import { VideoView, useVideoPlayer } from 'expo-video';
 import Modal from "react-native-modal";
 import { colors } from "../../theme";
 import { saveVideo } from "../../utils/videoFunctions";
@@ -16,6 +16,20 @@ export default function VideoModal(props) {
   const [height, setHeight] = useState(100)
   const [isLoading, setIsLoading] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
+
+  const player = useVideoPlayer(url, player => {
+    player.loop = true;
+    player.muted = false;
+    player.volume = 1.0;
+  });
+
+  useEffect(() => {
+    if (isVisible) {
+      player.play();
+    } else {
+      player.pause();
+    }
+  }, [isVisible, player]);
 
   const calculateHeight = (width) => {
     const aspectRatio = isSong? 3 / 2:9 / 16;
@@ -85,17 +99,13 @@ export default function VideoModal(props) {
         <TouchableOpacity
           onLongPress={onSavePress}
         >
-          <Video
-            source={{ uri: url }}
-            rate={1.0}
-            volume={1.0}
-            isMuted={false}
-            shouldPlay
-            isLooping
+          <VideoView
+            player={player}
             style={{
               height: height,
               width: '100%',
             }}
+            nativeControls={false}
           />
         </TouchableOpacity>
         <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingTop: 10}}>
