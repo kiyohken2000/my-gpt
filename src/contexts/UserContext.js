@@ -15,6 +15,7 @@ export const UserContextProvider = (props) => {
   const [isVideoEnable, setIsVideoEnable] = useState(false)
   const [userMemo, setUserMemo] = useState('')
   const [noAdWord, setNoAdWord] = useState('')
+  const [isDeepdanbooru, setIsDeepdanbooru] = useState(false)
 
   const getReviewStatus = async() => {
     try {
@@ -24,6 +25,7 @@ export const UserContextProvider = (props) => {
       setIsSongEnalbe(_data[0].song === '1')
       setIsVideoEnable(_data[0].video === '1')
       setNoAdWord(_data[0].noAdWord)
+      setIsDeepdanbooru(_data[0].deepdanbooru === '1')
       if(_data[0].nowReview === iosBuildNumber && Platform.OS === 'ios') {
         console.log('ios レビュー中')
         setIsReview(true)
@@ -57,6 +59,7 @@ export const UserContextProvider = (props) => {
         noAdWord, setNoAdWord,
         isSongEnable, setIsSongEnalbe,
         isVideoEnable, setIsVideoEnable,
+        isDeepdanbooru, setIsDeepdanbooru,
         getReviewStatus,
         loadMemo,
       }}

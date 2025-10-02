@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, TouchableOpacity, Image, Dimensions, StyleSheet } from "react-native";
 import { colors, fontSize } from "../../theme";
 import FontIcon from 'react-native-vector-icons/FontAwesome'
 import { TypingAnimation } from 'react-native-typing-animation';
+import { UserContext } from "../../contexts/UserContext";
 
 const { width } = Dimensions.get('window')
 
 export default function FooterImage(props) {
   const { imagePath, onImagePress, onTagPress, isLoading } = props
+  const { isReview, isDeepdanbooru } = useContext(UserContext)
 
   return (
     <View style={styles.container}>
@@ -32,17 +34,20 @@ export default function FooterImage(props) {
                 }}
               />
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={onTagPress}
-            >
-              <FontIcon
-                name="tags"
-                color={colors.blueSecondary}
-                size={fontSize.xxxxxxxLarge}
-                style={{
-                }}
-              />
-            </TouchableOpacity>
+            {!isReview && isDeepdanbooru?
+              <TouchableOpacity
+                onPress={onTagPress}
+              >
+                <FontIcon
+                  name="tags"
+                  color={colors.blueSecondary}
+                  size={fontSize.xxxxxxxLarge}
+                  style={{
+                  }}
+                />
+              </TouchableOpacity>
+              :null
+            }
           </View>
         </View>
         :null
