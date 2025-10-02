@@ -47,28 +47,26 @@ const generateChatMessage = async({messages}) => {
       const base64strings = await FileSystem.readAsStringAsync(manipResult.uri, {
         encoding: FileSystem.EncodingType.Base64
       })
-      const requestData = {
-        contents: [
-          {
+      const {data} = await axios.post(
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent',
+        {
+          contents: [{
             parts: [
-              { text: text },
               {
                 inline_data: {
-                  mime_type: 'image/png',
-                  data: base64strings,
-                },
+                  mime_type: "image/png",
+                  data: base64strings
+                }
               },
-            ],
-          },
-        ],
-      };
-      const {data} = await axios.post(
-        `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${palmKey}`,
-        requestData,
+              { text: text }
+            ]
+          }]
+        },
         {
           headers: {
-            'Content-Type': 'application/json',
-          },
+            'x-goog-api-key': palmKey,
+            'Content-Type': 'application/json'
+          }
         }
       );
       if(data && data.candidates && data.candidates[0] && data.candidates[0].content.parts[0].text) {
