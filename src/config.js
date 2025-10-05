@@ -1,6 +1,6 @@
 import { googleSheetKey } from "./openaiKeys"
 
-const versionName = '1.0.72.2'
+const versionName = '1.0.72.4'
 const iosBuildNumber = '83'
 const androidVersionCode = '90'
 const isDevMode = false
@@ -34,6 +34,20 @@ const zeroGPUUrls = [
   'https://mygpt-image-api-4-omc3n2et7a-uc.a.run.app',
   'https://mygpt-image-api-5-omc3n2et7a-uc.a.run.app',
   'https://mygpt-image-api-6-omc3n2et7a-uc.a.run.app',
+  'https://mygpt-image-api-7-1024868641007.asia-northeast2.run.app',
+  'https://mygpt-image-api-8-1024868641007.asia-northeast3.run.app',
+  'https://mygpt-image-api-9-1024868641007.asia-northeast1.run.app',
+  'https://mygpt-image-api-10-1024868641007.asia-northeast2.run.app',
+  'https://mygpt-image-api-11-1024868641007.asia-northeast3.run.app',
+  'https://mygpt-image-api-12-1024868641007.asia-northeast1.run.app',
+  'https://mygpt-image-api-13-1024868641007.asia-east1.run.app',
+  'https://mygpt-image-api-14-1024868641007.asia-east2.run.app',
+  'https://mygpt-image-api-15-1024868641007.asia-northeast1.run.app',
+  'https://mygpt-image-api-16-1024868641007.asia-northeast2.run.app',
+  'https://mygpt-image-api-17-1024868641007.asia-northeast3.run.app',
+  'https://mygpt-image-api-18-1024868641007.asia-east1.run.app',
+  'https://mygpt-image-api-19-1024868641007.asia-east2.run.app',
+  'https://mygpt-image-api-20-1024868641007.asia-northeast1.run.app',
 ]
 
 const chupaVoiceBaseUrl = 'https://chupa-api-omc3n2et7a-an.a.run.app'
