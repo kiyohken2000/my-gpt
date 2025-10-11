@@ -6,6 +6,7 @@ import { generateChatMessage, userIds, generateCommandRMessage, userNames, gener
 import { generateSong, invalidTextLength } from '../../utils/songGenerate';
 import moment from 'moment';
 import CustomComposer from './CustomComposer';
+import MarkdownBubble from './MarkdownBubble';
 import SendButton from './SendButton';
 import ImageButton from './ImageButton';
 import DonateButton from './DonateButton';
@@ -589,6 +590,7 @@ export default function Chat() {
             name: userNames.user
           }}
           renderAvatar={null}
+          renderBubble={(props) => <MarkdownBubble {...props} />}
           //isTyping={creatingContentIDs.length?true:false}
           renderSend={renderSend}
           renderComposer={(props) => <CustomComposer {...props} />}
