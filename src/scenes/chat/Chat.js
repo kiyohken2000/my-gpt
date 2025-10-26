@@ -222,11 +222,11 @@ export default function Chat() {
       headerLeft: () => (
         <View style={{flexDirection: 'row'}}>
           {/*
+          */}
           <HeaderLeftButton
             isThirdPerson={isThirdPerson}
             setIsThirdPerson={setIsThirdPerson}
           />
-          */}
           <DrawButton
             isImageMode={isImageMode}
             setIsImageMode={setIsImageMode}

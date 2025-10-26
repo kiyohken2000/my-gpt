@@ -160,14 +160,13 @@ const generateCommandRMessage = async({input, messages}) => {
     const chat_history = formatChatHistory({messages: _messages})
     const url = 'https://api.cohere.ai/v1/chat';
     const headers = {
-      'accept': 'application/json',
       'content-type': 'application/json',
       'Authorization': `bearer ${CO_API_KEY}`
     };
     const body = {
-      "chat_history": chat_history,
-      "message": `「${input}」についてのあなたの見解を日本語で答えて`,
-      "connectors": [{"id": "web-search"}]
+      message: `「${input}」についてのあなたの見解を日本語で答えて`,
+      stream: false,
+      model: 'command-a-03-2025'
     };
 
     const { data } = await axios.post(url, body, { headers });
