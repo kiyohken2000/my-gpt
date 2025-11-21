@@ -16,6 +16,7 @@ export const UserContextProvider = (props) => {
   const [userMemo, setUserMemo] = useState('')
   const [noAdWord, setNoAdWord] = useState('')
   const [isDeepdanbooru, setIsDeepdanbooru] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(false)
 
   const getReviewStatus = async() => {
     try {
@@ -49,6 +50,20 @@ export const UserContextProvider = (props) => {
     }
   }
 
+  const loadDarkModeSettings = async() => {
+    try {
+      const res = await storage.load({key: 'isDarkMode'})
+      setIsDarkMode(res)
+    } catch(e) {
+      console.log(e)
+    }
+  }
+
+  const saveDarkModeSettings = async({val}) => {
+    await storage.save({key: 'isDarkMode', data: val})
+    setIsDarkMode(val)
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -60,8 +75,10 @@ export const UserContextProvider = (props) => {
         isSongEnable, setIsSongEnalbe,
         isVideoEnable, setIsVideoEnable,
         isDeepdanbooru, setIsDeepdanbooru,
+        isDarkMode, setIsDarkMode,
         getReviewStatus,
         loadMemo,
+        loadDarkModeSettings, saveDarkModeSettings,
       }}
     >
       {props.children}

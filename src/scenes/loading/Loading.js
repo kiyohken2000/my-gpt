@@ -9,7 +9,7 @@ import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency';
 
 export default function Loading() {
   const dispatch = useDispatch()
-  const { setUser, getReviewStatus, loadMemo } = useContext(UserContext)
+  const { setUser, getReviewStatus, loadMemo, loadDarkModeSettings } = useContext(UserContext)
 
   useEffect(() => {
     initialize()
@@ -18,6 +18,7 @@ export default function Loading() {
   const initialize = async() => {
     await getReviewStatus()
     await loadMemo()
+    await loadDarkModeSettings()
     const { status } = await requestTrackingPermissionsAsync();
     const user = {
       id: 'user-1234567',

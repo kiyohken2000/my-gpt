@@ -8,6 +8,7 @@ import RenderVersion from "./RenderVersion";
 import Donation from "./Donation";
 import MyAdmob from "../../components/MyAdmob";
 import MemoView from "./MemoView";
+import DarkModeSetting from "./DarkModeSetting";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default function Donate() {
@@ -21,6 +22,7 @@ export default function Donate() {
           <Donation/>
         </View>
         <MemoView/>
+        <DarkModeSetting />
         <View style={styles.adContainer}>
           <MyAdmob/>
         </View>
