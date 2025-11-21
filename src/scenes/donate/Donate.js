@@ -22,7 +22,9 @@ export default function Donate() {
           <Donation/>
         </View>
         <MemoView/>
+        {/*
         <DarkModeSetting />
+        */}
         <View style={styles.adContainer}>
           <MyAdmob/>
         </View>
