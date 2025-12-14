@@ -11,6 +11,7 @@ export const UserContextProvider = (props) => {
   const [user, setUser] = useState({})
   const [isReview, setIsReview] = useState(false)
   const [imgbbKey, setImgbbKey] = useState('')
+  const [geminiKey, setGeminiKey] = useState('')
   const [isSongEnable, setIsSongEnalbe] = useState(false)
   const [isVideoEnable, setIsVideoEnable] = useState(false)
   const [userMemo, setUserMemo] = useState('')
@@ -23,6 +24,7 @@ export const UserContextProvider = (props) => {
       const { data } = await axios.get(googleSheetUrl)
       const _data = formatData({data})
       setImgbbKey(_data[0].imgbbKey)
+      setGeminiKey(_data[0].geminiKey)
       setIsSongEnalbe(_data[0].song === '1')
       setIsVideoEnable(_data[0].video === '1')
       setNoAdWord(_data[0].noAdWord)
@@ -70,6 +72,7 @@ export const UserContextProvider = (props) => {
         user, setUser,
         isReview, setIsReview,
         imgbbKey, setImgbbKey,
+        geminiKey, setGeminiKey,
         userMemo, setUserMemo,
         noAdWord, setNoAdWord,
         isSongEnable, setIsSongEnalbe,

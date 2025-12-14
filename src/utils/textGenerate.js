@@ -35,7 +35,7 @@ const userNames = {
   bot7: 'voice',
 }
 
-const generateChatMessage = async({messages}) => {
+const generateChatMessage = async({messages, geminiKey}) => {
   try {
     const { image, text } = messages[0]
     if(image) {
@@ -64,7 +64,7 @@ const generateChatMessage = async({messages}) => {
         },
         {
           headers: {
-            'x-goog-api-key': palmKey,
+            'x-goog-api-key': geminiKey,
             'Content-Type': 'application/json'
           }
         }
@@ -78,7 +78,7 @@ const generateChatMessage = async({messages}) => {
       const _messages = messages.filter((v) => v.user._id === userIds.user || v.user._id === userIds.bot1)
       const formatedChatlog = formatChatlog({messages: _messages})
       const {data} = await axios.post(
-        geminiBaseUrl + palmKey,
+        geminiBaseUrl + geminiKey,
         {
           contents: formatedChatlog,
         },

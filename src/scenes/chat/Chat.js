@@ -37,7 +37,7 @@ const isAndroid = Platform.OS === 'android'
 
 export default function Chat() {
   const navigation = useNavigation()
-  const { imgbbKey, isSongEnable } = useContext(UserContext)
+  const { imgbbKey, isSongEnable, geminiKey } = useContext(UserContext)
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ['1%', '95%'], []);
   const [sheetPosition, setSheetPosition] = useState(0)
@@ -288,7 +288,7 @@ export default function Chat() {
         if(user._id === userIds.user && !isImageMode && !isSongMode && !isVoiceMode) {
           const timestamp = `${moment().valueOf()}`
           setCreatingContentIDs(prev => [...prev, timestamp])
-          const reply = await generateChatMessage({messages})
+          const reply = await generateChatMessage({messages, geminiKey})
           const botMessage = {
             _id: timestamp,
             createdAt: new Date(),
