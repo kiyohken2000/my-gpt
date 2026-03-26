@@ -23,7 +23,7 @@ const imageModelData = {
     negativePromptKey: 'negativePromptPony',
     url: 'https://api-inference.huggingface.co/models/votepurchase/ponyDiffusionV6XL',
     modelName: 'votepurchase/votepurchase-ponyDiffusionV6XL',
-    enable: true,
+    enable: false,
     recommendNegativePrompt: 'low quality , bad anatomy, bad proportions, extra legs, deformed anatomy, messy color, deformed fingers, bad, distracted, hyperrealistic,source_furry, source_pony, source_cartoon',
   },
   PVC: {
@@ -140,7 +140,7 @@ const imageModelData = {
     negativePromptKey: 'negativePromptWaiREALMIX',
     url: 'https://api-inference.huggingface.co/models/votepurchase/waiREALMIX_v70',
     modelName: 'votepurchase/votepurchase-waiREALMIX_v70',
-    enable: true,
+    enable: false,
     recommendNegativePrompt: 'score_6,score_5,score_4, worst quality, low quality, bad anatomy, bad hands, missing fingers, fewer digits, source_furry, source_pony, source_cartoon,3d, blurry,',
   },
   AnythingXL: {
@@ -149,7 +149,7 @@ const imageModelData = {
     negativePromptKey: 'negativePromptAnythingXL',
     url: 'https://api-inference.huggingface.co/models/votepurchase/AnythingXL_xl',
     modelName: 'votepurchase/votepurchase-AnythingXL_xl',
-    enable: true,
+    enable: false,
     recommendNegativePrompt: 'nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, artist name',
   },
   waiREALCN: {
@@ -302,7 +302,7 @@ const imageModelData = {
     negativePromptKey: 'negativePromptPVCMovable',
     url: 'https://api-inference.huggingface.co/models/votepurchase/PVCStyleModelMovable_pony151',
     modelName: 'votepurchase/votepurchase-PVCStyleModelMovable_pony151',
-    enable: true,
+    enable: false,
     recommendNegativePrompt: 'engrish text,low quality,worstquality,shiny_skin,score_4,score_3,score_2,score_1,ugly,bad feet,bad hands,',
   },
   PVCRealistic: {
@@ -355,8 +355,8 @@ const imageModelData = {
     sequence: 40,
     negativePromptKey: 'negativePromptNovaAnimeXL',
     url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
-    modelName: 'retwpay/retwpay-novaAnimeXL_ilV40HappyValentine',
-    enable: false,
+    modelName: 'votepurchase/novaAnimeXL_ilV70',
+    enable: true,
     recommendNegativePrompt: 'modern, recent, old, oldest, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), bad anatomy, sketch, jpeg artifacts, signature, watermark, username, signature, simple background, conjoined,bad ai-generated',
   },
   WaiNSFWIllustrious: {
@@ -364,8 +364,8 @@ const imageModelData = {
     sequence: 41,
     negativePromptKey: 'negativePromptWaiNSFWIllustrious',
     url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
-    modelName: 'retwpay/waiNSFWIllustrious_v110',
-    enable: false,
+    modelName: 'votepurchase/waiIllustriousSDXL_v150',
+    enable: true,
     recommendNegativePrompt: 'bad quality,worst quality,worst detail,sketch,censor',
   },
   ShiitakeMix: {
@@ -373,8 +373,8 @@ const imageModelData = {
     sequence: 42,
     negativePromptKey: 'negativePromptShiitakeMix',
     url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
-    modelName: 'retwpay/shiitakeMix_v10',
-    enable: false,
+    modelName: 'votepurchase/shiitakeMix_v20',
+    enable: true,
     recommendNegativePrompt: '(bad quality,worst quality,low quality,bad anatomy,bad hand:1.3), nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, artist name,',
   },
   Noobreal: {
@@ -391,8 +391,8 @@ const imageModelData = {
     sequence: 44,
     negativePromptKey: 'negativePromptMatureRitual',
     url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
-    modelName: 'retwpay/MatureRitual_v04',
-    enable: false,
+    modelName: 'votepurchase/matureRitual_v20beta',
+    enable: true,
     recommendNegativePrompt: 'bad quality,worst quality,worst detail,sketch,censor',
   },
   Redcraft: {
@@ -418,8 +418,8 @@ const imageModelData = {
     sequence: 47,
     negativePromptKey: 'negativePromptPornMasterPro',
     url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
-    modelName: 'retwpay/pornmasterPro_noobV3VAE',
-    enable: false,
+    modelName: 'votepurchase/pornmasterPro_noobV3VAE',
+    enable: true,
     recommendNegativePrompt: 'lowres, worst aesthetic, bad quality, worst quality, bad anatomy, jpeg artifacts, scan artifacts, lossy-lossless, unfinished, ugly, poorly drawn, greyscale, (illustration, 2d, 2.5D, 3d, painting \(medium\), toon \(style\), sketch, comic, anime,flat color,outline,smooth skin:1.2) watermark, text, extra digits',
   },
 }
