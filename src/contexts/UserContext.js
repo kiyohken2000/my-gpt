@@ -9,7 +9,7 @@ export const UserContext = createContext();
 
 export const UserContextProvider = (props) => {
   const [user, setUser] = useState({})
-  const [isReview, setIsReview] = useState(false)
+  const [isReview, setIsReview] = useState(true)
   const [imgbbKey, setImgbbKey] = useState('')
   const [geminiKey, setGeminiKey] = useState('')
   const [isSongEnable, setIsSongEnalbe] = useState(false)
@@ -37,6 +37,7 @@ export const UserContextProvider = (props) => {
         setIsReview(true)
       } else {
         console.log('レビュー中ではない')
+        setIsReview(false)
       }
     } catch(e) {
       console.log('get review status error', e)
