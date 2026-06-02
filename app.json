@@ -92,7 +92,7 @@
     },
     "android": {
       "package": "net.votepurchase.mygpt",
-      "versionCode": 96,
+      "versionCode": 97,
       "userInterfaceStyle": "automatic",
       "permissions": [
         "VIBRATE",

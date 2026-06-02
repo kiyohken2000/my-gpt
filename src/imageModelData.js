@@ -414,7 +414,7 @@ const imageModelData = {
     recommendNegativePrompt: 'human, multiple tails, modern, recent, old, oldest, graphic, cartoon, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra digits, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), bad anatomy, sketch, jpeg artifacts, signature, watermark, username, simple background, conjoined, bad ai-generated',
   },
   PornMasterPro: {
-    label: 'PornMasterPro',
+    label: 'PMP',
     sequence: 47,
     negativePromptKey: 'negativePromptPornMasterPro',
     url: 'https://api-inference.huggingface.co/models/votepurchase/juggernautXL_hyper_8step_sfw',
