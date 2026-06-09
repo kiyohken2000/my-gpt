@@ -32,7 +32,7 @@ export const UserContextProvider = (props) => {
       if(_data[0].nowReview === iosBuildNumber && Platform.OS === 'ios') {
         console.log('ios レビュー中')
         setIsReview(true)
-      } else if(_data[0].androidVersionCode === androidVersionCode && Platform.OS ==='android') {
+      } else if(_data[0].androidVersionCode === androidVersionCode_1 && Platform.OS ==='android') {
         console.log('android レビュー中')
         setIsReview(true)
       } else {
