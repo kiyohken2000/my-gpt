@@ -511,7 +511,7 @@ const loadNegativePromptOfModel = async({key}) => {
     const res = await storage.load({key})
     return res
   } catch(e) {
-    console.log('load negative prompt error key:', key)
+    //console.log('load negative prompt error key:', key)
     return ''
   }
 }
