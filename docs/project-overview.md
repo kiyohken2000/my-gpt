@@ -21,7 +21,7 @@
 - React `19.3.0` / React Native `0.88.1`（New Architecture のみ）
 - React Navigation v7（stack / drawer / bottom-tabs）
 - Redux Toolkit 2 / React Redux 9
-- `react-native-gifted-chat` 3.x によるチャット UI（3.x は maintenance mode。後継は `@kesha-antonov/react-native-chat`）
+- `react-native-gifted-chat` 2.8.1 によるチャット UI（3.x では KeyboardAvoidingView のオフセットが `insets.top` 固定になり、ヘッダー + 広告バナーの下にあるこの画面では入力欄がキーボードに隠れたため 2.8.1 に固定。3.x は maintenance mode で、後継は `@kesha-antonov/react-native-chat`）
 - RevenueCat `react-native-purchases` 10.x による寄付課金（11.x は RevenueCat が「Expo アプリは 10.x に留まる」よう案内しているため据え置き）
 - Google Mobile Ads / AdMob（`react-native-google-mobile-ads` 17.x、Expo config plugin で設定）
 - Firebase Firestore（`firebase` 12.x。13.x は Node >= 24.12 が必要なため据え置き）
@@ -214,7 +214,9 @@ AdMob は `src/contexts/AdContext.js` と `src/components/MyAdmob.js` が担当�
 
 - `expo-media-library` はルート import が新しいオブジェクト指向 API になり、旧 `saveToLibraryAsync` 等は実行時に throw します。本アプリは `expo-media-library/legacy` から import しています。
 - `expo-file-system` も旧 API は `expo-file-system/legacy` から import しています。
-- gifted-chat 3 では `placeholder` / `maxInputLength` は `textInputProps` に、`keyboardShouldPersistTaps` は `listProps` に移動し、`alwaysShowSend` → `isSendButtonAlwaysVisible`、`onPress` / `onLongPress` → `onPressMessage` / `onLongPressMessage` に変わりました。`renderComposer` に渡る props は `{ text, textInputProps }` のみです（`CustomComposer.js` 参照）。
+- gifted-chat は 2.8.1 のまま。3.x に上げる場合は props 名の変更（`alwaysShowSend` → `isSendButtonAlwaysVisible`、`placeholder` / `maxInputLength` → `textInputProps`、`onPress` / `onLongPress` → `onPressMessage` / `onLongPressMessage` など）に加え、`keyboardAvoidingViewProps.keyboardVerticalOffset` にチャット領域の画面上の Y 座標を渡す必要がある（未検証）。2.8.1 は react-native-gesture-handler を import しないので RNGH 3 でも動作する。
+- Android の development ビルドは 4 ABI 同時の C++ ビルドで EAS の Gradle デーモンがメモリ不足で落ちたため、`eas.json` の development プロファイルで `ORG_GRADLE_PROJECT_reactNativeArchitectures=arm64-v8a` に絞っている。Android は全プロファイルで `resourceClass: "large"`（8 vCPU / 32 GB、Gradle ヒープ 8 GB、料金は medium の 2 倍、Free プラン不可）を指定している。
+- dev client 確認時に `CI=1 npx expo start` を使うとファイル監視が無効になり、編集が反映されない。
 - AdMob は `Loading.js` で ATT の結果を待ってから `mobileAds().initialize()` を明示的に呼んでいます。
 - `runtimeVersion` は `appVersion` ポリシーです。ネイティブ依存が変わったので、新しいバイナリは必ず `version` を上げてからビルドしてください。同じバージョンのまま `eas update` すると、SDK 54 の既存バイナリに SDK 58 の JS が配信されてクラッシュします。
 - `yarn.lock` を段階的に更新すると yarn classic のホイスティングが崩れて Babel が `_lruCache is not a constructor` で落ちることがあります。その場合は `rm -rf node_modules && yarn install`。

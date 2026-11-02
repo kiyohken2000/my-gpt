@@ -9,14 +9,26 @@
       "channel": "development",
       "ios": {
         "simulator": true
+      },
+      "android": {
+        "resourceClass": "large",
+        "env": {
+          "ORG_GRADLE_PROJECT_reactNativeArchitectures": "arm64-v8a"
+        }
       }
     },
     "preview": {
       "distribution": "internal",
-      "channel": "internal"
+      "channel": "internal",
+      "android": {
+        "resourceClass": "large"
+      }
     },
     "production": {
-      "channel": "production"
+      "channel": "production",
+      "android": {
+        "resourceClass": "large"
+      }
     }
   },
   "submit": {

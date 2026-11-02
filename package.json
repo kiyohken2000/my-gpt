@@ -3,8 +3,8 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "npx expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "lint": "eslint src/",
     "test": "jest --passWithNoTests",
@@ -47,7 +47,7 @@
     "react-dom": "19.3.0",
     "react-native": "0.88.1",
     "react-native-gesture-handler": "~3.3.0",
-    "react-native-gifted-chat": "3.4.0",
+    "react-native-gifted-chat": "2.8.1",
     "react-native-google-mobile-ads": "17.4.0",
     "react-native-image-viewing": "^0.2.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
@@ -93,5 +93,7 @@
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|@react-native(-community)?|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|react-native-svg|@reduxjs/toolkit|immer|redux|reselect))"
     ]
-  }
+  },
+  "name": "my-gpt",
+  "version": "1.0.0"
 }

@@ -2,15 +2,18 @@ import React from 'react';
 import { Platform, StyleSheet, TextInput } from 'react-native';
 
 const CustomComposer = (props) => {
-  // gifted-chat v3: Composer に渡るのは { text, textInputProps } のみ。
-  // onChangeText / placeholder / maxLength は textInputProps に含まれる。
-  const { text = '', textInputProps = {} } = props;
   const {
     placeholder = 'Type a message...',
     placeholderTextColor = '#b2b2b2',
-    style: textInputStyle,
-    ...restTextInputProps
-  } = textInputProps;
+    multiline = true,
+    textInputAutoFocus = false,
+    keyboardAppearance = 'default',
+    text = '',
+    onTextChanged,
+    textInputProps,
+    textInputStyle,
+    disableComposer = false,
+  } = props;
 
   return (
     <TextInput
@@ -19,7 +22,9 @@ const CustomComposer = (props) => {
       accessibilityLabel={placeholder}
       placeholder={placeholder}
       placeholderTextColor={placeholderTextColor}
-      multiline
+      multiline={multiline}
+      editable={!disableComposer}
+      onChangeText={onTextChanged}
       style={[
         styles.textInput,
         textInputStyle,
@@ -38,11 +43,12 @@ const CustomComposer = (props) => {
           }),
         },
       ]}
+      autoFocus={textInputAutoFocus}
       value={text}
       enablesReturnKeyAutomatically
       underlineColorAndroid="transparent"
-      keyboardAppearance="default"
-      {...restTextInputProps}
+      keyboardAppearance={keyboardAppearance}
+      {...textInputProps}
     />
   );
 };
