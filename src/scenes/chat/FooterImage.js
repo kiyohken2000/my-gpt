@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { View, TouchableOpacity, Image, Dimensions, StyleSheet } from "react-native";
 import { colors, fontSize } from "../../theme";
-import FontIcon from 'react-native-vector-icons/FontAwesome'
+import FontIcon from '@expo/vector-icons/FontAwesome'
 import { TypingAnimation } from 'react-native-typing-animation';
 import { UserContext } from "../../contexts/UserContext";
 

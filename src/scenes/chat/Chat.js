@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef, useMemo, useContext } from 'react'
 import { View, StyleSheet, Platform } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
-import { GiftedChat, Send, Composer, InputToolbar } from 'react-native-gifted-chat'
+import { GiftedChat, Send } from 'react-native-gifted-chat'
 import { generateChatMessage, userIds, generateCommandRMessage, userNames, generateImage, loadNegativePrompt, generateTags, generateImageFromZeroGPU } from '../../utils/textGenerate';
 import { generateSong, invalidTextLength } from '../../utils/songGenerate';
 import moment from 'moment';
@@ -596,15 +596,17 @@ export default function Chat() {
           //isTyping={creatingContentIDs.length?true:false}
           renderSend={renderSend}
           renderComposer={(props) => <CustomComposer {...props} />}
-          alwaysShowSend={true}
+          isSendButtonAlwaysVisible={true}
           renderFooter={renderChatFooter}
-          placeholder={messages.length?'メッセージを入力':'お気軽にご質問ください'}
-          keyboardShouldPersistTaps='never'
-          maxInputLength={calculateMessageMaxLength({isImageMode, isVoiceMode})}
-          onPress={(context, message) => onMessagePress({message})}
+          textInputProps={{
+            placeholder: messages.length?'メッセージを入力':'お気軽にご質問ください',
+            maxLength: calculateMessageMaxLength({isImageMode, isVoiceMode}),
+          }}
+          listProps={{ keyboardShouldPersistTaps: 'never' }}
+          onPressMessage={(context, message) => onMessagePress({message})}
           renderMessageImage={renderMessageImage}
           renderMessageVideo={(props) => <VideoMessage {...props} />}
-          onLongPress={onLongPress}
+          onLongPressMessage={onLongPress}
         />
         </BlurBox>
       </View>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Dimensions, TouchableOpacity } from "react-native";
 import { colors, fontSize } from "../../../theme";
-import FontIcon from 'react-native-vector-icons/Feather'
+import FontIcon from '@expo/vector-icons/Feather'
 import FloatingActionButton from "../../../components/FloatingActionButton";
 
 const { height, width } = Dimensions.get('screen')

@@ -2,19 +2,13 @@
   "expo": {
     "name": "ガチ有能AI助手",
     "slug": "my-gpt",
-    "privacy": "public",
     "platforms": [
       "ios",
       "android"
     ],
-    "version": "1.0.80",
+    "version": "1.0.81",
     "orientation": "portrait",
     "icon": "./assets/images/logo-sm.png",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "updates": {
       "enabled": true,
       "fallbackToCacheTimeout": 10000,
@@ -27,7 +21,7 @@
       "supportsTablet": false,
       "icon": "./assets/images/gachiai.icon",
       "bundleIdentifier": "net.votepurchase.mygpt",
-      "buildNumber": "91",
+      "buildNumber": "92",
       "infoPlist": {
         "NSMicrophoneUsageDescription": "チャットに投稿するためにマイクを使用します",
         "NSCameraUsageDescription": "チャットに画像を投稿するためにカメラを使用します",
@@ -92,7 +86,7 @@
     },
     "android": {
       "package": "net.votepurchase.mygpt",
-      "versionCode": 100,
+      "versionCode": 101,
       "userInterfaceStyle": "automatic",
       "permissions": [
         "VIBRATE",
@@ -102,16 +96,6 @@
         "WRITE_EXTERNAL_STORAGE",
         "com.android.vending.BILLING",
         "com.google.android.gms.permission.AD_ID"
-      ]
-    },
-    "packagerOpts": {
-      "config": "metro.config.js",
-      "sourceExts": [
-        "js",
-        "jsx",
-        "svg",
-        "ts",
-        "tsx"
       ]
     },
     "plugins": [
@@ -131,7 +115,25 @@
           "userTrackingPermission": "許可することで、より関連性の高い広告を表示することができるようになります。"
         }
       ],
-      "expo-video"
+      "expo-video",
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-9747065248920607~8208716671",
+          "iosAppId": "ca-app-pub-9747065248920607~9388747038",
+          "delayAppMeasurementInit": true,
+          "userTrackingUsageDescription": "許可することで、より関連性の高い広告を表示することができるようになります。"
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff",
+          "enableFullScreenImage_legacy": true
+        }
+      ]
     ],
     "runtimeVersion": {
       "policy": "appVersion"
@@ -141,11 +143,5 @@
         "projectId": "88f3c3ca-dc19-43ed-9ff3-7b3821e45b75"
       }
     }
-  },
-  "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-9747065248920607~8208716671",
-    "ios_app_id": "ca-app-pub-9747065248920607~9388747038",
-    "delay_app_measurement_init": true,
-    "user_tracking_usage_description": "許可することで、より関連性の高い広告を表示することができるようになります。"
   }
 }

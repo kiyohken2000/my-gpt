@@ -1,6 +1,6 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, ActivityIndicator, Dimensions } from "react-native";
-import FontIcon from 'react-native-vector-icons/Feather'
+import FontIcon from '@expo/vector-icons/Feather'
 
 const { width } = Dimensions.get('window')
 

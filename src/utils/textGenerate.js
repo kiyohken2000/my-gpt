@@ -9,9 +9,13 @@ import { myEndpoints, headers, zeroGPUUrls, zeroGPUUrl } from "../config";
 import { imageModelData } from "../imageModelData";
 
 const errorMessage = 'すみません。よくわかりませんでした'
-const geminiBaseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='
-// const geminiBaseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='
-// const geminiBaseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key='
+// コスト重視で Flash-Lite を使用。品質重視なら 'gemini-3.8-flash' に変更する
+const geminiModel = 'gemini-3.5-flash-lite'
+const geminiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent`
+const geminiHeaders = (geminiKey) => ({
+  'x-goog-api-key': geminiKey,
+  'Content-Type': 'application/json',
+})
 
 const userIds = {
   user: 1,
@@ -48,7 +52,7 @@ const generateChatMessage = async({messages, geminiKey}) => {
         encoding: FileSystem.EncodingType.Base64
       })
       const {data} = await axios.post(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent',
+        geminiEndpoint,
         {
           contents: [{
             parts: [
@@ -62,12 +66,7 @@ const generateChatMessage = async({messages, geminiKey}) => {
             ]
           }]
         },
-        {
-          headers: {
-            'x-goog-api-key': geminiKey,
-            'Content-Type': 'application/json'
-          }
-        }
+        { headers: geminiHeaders(geminiKey) }
       );
       if(data && data.candidates && data.candidates[0] && data.candidates[0].content.parts[0].text) {
         return data.candidates[0].content.parts[0].text
@@ -78,15 +77,11 @@ const generateChatMessage = async({messages, geminiKey}) => {
       const _messages = messages.filter((v) => v.user._id === userIds.user || v.user._id === userIds.bot1)
       const formatedChatlog = formatChatlog({messages: _messages})
       const {data} = await axios.post(
-        geminiBaseUrl + geminiKey,
+        geminiEndpoint,
         {
           contents: formatedChatlog,
         },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
+        { headers: geminiHeaders(geminiKey) }
       );
       if(data && data.candidates && data.candidates[0] && data.candidates[0].content.parts[0].text) {
         return data.candidates[0].content.parts[0].text

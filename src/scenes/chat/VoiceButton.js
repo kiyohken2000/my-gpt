@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import FontIcon from 'react-native-vector-icons/AntDesign';
+import FontIcon from '@expo/vector-icons/AntDesign';
 import { 
   Menu, 
   MenuOptions, 

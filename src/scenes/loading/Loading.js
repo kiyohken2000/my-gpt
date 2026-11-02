@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { UserContext } from '../../contexts/UserContext';
 import { fontSize } from 'theme'
 import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency';
+import mobileAds from 'react-native-google-mobile-ads';
 
 export default function Loading() {
   const dispatch = useDispatch()
@@ -20,6 +21,8 @@ export default function Loading() {
     await loadMemo()
     await loadDarkModeSettings()
     const { status } = await requestTrackingPermissionsAsync();
+    // ATT の結果が出てから広告 SDK を初期化する（v17 以降は JS からの initialize() が推奨）
+    mobileAds().initialize().catch((e) => console.log('mobileAds initialize error', e))
     const user = {
       id: 'user-1234567',
       userName: 'abcdef'

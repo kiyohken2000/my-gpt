@@ -1,6 +1,6 @@
 # プロジェクト概要
 
-最終更新: 2026-05-07
+最終更新: 2026-11-02（HEAD: 13f6b88 / アプリ版 1.0.80, iOS build 91, Android versionCode 100）
 
 ## 目的
 
@@ -17,15 +17,15 @@
 
 ## 技術スタック
 
-- Expo `54.0.8`
-- React `19.1.0`
-- React Native `0.81.4`
-- React Navigation v7
-- Redux Toolkit / React Redux
-- `react-native-gifted-chat` によるチャット UI
-- RevenueCat `react-native-purchases` による寄付課金
-- Google Mobile Ads / AdMob
-- Firebase Firestore
+- Expo SDK `58`（`expo@^58.0.22`。SDK 58 から expo-* パッケージのバージョンも `58.x` に統一）
+- React `19.3.0` / React Native `0.88.1`（New Architecture のみ）
+- React Navigation v7（stack / drawer / bottom-tabs）
+- Redux Toolkit 2 / React Redux 9
+- `react-native-gifted-chat` 3.x によるチャット UI（3.x は maintenance mode。後継は `@kesha-antonov/react-native-chat`）
+- RevenueCat `react-native-purchases` 10.x による寄付課金（11.x は RevenueCat が「Expo アプリは 10.x に留まる」よう案内しているため据え置き）
+- Google Mobile Ads / AdMob（`react-native-google-mobile-ads` 17.x、Expo config plugin で設定）
+- Firebase Firestore（`firebase` 12.x。13.x は Node >= 24.12 が必要なため据え置き）
+- アイコンは `@expo/vector-icons`（`react-native-vector-icons` から移行済み）
 - AsyncStorage + `react-native-storage`
 - EAS Build / EAS Update
 
@@ -38,9 +38,12 @@ yarn start
 yarn ios
 yarn android
 yarn web
-yarn lint
-yarn test
+yarn lint       # ESLint 9 flat config (eslint.config.js: eslint-config-expo + prettier)
+yarn lint:fix
+yarn test       # jest-expo + jest 30
 ```
+
+`npx expo-doctor` は 2026-11-02 時点で 20/20 パスします。依存を足すときは SDK 管理パッケージなら `npx expo install <pkg>` を使ってください（`react-native-purchases` のように SDK 管理外のものは `expo install` が最新メジャーを入れてしまうので、バージョンを明示する）。
 
 EAS は `eas.json` で `development` / `preview` / `production` の 3 プロファイルを定義しています。OTA 更新は `development` / `internal` / `production` チャンネルを使います。
 
@@ -85,11 +88,11 @@ App.js
 
 主要な連携先は以下です。
 
-- Gemini: `src/utils/textGenerate.js` の `generateChatMessage()`
-- Cohere: `src/utils/textGenerate.js` の `generateCommandRMessage()`
+- Gemini (`gemini-3.5-flash-lite`、コスト重視。品質重視なら `gemini-3.8-flash`): `src/utils/textGenerate.js` の `generateChatMessage()`。モデル名は同ファイル冒頭の `geminiModel` 定数に集約。キーは Google Sheet の `geminiKey` で、`x-goog-api-key` ヘッダーで送る
+- Cohere (`command-a-03-2025`): `src/utils/textGenerate.js` の `generateCommandRMessage()`
 - Hugging Face Inference API: `src/utils/textGenerate.js` の `generateImage()`。現在のメイン経路ではなく、ZeroGPU 経路が使われています。
-- Cloud Run 画像生成 API: `src/utils/textGenerate.js` の `generateImageFromZeroGPU()` と `src/config.js` の `zeroGPUUrls`
-- Vidu: `src/utils/videoFunctions.js` の `createVideo()`
+- Cloud Run 画像生成 API: `src/utils/textGenerate.js` の `generateImageFromZeroGPU()` と `src/config.js` の `zeroGPUUrls`。20 個のエンドポイントからリクエスト毎にランダムに 1 つ選びます（負荷分散）。モデルは `imageModelData` の `modelName` で指定します。
+- Vidu (`vidu2.0`, img2video 720p): `src/utils/videoFunctions.js` の `createVideo()`。画像を Imgur に上げてから渡し、`getVideo()` でポーリング（最大 30 回 × 20 秒）。`createVideo_old` / `getVideo_old` は旧 Novita AI 経路で未使用です。
 - Imgur: `src/utils/uploadFunctions.js` の `uploadImgur()` / `uploadImageImgur()`
 - imgbb: `src/utils/uploadFunctions.js` の `uploadFunction()`
 - song API: `src/utils/songGenerate.js`
@@ -110,13 +113,16 @@ App.js
 - `video`: 動画生成機能の有効化
 - `deepdanbooru`: タグ生成機能の有効化
 - `noAdWord`: ユーザーメモと一致した場合に画像閲覧時広告をスキップ
-- `nowReview` / `androidVersionCode`: App Store / Google Play 審査中の機能制限
+- `nowReview`: iOS 審査中の build number。`src/config.js` の `iosBuildNumber` と一致すると審査中扱い
+- `androidVersionCode_1`: Android 審査中の versionCode。`src/config.js` の `androidVersionCode` と一致すると審査中扱い（2026-06 に列名が `androidVersionCode` から変更されました）
 
 `isReview` が `true` のとき、画像生成モデル一覧や設定画面、音声/タグなど一部機能が制限されます。
 
+`isReview` の初期値は `true` です（2026-06 変更）。Sheet の取得に成功し、どちらの条件にも一致しない場合だけ `false` になります。つまり Sheet 取得失敗時は安全側（審査モード）に倒れます。
+
 ## 画像生成モデル
 
-画像生成モデル定義は `src/imageModelData.js` に集約されています。各モデルは以下の情報を持ちます。
+画像生成モデル定義は `src/imageModelData.js` に集約されています（47 定義、うち `enable: true` は 10 個: ANIMAGINE, waiREALCN🐴, 7thAnimeXLPony🐴, PVCRealistic, JuggernautXL, NovaAnimeXL, WaiNSFWIllustrious, ShiitakeMix, MatureRitual, PMP）。各モデルは以下の情報を持ちます。
 
 - 表示ラベル
 - `sequence`: UI 選択値
@@ -166,21 +172,33 @@ AdMob は `src/contexts/AdContext.js` と `src/components/MyAdmob.js` が担当�
 - `viduKey`
 - `iapKey`
 
-`src/firebase.js` も `.gitignore` に含まれていますが、現在の作業ツリーには存在します。クリーン環境で実行する場合は Firebase 設定ファイルの有無を確認してください。
+2026-11-02 時点の作業ツリーには `src/openaiKeys.js` と `src/firebase.js` が両方存在します（どちらも `.gitignore` 対象）。クリーン環境で実行する場合は Firebase 設定ファイルの有無を確認してください。
 
 ## 設定ファイル
 
-- `app.json`: Expo アプリ名、bundle id / package、バージョン、権限、AdMob App ID、Expo Updates 設定を定義します。
+- `app.json`: Expo アプリ名、bundle id / package、バージョン、権限、Expo Updates 設定を定義します。AdMob App ID は `plugins` の `react-native-google-mobile-ads` エントリ、スプラッシュは `expo-splash-screen` エントリで設定します（旧トップレベルの `react-native-google-mobile-ads` / `splash` / `privacy` / `packagerOpts` キーは SDK 58 のスキーマで不可のため削除済み）。
 - `src/config.js`: アプリ内バージョン、審査判定用 build number / version code、外部 API URL、Cloud Run エンドポイントを定義します。
 - `babel.config.js`: Expo preset、`react-native-worklets/plugin`、`module-resolver` alias を定義します。
 - `metro.config.js`: `.cjs` asset extension を追加します。
-- `.eslintrc.js`: Airbnb ベース。`src` を import resolver path にしています。
+- `eslint.config.js`: ESLint 9 flat config。`eslint-config-expo` + Prettier。ESLint 10 は eslint-config-expo 配下のプラグインが未対応なので 9 系。既存コードは Prettier 未適用のため `yarn lint` は大量の `prettier/prettier` エラーを出します（未整形のまま）。
 
 バージョン更新時は `app.json` と `src/config.js` の値を合わせる必要があります。
 
+## リリース手順（慣例）
+
+1. `app.json` の `version` / `ios.buildNumber` / `android.versionCode` を上げる
+2. `src/config.js` の `versionName` / `iosBuildNumber` / `androidVersionCode` を同じ値に合わせる
+3. `eas build --profile production --platform ios|android`（コマンドは `README.md`）
+4. ストア審査に出す際は Google Sheet の `nowReview` / `androidVersionCode_1` を審査対象の番号にする。審査通過後は別の値に戻して機能制限を解除する
+5. JS のみの修正は `eas update --channel production` で OTA 配信可能（`runtimeVersion` の互換に注意）
+
+コミットメッセージは慣例的に `master` のみで、履歴から変更意図は読み取れません。変更理由はこのドキュメントや PR 説明に残すのが望ましいです。
+
 ## テスト状況
 
-`__tests__/app.test.js` は `App` を renderer で描画する最小テストです。外部 API や主要生成フローのユニットテストはありません。`yarn test` は `jest --passWithNoTests` です。
+`.github/workflows/main.yml` は `sub` ブランチ push 時に Node 12 / `expo publish` を実行する古い設定で、現行の EAS 運用とは合っておらず実質使われていません。`codeql-analysis.yml` もあります。
+
+`__tests__/app.test.js` は Redux ストア / slice のスモークテストです（`react-test-renderer` は React 19 で非推奨のため削除）。外部 API や主要生成フローのユニットテストはありません。RTK 2 の依存（immer 等）は ESM のみなので、`package.json` の `jest.transformIgnorePatterns` に追加しています。
 
 ## 変更時の注意点
 
@@ -191,6 +209,15 @@ AdMob は `src/contexts/AdContext.js` と `src/components/MyAdmob.js` が担当�
 - 外部 API キーの一部は Google Sheet 経由、一部は `src/openaiKeys.js` 経由です。実行できない場合はまずキーとリモート設定を疑ってください。
 - `src/config.js` には Imgur client secret が平文で入っています。公開範囲や運用上の扱いに注意してください。
 - Firebase の `saveFirestore()` は動画生成後の情報保存に使われますが、失敗しても生成フロー自体は止めません。
+
+## SDK 58 アップグレード時の注意（2026-11-02）
+
+- `expo-media-library` はルート import が新しいオブジェクト指向 API になり、旧 `saveToLibraryAsync` 等は実行時に throw します。本アプリは `expo-media-library/legacy` から import しています。
+- `expo-file-system` も旧 API は `expo-file-system/legacy` から import しています。
+- gifted-chat 3 では `placeholder` / `maxInputLength` は `textInputProps` に、`keyboardShouldPersistTaps` は `listProps` に移動し、`alwaysShowSend` → `isSendButtonAlwaysVisible`、`onPress` / `onLongPress` → `onPressMessage` / `onLongPressMessage` に変わりました。`renderComposer` に渡る props は `{ text, textInputProps }` のみです（`CustomComposer.js` 参照）。
+- AdMob は `Loading.js` で ATT の結果を待ってから `mobileAds().initialize()` を明示的に呼んでいます。
+- `runtimeVersion` は `appVersion` ポリシーです。ネイティブ依存が変わったので、新しいバイナリは必ず `version` を上げてからビルドしてください。同じバージョンのまま `eas update` すると、SDK 54 の既存バイナリに SDK 58 の JS が配信されてクラッシュします。
+- `yarn.lock` を段階的に更新すると yarn classic のホイスティングが崩れて Babel が `_lruCache is not a constructor` で落ちることがあります。その場合は `rm -rf node_modules && yarn install`。
 
 ## 既存ドキュメント
 

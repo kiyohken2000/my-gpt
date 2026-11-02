@@ -1,5 +1,5 @@
 import React from "react";
-import FontIcon from 'react-native-vector-icons/FontAwesome'
+import FontIcon from '@expo/vector-icons/FontAwesome'
 import { colors, fontSize } from "../../theme";
 import { TouchableOpacity } from "react-native";
 

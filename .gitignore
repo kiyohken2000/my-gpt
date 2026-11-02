@@ -14,3 +14,4 @@ web-report/
 dist
 openaiKeys.js
 firebase.js
+.expo/

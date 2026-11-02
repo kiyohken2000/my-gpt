@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
-import FontIcon from 'react-native-vector-icons/Feather';
+import FontIcon from '@expo/vector-icons/Feather';
 import { 
   Menu, 
   MenuOptions, 

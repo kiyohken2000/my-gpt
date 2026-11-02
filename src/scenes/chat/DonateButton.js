@@ -1,6 +1,6 @@
 import React from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
-import FontIcon from 'react-native-vector-icons/Ionicons'
+import FontIcon from '@expo/vector-icons/Ionicons'
 import { colors, fontSize } from "../../theme";
 import { useNavigation } from "@react-navigation/native";
 

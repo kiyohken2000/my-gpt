@@ -1,6 +1,6 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import FontIcon from 'react-native-vector-icons/MaterialCommunityIcons'
+import FontIcon from '@expo/vector-icons/MaterialCommunityIcons'
 import { colors, fontSize } from "../../../theme";
 
 export default function Anchor(props) {
