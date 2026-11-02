@@ -157,7 +157,7 @@ const getLocalVideo = async(url) => {
 
 const saveVideo = async({url}) => {
   try {
-    const { status } = await MediaLibrary.requestPermissionsAsync();
+    const { status } = await MediaLibrary.requestPermissionsAsync(true); // 保存のみ（書き込み権限）。読み取り権限は Google Play ポリシーのため要求しない
     if (status === 'granted') {
       await MediaLibrary.saveToLibraryAsync(url)
       return true

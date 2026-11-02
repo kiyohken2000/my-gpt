@@ -5,7 +5,7 @@ import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 
 const saveImage = async({url, fileName}) => {
   try {
-    const { status } = await MediaLibrary.requestPermissionsAsync()
+    const { status } = await MediaLibrary.requestPermissionsAsync(true) // 保存のみ（書き込み権限）。読み取り権限は Google Play ポリシーのため要求しない
     if(status === 'granted') {
       await MediaLibrary.saveToLibraryAsync(url)
       showToast({title: '保存しました'})

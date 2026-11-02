@@ -217,6 +217,7 @@ AdMob は `src/contexts/AdContext.js` と `src/components/MyAdmob.js` が担当�
 - gifted-chat は 2.8.1 のまま。3.x に上げる場合は props 名の変更（`alwaysShowSend` → `isSendButtonAlwaysVisible`、`placeholder` / `maxInputLength` → `textInputProps`、`onPress` / `onLongPress` → `onPressMessage` / `onLongPressMessage` など）に加え、`keyboardAvoidingViewProps.keyboardVerticalOffset` にチャット領域の画面上の Y 座標を渡す必要がある（未検証）。2.8.1 は react-native-gesture-handler を import しないので RNGH 3 でも動作する。
 - Android の development ビルドは 4 ABI 同時の C++ ビルドで EAS の Gradle デーモンがメモリ不足で落ちたため、`eas.json` の development プロファイルで `ORG_GRADLE_PROJECT_reactNativeArchitectures=arm64-v8a` に絞っている。Android は全プロファイルで `resourceClass: "large"`（8 vCPU / 32 GB、Gradle ヒープ 8 GB、料金は medium の 2 倍、Free プラン不可）を指定している。
 - dev client 確認時に `CI=1 npx expo start` を使うとファイル監視が無効になり、編集が反映されない。
+- Google Play の写真/動画権限ポリシー対応：`READ_MEDIA_IMAGES` / `READ_MEDIA_VIDEO` があると審査で却下される（2026-11 に versionCode 101 が却下）。`expo-media-library` の config plugin を `granularPermissions: []` で明示し、`android.blockedPermissions` でも READ_MEDIA_* を除外。保存処理は `requestPermissionsAsync(true)`（書き込みのみ）。画像選択は `expo-image-picker`（Android 13+ はシステムの写真選択ツール）なので読み取り権限は不要。
 - AdMob は `Loading.js` で ATT の結果を待ってから `mobileAds().initialize()` を明示的に呼んでいます。
 - `runtimeVersion` は `appVersion` ポリシーです。ネイティブ依存が変わったので、新しいバイナリは必ず `version` を上げてからビルドしてください。同じバージョンのまま `eas update` すると、SDK 54 の既存バイナリに SDK 58 の JS が配信されてクラッシュします。
 - `yarn.lock` を段階的に更新すると yarn classic のホイスティングが崩れて Babel が `_lruCache is not a constructor` で落ちることがあります。その場合は `rm -rf node_modules && yarn install`。
